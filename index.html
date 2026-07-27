@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>명경 (明鏡) - 내 운명을 비추는 거울</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { background-color: #fcfbf9; font-family: 'Noto Sans KR', sans-serif; padding: 20px 10px; color: #333; }
+    .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    .form-label { font-weight: 500; color: #555; margin-bottom: 5px; font-size: 0.9rem; }
+    .fortune-btn { 
+      background-color: #3e3a39; color: white; border: none; border-radius: 4px; padding: 9px 0; 
+      font-family: 'Nanum Myeongjo', serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; width: 100%; margin-bottom: 8px; transition: background-color 0.3s; 
+    }
+    .fortune-btn:hover { background-color: #222; color: white; }
+    
+    #sajuTableBox { display: none; margin-bottom: 20px; }
+    #resultTextContainer { background-color: transparent; padding: 20px 0; margin-top: 10px; white-space: pre-wrap; font-size: 1rem; line-height: 1.85; border-top: 1px solid #eee; display: none; font-family: 'Nanum Myeongjo', serif; }
+    
+    .result-title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #222;
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0eee9;
+      letter-spacing: 1px;
+    }
+
+    #chatSection { display: none; margin-top: 30px; }
+    #chatHistory { height: 500px; overflow-y: auto; background: #ffffff; padding: 10px 5px; margin-bottom: 20px; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; -ms-overflow-style: none; scrollbar-width: none; }
+    #chatHistory::-webkit-scrollbar { display: none; }
+    .chat-row { display: flex; margin-bottom: 35px; width: 100%; }
+    .chat-row.bot { justify-content: flex-start; }
+    .chat-row.user { justify-content: flex-end; margin-bottom: 25px; }
+    .profile-img { width: 45px; height: 45px; border-radius: 50%; background-color: #2c2c2c; object-fit: cover; margin-right: 15px; flex-shrink: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .msg-content { max-width: 85%; }
+    .sender-name { font-size: 0.85rem; color: #666; font-weight: 500; margin-bottom: 6px; font-family: 'Noto Sans KR', sans-serif; }
+    .msg-text { font-family: 'Nanum Myeongjo', serif; font-size: 1.05rem; line-height: 1.8; color: #222; white-space: pre-wrap; letter-spacing: -0.3px; }
+    .user-text { font-family: 'Noto Sans KR', sans-serif; font-size: 0.95rem; color: #555; text-align: right; background: #f8f9fa; padding: 12px 18px; border-radius: 15px 15px 0 15px; }
+    .chat-divider { border-bottom: 1px solid #f0f0f0; margin: 25px 0; width: 100%; }
+    @keyframes mystic-glow { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+    .mystic-loading { animation: mystic-glow 2s infinite ease-in-out; color: #827b87; }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <div style="text-align: center; margin-bottom: 25px; margin-top: 10px;">
+    <div style="font-size: 0.8rem; color: #888; font-weight: 300; letter-spacing: 3px; margin-bottom: 8px;">내 운명을 비추는 맑은 거울</div>
+    <h1 style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.7rem; color: #1a1a1a; letter-spacing: 2px; margin: 0;">
+      명경 <span style="font-size: 1.2rem; font-weight: 400; color: #666; letter-spacing: 0;">(明鏡)</span>
+    </h1>
+  </div>
+
+  <div class="row gx-2 mb-3">
+    <div class="col-8">
+      <label class="form-label">이름</label>
+      <input type="text" id="userName" class="form-control form-control-sm" placeholder="이름 입력" onchange="resetSajuTable()">
+    </div>
+    <div class="col-4">
+      <label class="form-label">성별</label>
+      <select id="userGender" class="form-select form-select-sm" onchange="resetSajuTable()">
+        <option value="M">남성</option>
+        <option value="F">여성</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="row gx-2 mb-3">
+    <div class="col-7">
+      <label class="form-label">생년월일 (8자리)</label>
+      <div class="d-flex gap-1">
+        <select id="calendarType" class="form-select form-select-sm" style="width: 80px; text-align: center; padding: 0 5px;" onchange="resetSajuTable()">
+          <option value="solar">양력</option>
+          <option value="lunar">음력</option>
+        </select>
+        <input type="text" id="userDate" class="form-control form-control-sm" placeholder="예: 19810731" maxlength="8" onkeyup="resetSajuTable()">
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="d-flex justify-content-between align-items-end mb-1">
+        <label class="form-label mb-0">태어난 시간</label>
+        <div class="form-check mb-0" style="font-size: 0.8rem; display: flex; align-items: center; gap: 3px;">
+          <input class="form-check-input m-0" type="checkbox" id="unknownTime" onchange="toggleTimeInput(); resetSajuTable();">
+          <label class="form-check-label text-muted" for="unknownTime" style="cursor: pointer; margin-top:2px;">모름</label>
+        </div>
+      </div>
+      <input type="time" id="userTime" class="form-control form-control-sm" onchange="resetSajuTable()">
+    </div>
+  </div>
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="form-check mb-0">
+      <input class="form-check-input" type="checkbox" id="rememberMe" onchange="saveUserInfo()">
+      <label class="form-check-label text-muted" for="rememberMe" style="font-size: 0.85rem;">내 정보 기억하기</label>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary" onclick="viewSajuOnly()" style="font-family: 'Nanum Myeongjo', serif; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; color: #555; border-color: #ddd;">🔍 원국/대운 보기</button>
+  </div>
+
+  <div id="sajuTableBox"></div>
+
+  <div class="row gx-2">
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('총운')">총운</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('올해운세')">올해운세</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('내년운세')">내년운세</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('성격')">성격</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('신살풀이')">신살풀이</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('용신')">용신</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('건강')">건강</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('사업운')">사업운</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('재물운')">재물운</button></div>
+    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('행운의색')">행운의색</button></div>
+  </div>
+
+  <div id="resultTextContainer"></div>
+
+  <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
+    <div style="text-align:center; margin-bottom: 25px;">
+      <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div>
+      <div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div>
+    </div>
+    
+    <div style="background: #fdfcfb; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #f0eee9; line-height: 1.8;">
+      정해진 몇 마디 풀이로는 닿을 수 없는 귀하만의 이야기.<br>
+      어떤 복잡한 상황이든, 누구에게도 털어놓지 못한 딥한 고민이든 마음껏 물어보세요.<br>
+      사람의 주관이나 편견이 개입되지 않은 순수하고 맑은 명경의 기운이, 귀하의 모든 질문을 꿰뚫어 보고 명쾌한 해답을 내려드립니다.<br><br>
+      
+      <div style="text-align: center; margin: 20px 0; padding: 15px 0; border-top: 1px dashed #e0dcd5; border-bottom: 1px dashed #e0dcd5;">
+        <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
+        <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
+        <div style="font-size: 0.85rem; color: #777; font-weight: 400;">(기간·횟수 제한 없이 무제한 질문 가능)</div>
+      </div>
+      
+      <div style="font-size: 0.85rem; color: #666; background: #ffffff; padding: 15px; border-radius: 6px; border: 1px solid #f0eee9;">
+        <span style="font-weight: 500; color: #333;">[입장 방법]</span><br>
+        카카오뱅크 3333-05-4644100 입금 후, 아래 안내소를 통해 입금자명을 남겨주시면 프라이빗 해답소 입장 코드를 발급해 드립니다.
+      </div>
+      
+      <a href="https://open.kakao.com/o/s7oorIFi" target="_blank" style="display:block; text-align:center; background:#ffffff; color:#3e3a39; border: 1px solid #3e3a39; font-weight:500; text-decoration:none; padding:12px; border-radius:6px; margin-top:20px; transition:0.3s; font-size: 0.95rem;">안내소 연결하기 (오픈채팅) ➔</a>
+    </div>
+    
+    <div style="padding: 0 5px;">
+      <input type="text" id="vipCode" class="form-control" placeholder="발급받은 코드를 입력해주세요" style="padding:12px; font-size:0.95rem; text-align:center; letter-spacing: 1px; border: 1px solid #ddd; background: #fafafa; border-radius: 6px; margin-bottom: 10px; color: #333;">
+      <button id="verifyBtn" class="btn" onclick="verifyVipCode()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">입장하기</button>
+    </div>
+  </div>
+
+  <div id="chatSection">
+    <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
+    <div id="chatHistory">
+      <div class="chat-row bot">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <div class="msg-content">
+          <div class="sender-name">신녀</div>
+          <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 영험한 기운을 빌려 어떤 질문이든 깊이 있게 살펴 드리겠습니다.<br><br>편안한 마음으로 물어보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="input-group mt-2">
+      <textarea id="chatInput" class="form-control" rows="1" placeholder="마음의 궁금증은..." style="resize:none; border-radius:20px 0 0 20px; background:#f4f4f4; border:none; padding-left:15px; color:#333;"></textarea>
+      <button class="btn btn-secondary" id="sendChatBtn" onclick="sendChatMessage()" style="border-radius:0 20px 20px 0; background:#3e3a39; border:none; color:white;">전송</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ★ 1단계에서 복사한 AppScript 배포 URL을 여기에 입력하세요 ★
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec";
+
+  let currentLoadedSajuKey = "";
+
+  window.onload = function() {
+    if(localStorage.getItem('savedName')) {
+      document.getElementById('userName').value = localStorage.getItem('savedName');
+      document.getElementById('userGender').value = localStorage.getItem('savedGender') || 'M';
+      document.getElementById('userDate').value = localStorage.getItem('savedDate');
+      if(localStorage.getItem('savedCal')) {
+        document.getElementById('calendarType').value = localStorage.getItem('savedCal');
+      }
+      if(localStorage.getItem('unknownTime') === 'true') {
+        document.getElementById('unknownTime').checked = true;
+        toggleTimeInput();
+      } else {
+        document.getElementById('userTime').value = localStorage.getItem('savedTime');
+      }
+      document.getElementById('rememberMe').checked = true;
+    }
+
+    const savedVipCode = localStorage.getItem('vipCode');
+    if(savedVipCode) {
+      document.getElementById('vipCode').value = savedVipCode;
+      autoVerifyVipCode(savedVipCode);
+    }
+  }
+
+  function callApi(payload, callback) {
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(res => {
+      if(res.status === 'success') callback(res.data);
+      else Swal.fire('오류', '처리 중 오류가 발생했습니다.', 'error');
+    })
+    .catch(err => Swal.fire('오류', '서버 통신 실패', 'error'));
+  }
+
+  function resetSajuTable() { currentLoadedSajuKey = ""; }
+
+  function toggleTimeInput() {
+    const timeInput = document.getElementById('userTime');
+    const isUnknown = document.getElementById('unknownTime').checked;
+    timeInput.disabled = isUnknown;
+    if(isUnknown) timeInput.value = '';
+  }
+
+  function saveUserInfo() {
+    if(document.getElementById('rememberMe').checked) {
+      localStorage.setItem('savedName', document.getElementById('userName').value);
+      localStorage.setItem('savedGender', document.getElementById('userGender').value);
+      localStorage.setItem('savedDate', document.getElementById('userDate').value);
+      localStorage.setItem('savedTime', document.getElementById('userTime').value);
+      localStorage.setItem('savedCal', document.getElementById('calendarType').value);
+      localStorage.setItem('unknownTime', document.getElementById('unknownTime').checked);
+    } else {
+      localStorage.removeItem('savedName');
+      localStorage.removeItem('savedGender');
+      localStorage.removeItem('savedDate');
+      localStorage.removeItem('savedTime');
+      localStorage.removeItem('savedCal');
+      localStorage.removeItem('unknownTime');
+    }
+  }
+
+  function getFormData() {
+    const name = document.getElementById('userName').value;
+    const gender = document.getElementById('userGender').value;
+    const date = document.getElementById('userDate').value;
+    const time = document.getElementById('userTime').value;
+    const cal = document.getElementById('calendarType').value;
+    const unknownTime = document.getElementById('unknownTime').checked;
+    
+    if(!name || !date || (!time && !unknownTime)) {
+      Swal.fire('알림', '기본 정보를 모두 입력해주세요.', 'warning');
+      return null;
+    }
+    if(date.length !== 8 || isNaN(date)) {
+      Swal.fire('알림', '생년월일은 숫자 8자리로 입력해주세요.<br>(예: 19810731)', 'warning');
+      return null;
+    }
+    return { name: name, gender: gender, date: date, time: time, calendar: cal, unknownTime: unknownTime };
+  }
+
+  function viewSajuOnly() {
+    const data = getFormData();
+    if(!data) return;
+    
+    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
+    const sajuBox = document.getElementById('sajuTableBox');
+
+    if (currentLoadedSajuKey !== key) {
+      sajuBox.style.display = 'block';
+      sajuBox.innerHTML = `<div class="text-center mystic-loading"><br>사주 원국을 도출하는 중입니다...</div>`;
+      
+      callApi({ action: 'getTable', data: data }, function(htmlTable) {
+        sajuBox.innerHTML = htmlTable;
+        currentLoadedSajuKey = key;
+      });
+    } else {
+      sajuBox.style.opacity = 0;
+      setTimeout(() => sajuBox.style.opacity = 1, 100);
+    }
+  }
+
+  function cleanMarkdownAndEmoji(str) {
+    if(!str) return "";
+    return str
+      .replace(/[#*\-_~`]/g, '')
+      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
+      .trim();
+  }
+
+  function requestFortune(category) {
+    const data = getFormData();
+    if(!data) return;
+    
+    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
+    const sajuBox = document.getElementById('sajuTableBox');
+
+    if (currentLoadedSajuKey !== key) {
+      sajuBox.style.display = 'block';
+      sajuBox.innerHTML = `<div class="text-center mystic-loading"><br>사주 원국을 도출하는 중입니다...</div>`;
+      
+      callApi({ action: 'getTable', data: data }, function(htmlTable) {
+        sajuBox.innerHTML = htmlTable;
+        currentLoadedSajuKey = key;
+        fetchFortuneText(data, category);
+      });
+    } else {
+      fetchFortuneText(data, category);
+    }
+  }
+
+  function fetchFortuneText(data, category) {
+    data.category = category;
+    const resultBox = document.getElementById('resultTextContainer');
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `<div class="text-center mystic-loading"><br><b>[${category}]</b> 심층 분석을 진행 중입니다...</div>`;
+
+    callApi({ action: 'getFortune', data: data }, function(response) {
+      let cleanedText = cleanMarkdownAndEmoji(response);
+      let finalHtml = `<div class="result-title">[${category} 심층 풀이]</div>` + cleanedText;
+      resultBox.innerHTML = finalHtml;
+    });
+  }
+
+  function verifyVipCode() {
+    const code = document.getElementById('vipCode').value.trim();
+    if(!code) return;
+    const btn = document.getElementById('verifyBtn');
+    btn.innerText = '확인 중...'; btn.disabled = true;
+
+    callApi({ action: 'verifyCode', code: code }, function(isValid) {
+      btn.innerText = '입장하기'; btn.disabled = false;
+      if(isValid) {
+        localStorage.setItem('vipCode', code);
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('chatSection').style.display = 'block';
+      } else {
+        Swal.fire('인증 실패', '유효하지 않은 코드입니다.', 'error');
+      }
+    });
+  }
+
+  function autoVerifyVipCode(code) {
+    callApi({ action: 'verifyCode', code: code }, function(isValid) {
+      if(isValid) {
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('chatSection').style.display = 'block';
+      } else {
+        localStorage.removeItem('vipCode');
+      }
+    });
+  }
+
+  function sendChatMessage() {
+    const data = getFormData();
+    if(!data) return;
+    const inputEl = document.getElementById('chatInput');
+    const question = inputEl.value.trim();
+    if(!question) return;
+    data.question = question;
+    
+    const chatHistory = document.getElementById('chatHistory');
+    const sendBtn = document.getElementById('sendChatBtn');
+
+    chatHistory.innerHTML += `
+      <div class="chat-divider"></div>
+      <div class="chat-row user">
+        <div class="msg-content">
+          <div class="user-text">${question}</div>
+        </div>
+      </div>
+    `;
+    inputEl.value = '';
+    sendBtn.disabled = true;
+    
+    chatHistory.innerHTML += `
+      <div class="chat-row bot" id="loadingChat">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <div class="msg-content">
+          <div class="sender-name">신녀</div>
+          <div class="msg-text mystic-loading">천지신명의 기운을 빌려 명운을 들여다보는 중입니다...</div>
+        </div>
+      </div>
+    `;
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+
+    callApi({ action: 'getChat', data: data }, function(response) {
+      document.getElementById('loadingChat').remove();
+      let cleanedText = cleanMarkdownAndEmoji(response);
+      
+      chatHistory.innerHTML += `
+        <div class="chat-row bot">
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <div class="msg-content">
+            <div class="sender-name">신녀</div>
+            <div class="msg-text">${cleanedText}</div>
+          </div>
+        </div>
+      `;
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+      sendBtn.disabled = false;
+    });
+  }
+</script>
+</body>
+</html>
