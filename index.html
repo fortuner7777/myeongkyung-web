@@ -34,9 +34,7 @@
     .user-text { font-family: 'Noto Sans KR', sans-serif; font-size: 0.95rem; color: #555; text-align: right; background: #f8f9fa; padding: 12px 18px; border-radius: 15px 15px 0 15px; }
     .chat-divider { border-bottom: 1px solid #f0f0f0; margin: 25px 0; width: 100%; }
     
-    /* 타자 애니메이션 커서 효과 (이모지 제거) */
-.typing-cursor::after { content: ''; }
-    @keyframes blink { 50% { opacity: 0; } }
+    .typing-cursor::after { content: ''; }
     @keyframes mystic-glow { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     .mystic-loading { animation: mystic-glow 2s infinite ease-in-out; color: #827b87; }
   </style>
@@ -119,11 +117,10 @@
 </div>
 
 <script>
-  // ★★★ 구글 스크립트 웹 앱 URL을 여기에 붙여넣으세요 ★★★
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec"; 
 
   let currentLoadedSajuKey = "";
-  let currentTextForAI = ""; // 사주 데이터 글로벌 저장용
+  let currentTextForAI = "";
 
   window.onload = function() {
     if(localStorage.getItem('savedName')) {
@@ -182,45 +179,47 @@
 
   async function requestFortune(category) {
     const data = getFormData(); if(!data) return;
-    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
-    const sajuBox = document.getElementById('sajuTableBox');
-    if (currentLoadedSajuKey !== key) {
-      sajuBox.style.display = 'block'; sajuBox.innerHTML = `<div class="text-center mystic-loading"><br>사주 원국을 도출하는 중입니다...</div>`;
-      try { 
-        data.action = "getSajuData"; 
-        const sajuResult = await callGasApi(data); 
-        sajuBox.innerHTML = sajuResult.html; 
-        currentTextForAI = sajuResult.textForAI; 
-        currentLoadedSajuKey = key; 
-        await startStreamingFortune(data, category); 
-      } 
-      catch(err) { sajuBox.innerHTML = `<div class="text-center text-danger">통신 오류가 발생했습니다.</div>`; }
-    } else { await startStreamingFortune(data, category); }
-  }
-
-  // ★ 스트리밍 UI 구동 핵심 함수 ★
-  async function startStreamingFortune(data, category) {
+    
     const resultBox = document.getElementById('resultTextContainer');
     resultBox.style.display = 'block'; 
+    resultBox.innerHTML = `
+      <div class="result-title">[${category} 심층 풀이]</div>
+      <div id="streamText" class="typing-cursor" style="word-break: break-all; overflow-wrap: break-word;">
+        <div class="mystic-loading" style="text-align: center; margin: 30px 0; font-weight: 500;">
+          ${data.name}님의 사주 명식을 깊이 있게 풀이하는 중입니다...
+        </div>
+      </div>
+      <div id="productCardContainer"></div>
+    `;
     
-    // 이모지 대신 로딩 텍스트가 천천히 깜빡이도록 수정
-    resultBox.innerHTML = `<div class="result-title">[${category} 심층 풀이]</div><div id="streamText" class="typing-cursor"><div class="mystic-loading" style="text-align: center; margin-top: 30px; font-weight: 500;">${data.name}님의 사주 명식을 깊이 있게 풀이하는 중입니다...</div></div>`;
+    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
     
+    try {
+      if (currentLoadedSajuKey !== key) {
+        data.action = "getSajuData"; 
+        const sajuResult = await callGasApi(data); 
+        document.getElementById('sajuTableBox').style.display = 'block';
+        document.getElementById('sajuTableBox').innerHTML = sajuResult.html; 
+        currentTextForAI = sajuResult.textForAI; 
+        currentLoadedSajuKey = key; 
+      }
+      await startStreamingFortune(data, category);
+    } catch(err) {
+      document.getElementById('streamText').innerHTML = `<div class="text-center text-danger">통신 오류가 발생했습니다.</div>`;
+    }
+  }
+
+  async function startStreamingFortune(data, category) {
     const streamTextDiv = document.getElementById('streamText');
+    const productContainer = document.getElementById('productCardContainer');
+    productContainer.innerHTML = "";
+    
     const targetYear = new Date().getFullYear() + (category === '내년운세' ? 1 : 0);
     const yearName = targetYear === new Date().getFullYear() ? "올해" : "내년";
     
-    // AI 다이어트 & 성능 최적화 프롬프트
-    let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 깊이 있게 풀이하세요.`;
+    let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
     if (category === '용신') {
-      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신/희신 오행(목,화,토,금,수)과 글자를 짚어주세요.
-단순 운세 설명은 배제하고 아래 5가지를 번호를 매겨 실용적인 개운법으로 작성하세요:
-1. 나의 용신 오행과 글자
-2. 행운의 색상 및 스타일링
-3. 상징 물건이나 동물
-4. 인테리어 소품
-5. 행운의 음식
-★ 반드시 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
+      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n1. 용신 오행\n2. 행운의 색\n3. 상징 물건\n4. 인테리어 소품\n5. 행운의 음식\n★ 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
     }
     
     const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 1200자 내외로 상세하게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
@@ -236,8 +235,8 @@
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let fullText = "";
+      let isFirstChunk = true;
 
-      // 글자가 한 글자씩 실시간으로 화면에 찍히는 루프
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
@@ -250,8 +249,11 @@
             try {
               const json = JSON.parse(dataStr);
               if (json.candidates && json.candidates[0].content.parts[0].text) {
+                if (isFirstChunk) {
+                  streamTextDiv.innerHTML = ""; 
+                  isFirstChunk = false;
+                }
                 fullText += json.candidates[0].content.parts[0].text;
-                // [용신: X] 태그가 화면에 보이는 것을 방지
                 let displayTxt = fullText.replace(/\[용신:\s*[목화토금수]\]/g, "");
                 streamTextDiv.innerHTML = cleanMarkdownAndEmoji(displayTxt);
               }
@@ -260,9 +262,8 @@
         }
       }
       
-      streamTextDiv.classList.remove('typing-cursor'); // 타이핑 커서 제거
+      streamTextDiv.classList.remove('typing-cursor');
       
-      // 용신 처방전일 경우 상품 카드 렌더링
       if (category === '용신') {
         let targetElement = "HWA"; 
         if (fullText.includes("[용신: 목]")) targetElement = "MOK";
@@ -273,7 +274,7 @@
         
         const product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
         if (product && product.affiliateUrl) {
-          const productHtml = `
+          productContainer.innerHTML = `
             <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
               <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 큐레이션</div>
               <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 20px; line-height: 1.4;">
@@ -281,14 +282,13 @@
               </div>
               ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">` : ''}
               <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
-              <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem; transition: 0.3s;">
+              <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">
                 개운 아이템 확인하러 가기 ➔
               </a>
               <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">
                 본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.
               </div>
             </div>`;
-          resultBox.innerHTML += productHtml;
         }
       }
     } catch(e) {
@@ -297,7 +297,6 @@
     }
   }
 
-  // 채팅 통신도 스트리밍으로 쏴주도록 변경
   async function sendChatMessage() {
     const data = getFormData(); if(!data) return;
     const inputEl = document.getElementById('chatInput'); const question = inputEl.value.trim(); if(!question) return;
@@ -312,7 +311,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
-          <div class="msg-text typing-cursor" id="${chatId}">천지신명의 기운을 빌려 명운을 들여다보는 중입니다...</div>
+          <div class="msg-text typing-cursor" id="${chatId}">${data.name}님의 마음속 궁금증을 헤아려 답변을 적어내려가는 중입니다...</div>
         </div>
       </div>
     `;
