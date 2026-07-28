@@ -86,23 +86,25 @@
   </div>
   <div id="resultTextContainer"></div>
   
-  <!-- 프라이빗 해답소 섹션 (실시간 동적 소셜 프루프 배지 포함) -->
+  <!-- 프라이빗 해답소 섹션 (고급스럽고 차분한 모던 스타일로 개선) -->
   <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div></div>
-    <div style="background: #fdfcfb; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #f0eee9; line-height: 1.8;">
+    
+    <div style="background: #ffffff; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); line-height: 1.8;">
       정해진 몇 마디 풀이로는 닿을 수 없는 귀하만의 이야기.<br>어떤 복잡한 상황이든, 누구에게도 털어놓지 못한 딥한 고민이든 마음껏 물어보세요.<br><br>
       
-      <!-- 🔥 실시간 소셜 프루프 배지 영역 -->
-      <div style="background: #f4efe6; color: #7a5c32; padding: 10px 12px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 500; border: 1px solid #e8decb;">
-        🔥 현재 <span id="visitorName">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #903c31;">42</span>명이 프라이빗 해답소를 이용 중입니다.
+      <!-- 💡 촌스럽지 않고 차분한 미니멀 스타일의 실시간 소셜 프루프 배지 -->
+      <div style="background: #f8f7f4; color: #555555; padding: 11px 14px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 400; border: 1px solid #eae6df; letter-spacing: -0.2px;">
+        현재 <span id="visitorName" style="font-weight: 600; color: #222;">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #3e3a39;">42</span>명이 프라이빗 해답소를 이용 중입니다.
       </div>
 
-      <div style="text-align: center; margin: 20px 0; padding: 15px 0; border-top: 1px dashed #e0dcd5; border-bottom: 1px dashed #e0dcd5;">
+      <div style="text-align: center; margin: 20px 0; padding: 15px 0; border-top: 1px dashed #e8e5e0; border-bottom: 1px dashed #e8e5e0;">
         <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
         <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
       </div>
-      <a href="https://open.kakao.com/o/s7oorIFi" target="_blank" style="display:block; text-align:center; background:#ffffff; color:#3e3a39; border: 1px solid #3e3a39; font-weight:500; text-decoration:none; padding:12px; border-radius:6px; margin-top:20px; transition:0.3s; font-size: 0.95rem;">안내소 연결하기 (오픈채팅) ➔</a>
+      <a href="https://open.kakao.com/o/s7oorIFi" target="_blank" style="display:block; text-align:center; background:#3e3a39; color:#ffffff; font-weight:500; text-decoration:none; padding:13px; border-radius:6px; margin-top:20px; transition:0.3s; font-size: 0.95rem; font-family: 'Nanum Myeongjo', serif; letter-spacing: 1px;">안내소 연결하기 (오픈채팅) ➔</a>
     </div>
+    
     <div style="padding: 0 5px;"><input type="text" id="vipCode" class="form-control" placeholder="발급받은 코드를 입력해주세요" style="padding:12px; font-size:0.95rem; text-align:center; letter-spacing: 1px; border: 1px solid #ddd; background: #fafafa; border-radius: 6px; margin-bottom: 10px; color: #333;"><button id="verifyBtn" class="btn" onclick="verifyVipCode()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">입장하기</button></div>
   </div>
 
@@ -127,11 +129,9 @@
     const savedVipCode = localStorage.getItem('vipCode');
     if(savedVipCode) { document.getElementById('vipCode').value = savedVipCode; autoVerifyVipCode(savedVipCode); }
 
-    // 🔥 실시간 소셜 프루프(이름 연동 및 5초 주기 숫자 변동) 초기화 실행
     initLiveSocialProof();
   }
 
-  // 🔥 실시간 이름 연동 및 5초 주기 숫자 변동 로직
   function initLiveSocialProof() {
     const nameInput = document.getElementById('userName');
     const visitorNameEl = document.getElementById('visitorName');
