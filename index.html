@@ -16,7 +16,6 @@
     .fortune-btn:hover { background-color: #222; color: white; }
     #sajuTableBox { display: none; margin-bottom: 20px; }
     
-    /* 풀이 결과 영역 스타일: 항목별 단락이 완벽하게 분리되도록 설정 */
     #resultTextContainer { background-color: transparent; padding: 20px 0; margin-top: 10px; font-size: 1.02rem; line-height: 2.0; border-top: 1px solid #eee; display: none; font-family: 'Nanum Myeongjo', serif; color: #2a2a2a; }
     #streamText p { margin-bottom: 1.8rem; text-align: justify; }
 
@@ -87,13 +86,13 @@
   </div>
   <div id="resultTextContainer"></div>
   
-  <!-- 프라이빗 해답소 섹션 (실시간 동적 소셜 프루프 적용) -->
+  <!-- 프라이빗 해답소 섹션 (실시간 동적 소셜 프루프 배지 포함) -->
   <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div></div>
     <div style="background: #fdfcfb; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #f0eee9; line-height: 1.8;">
       정해진 몇 마디 풀이로는 닿을 수 없는 귀하만의 이야기.<br>어떤 복잡한 상황이든, 누구에게도 털어놓지 못한 딥한 고민이든 마음껏 물어보세요.<br><br>
       
-      <!-- 실시간 동적 소셜 프루프 배지 -->
+      <!-- 🔥 실시간 소셜 프루프 배지 영역 -->
       <div style="background: #f4efe6; color: #7a5c32; padding: 10px 12px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 500; border: 1px solid #e8decb;">
         🔥 현재 <span id="visitorName">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #903c31;">42</span>명이 프라이빗 해답소를 이용 중입니다.
       </div>
@@ -106,6 +105,7 @@
     </div>
     <div style="padding: 0 5px;"><input type="text" id="vipCode" class="form-control" placeholder="발급받은 코드를 입력해주세요" style="padding:12px; font-size:0.95rem; text-align:center; letter-spacing: 1px; border: 1px solid #ddd; background: #fafafa; border-radius: 6px; margin-bottom: 10px; color: #333;"><button id="verifyBtn" class="btn" onclick="verifyVipCode()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">입장하기</button></div>
   </div>
+
   <div id="chatSection">
     <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
     <div id="chatHistory"><div class="chat-row bot"><img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img"><div class="msg-content"><div class="sender-name">신녀</div><div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 물어보세요.</div></div></div></div>
@@ -127,11 +127,11 @@
     const savedVipCode = localStorage.getItem('vipCode');
     if(savedVipCode) { document.getElementById('vipCode').value = savedVipCode; autoVerifyVipCode(savedVipCode); }
 
-    // 실시간 소셜 프루프(이름 연동 및 5초 주기 숫자 변동) 초기화 실행
+    // 🔥 실시간 소셜 프루프(이름 연동 및 5초 주기 숫자 변동) 초기화 실행
     initLiveSocialProof();
   }
 
-  // 실시간 이름 연동 및 5초 주기 숫자 변동 로직
+  // 🔥 실시간 이름 연동 및 5초 주기 숫자 변동 로직
   function initLiveSocialProof() {
     const nameInput = document.getElementById('userName');
     const visitorNameEl = document.getElementById('visitorName');
@@ -268,8 +268,6 @@
         let displayTxt = fullText.replace(/\[용신:\s*[목화토금수]\]/g, "");
         
         let cleaned = cleanMarkdownAndEmoji(displayTxt);
-
-        // 핵심: "첫째,", "둘째,", "셋째,", "넷째,", "다섯째," 및 숫자 번호 앞에는 무조건 강제 줄바꿈을 넣어 독립된 문단으로 분리합니다.
         cleaned = cleaned.replace(/(\s+(첫째,|둘째,|셋째,|넷째,|다섯째,|\d+\.\s+))/g, '\n\n$1');
 
         let rawParagraphs = cleaned.split(/\n+/);
@@ -347,7 +345,7 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
       } else {
-        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}    `;
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
       }
       chatHistory.scrollTop = chatHistory.scrollHeight;
       sendBtn.disabled = false;
