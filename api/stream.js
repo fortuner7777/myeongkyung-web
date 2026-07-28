@@ -9,11 +9,11 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Vercel에 GEMINI_API_KEY 환경 변수가 등록되지 않았습니다.' });
     }
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
+    // 가성비와 속도가 뛰어난 3.5 Flash-lite 모델 적용
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
     const payload = {
       system_instruction: { parts: [{ text: systemPrompt }] },
       contents: [{ parts: [{ text: prompt }] }],
-      // 글이 절대 중간에 잘리지 않도록 토큰 한도를 넉넉하게 8000으로 확장합니다.
       generationConfig: { temperature: 0.6, maxOutputTokens: 8000 }
     };
 
