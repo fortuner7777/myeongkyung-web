@@ -3,14 +3,11 @@ export default async function handler(req, res) {
   
   try {
     const { systemPrompt, prompt } = req.body;
-    const apiKey = process.env.GEMINI_API_KEY;
     
-    if (!apiKey) {
-      return res.status(500).json({ error: 'API 키가 설정되지 않았습니다.' });
-    }
+    // Vercel 환경 변수 세팅 문제를 피하기 위해 API 키를 직접 입력 (하드코딩)
+    const apiKey = "AQ.Ab8RN6J1bV4ssqLeNRtKjBjGKQtYdg8jRMf9qHVZxbwI8G0UzA";
     
-    // 유료 결제 계정(Tier 1)과 가장 안정적으로 연동되는 v1 표준 엔드포인트 경로
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -21,10 +18,12 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+    
     if (data.candidates && data.candidates[0].content.parts[0].text) {
       return res.status(200).json({ text: data.candidates[0].content.parts[0].text });
     } else {
-      return res.status(500).json({ error: 'AI 응답 생성 실패', details: JSON.stringify(data) });
+      // Gemini API가 뱉어낸 진짜 에러 메시지를 프론트엔드로 전달
+      return res.status(500).json({ error: data.error?.message || 'AI 응답 구조 오류' });
     }
   } catch (err) {
     return res.status(500).json({ error: err.toString() });
