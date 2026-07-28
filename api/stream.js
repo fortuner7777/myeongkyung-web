@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Vercel에 GEMINI_API_KEY 환경 변수가 등록되지 않았습니다.' });
     }
     
-    // 현재 구글 API에서 정상 지원되는 최신 정식 모델명 (gemini-3.5-flash) 적용
+    // 현재 구글 API에서 지원하는 최신 정식 프로덕션 모델인 gemini-3.5-flash 적용
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
