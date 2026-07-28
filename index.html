@@ -86,10 +86,18 @@
     <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('행운의색')">행운의색</button></div>
   </div>
   <div id="resultTextContainer"></div>
+  
+  <!-- 프라이빗 해답소 섹션 (실시간 동적 소셜 프루프 적용) -->
   <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div></div>
     <div style="background: #fdfcfb; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #f0eee9; line-height: 1.8;">
       정해진 몇 마디 풀이로는 닿을 수 없는 귀하만의 이야기.<br>어떤 복잡한 상황이든, 누구에게도 털어놓지 못한 딥한 고민이든 마음껏 물어보세요.<br><br>
+      
+      <!-- 실시간 동적 소셜 프루프 배지 -->
+      <div style="background: #f4efe6; color: #7a5c32; padding: 10px 12px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 500; border: 1px solid #e8decb;">
+        🔥 현재 <span id="visitorName">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #903c31;">42</span>명이 프라이빗 해답소를 이용 중입니다.
+      </div>
+
       <div style="text-align: center; margin: 20px 0; padding: 15px 0; border-top: 1px dashed #e0dcd5; border-bottom: 1px dashed #e0dcd5;">
         <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
         <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
@@ -118,6 +126,44 @@
     }
     const savedVipCode = localStorage.getItem('vipCode');
     if(savedVipCode) { document.getElementById('vipCode').value = savedVipCode; autoVerifyVipCode(savedVipCode); }
+
+    // 실시간 소셜 프루프(이름 연동 및 5초 주기 숫자 변동) 초기화 실행
+    initLiveSocialProof();
+  }
+
+  // 실시간 이름 연동 및 5초 주기 숫자 변동 로직
+  function initLiveSocialProof() {
+    const nameInput = document.getElementById('userName');
+    const visitorNameEl = document.getElementById('visitorName');
+    const counterEl = document.getElementById('liveCounter');
+
+    if (nameInput && visitorNameEl) {
+      const updateName = () => {
+        const nameVal = nameInput.value.trim();
+        visitorNameEl.innerText = nameVal ? nameVal : '고객';
+      };
+      nameInput.addEventListener('input', updateName);
+      updateName();
+    }
+
+    if (counterEl) {
+      setInterval(() => {
+        let currentCount = parseInt(counterEl.innerText, 10);
+        const variations = [-1, 1, 2, -2, 1];
+        const randomChange = variations[Math.floor(Math.random() * variations.length)];
+        let newCount = currentCount + randomChange;
+        
+        if (newCount < 37) newCount = 38;
+        if (newCount > 58) newCount = 52;
+
+        counterEl.style.opacity = '0.3';
+        setTimeout(() => {
+          counterEl.innerText = newCount;
+          counterEl.style.opacity = '1';
+          counterEl.style.transition = 'opacity 0.3s ease';
+        }, 300);
+      }, 5000);
+    }
   }
 
   function resetSajuTable() { currentLoadedSajuKey = ""; }
@@ -301,7 +347,7 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
       } else {
-        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}    `;
       }
       chatHistory.scrollTop = chatHistory.scrollHeight;
       sendBtn.disabled = false;
