@@ -34,8 +34,8 @@
     .user-text { font-family: 'Noto Sans KR', sans-serif; font-size: 0.95rem; color: #555; text-align: right; background: #f8f9fa; padding: 12px 18px; border-radius: 15px 15px 0 15px; }
     .chat-divider { border-bottom: 1px solid #f0f0f0; margin: 25px 0; width: 100%; }
     
-    /* 타자 애니메이션 커서 효과 */
-    .typing-cursor::after { content: ' 🔮'; animation: blink 1s step-end infinite; }
+    /* 타자 애니메이션 커서 효과 (이모지 제거) */
+.typing-cursor::after { content: ''; }
     @keyframes blink { 50% { opacity: 0; } }
     @keyframes mystic-glow { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     .mystic-loading { animation: mystic-glow 2s infinite ease-in-out; color: #827b87; }
@@ -202,7 +202,9 @@
   async function startStreamingFortune(data, category) {
     const resultBox = document.getElementById('resultTextContainer');
     resultBox.style.display = 'block'; 
-    resultBox.innerHTML = `<div class="result-title">[${category} 심층 풀이]</div><div id="streamText" class="typing-cursor"></div>`;
+    
+    // 이모지 대신 로딩 텍스트가 천천히 깜빡이도록 수정
+    resultBox.innerHTML = `<div class="result-title">[${category} 심층 풀이]</div><div id="streamText" class="typing-cursor"><div class="mystic-loading" style="text-align: center; margin-top: 30px; font-weight: 500;">${data.name}님의 사주 명식을 깊이 있게 풀이하는 중입니다...</div></div>`;
     
     const streamTextDiv = document.getElementById('streamText');
     const targetYear = new Date().getFullYear() + (category === '내년운세' ? 1 : 0);
@@ -221,7 +223,7 @@
 ★ 반드시 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
     }
     
-    const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 1000자 이상으로 매우 풍성하고 상세하게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
+    const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 2500자 이상으로 매우 풍성하고 상세하게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
     const prompt = `[요청]: ${category} 심층 풀이`;
 
     try {
