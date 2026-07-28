@@ -34,7 +34,6 @@
     .user-text { font-family: 'Noto Sans KR', sans-serif; font-size: 0.95rem; color: #555; text-align: right; background: #f8f9fa; padding: 12px 18px; border-radius: 15px 15px 0 15px; }
     .chat-divider { border-bottom: 1px solid #f0f0f0; margin: 25px 0; width: 100%; }
     
-    .typing-cursor::after { content: ''; }
     @keyframes mystic-glow { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     .mystic-loading { animation: mystic-glow 2s infinite ease-in-out; color: #827b87; }
   </style>
@@ -226,15 +225,11 @@
     const prompt = `[요청]: ${category} 심층 풀이`;
 
     try {
-      const response = await fetch('/api/stream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ systemPrompt, prompt })
-      });
-
-      const json = await response.json();
-      if (json.text) {
-        let fullText = json.text;
+      // Vercel 함수를 거치지 않고 직접 GAS(구글 스크립트)로 AI 요청을 안전하게 처리
+      const aiResult = await callGasApi({ action: "getAiFortune", systemPrompt: systemPrompt, prompt: prompt });
+      
+      if (aiResult) {
+        let fullText = aiResult;
         let displayTxt = fullText.replace(/\[용신:\s*[목화토금수]\]/g, "");
         streamTextDiv.innerHTML = cleanMarkdownAndEmoji(displayTxt);
         
@@ -296,16 +291,10 @@
     const systemPrompt = `당신은 영험한 신녀입니다. 유저의 사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요. 대운 질문 시 과거/미래 장황한 읊기 금지. 반드시 "현재 O세 OO대운을 지나고 있습니다" 명시 후 지금 시기 중심 풀이. 이모지/마크다운 금지. 생년월일 되묻기 금지.`;
 
     try {
-      const response = await fetch('/api/stream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ systemPrompt: systemPrompt, prompt: question })
-      });
-
-      const json = await response.json();
+      const aiResult = await callGasApi({ action: "getAiFortune", systemPrompt: systemPrompt, prompt: question });
       const textDiv = document.getElementById(chatId);
-      if (json.text) {
-        textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
+      if (aiResult) {
+        textDiv.innerHTML = cleanMarkdownAndEmoji(aiResult);
       } else {
         textDiv.innerHTML = "답변을 생성하지 못했습니다.";
       }
