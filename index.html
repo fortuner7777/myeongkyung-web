@@ -246,10 +246,11 @@
           }
         }
       } else {
-        streamTextDiv.innerHTML = "풀이를 불러오지 못했습니다.";
+        // AI가 에러를 반환했을 때 정확한 원인을 화면에 빨간 글씨로 출력합니다.
+        streamTextDiv.innerHTML = `<div style="color:#d32f2f; padding: 15px; border: 1px solid #ffcdd2; background-color: #ffebee; border-radius: 8px;"><b>에러 발생:</b> ${json.error || '알 수 없는 오류'}<br><span style="font-size:0.85rem; color:#555; margin-top:10px; display:block;">잠시 후 다시 시도해주시거나 관리자에게 문의해주세요.</span></div>`;
       }
     } catch(e) {
-       streamTextDiv.innerHTML = "분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+       streamTextDiv.innerHTML = `<div style="color:#d32f2f; padding: 15px; border: 1px solid #ffcdd2; background-color: #ffebee; border-radius: 8px;"><b>통신 에러 발생:</b> ${e.message}</div>`;
     }
   }
 
@@ -282,12 +283,12 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
       } else {
-        textDiv.innerHTML = "답변을 생성하지 못했습니다.";
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
       }
       chatHistory.scrollTop = chatHistory.scrollHeight;
       sendBtn.disabled = false;
     } catch(err) {
-      document.getElementById(chatId).innerHTML = "답변을 생성하지 못했습니다.";
+      document.getElementById(chatId).innerHTML = "답변 생성 실패: 통신 오류";
       sendBtn.disabled = false;
     }
   }
