@@ -9,8 +9,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Vercel에 GEMINI_API_KEY 환경 변수가 등록되지 않았습니다.' });
     }
     
-    // v1beta 경로 대신 유료 계정과 완벽하게 호환되는 최신 v1 표준 엔드포인트 사용
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    // 유료 계정과 완벽하게 호환되는 최신 표준 gemini-2.0-flash 모델 적용
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
