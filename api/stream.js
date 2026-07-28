@@ -6,11 +6,11 @@ export default async function handler(req, res) {
     const apiKey = process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
-      return res.status(500).json({ error: 'API 키가 Vercel 환경 변수에 설정되지 않았습니다.' });
+      return res.status(500).json({ error: 'API 키가 설정되지 않았습니다.' });
     }
     
-    // 가장 안정적이고 호환성이 높은 gemini-2.0-flash 엔드포인트로 변경합니다.
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+    // 유료 결제 계정(Tier 1)과 가장 안정적으로 연동되는 v1 표준 엔드포인트 경로
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
