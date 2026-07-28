@@ -16,9 +16,9 @@
     .fortune-btn:hover { background-color: #222; color: white; }
     #sajuTableBox { display: none; margin-bottom: 20px; }
     
-    /* 풀이 결과 영역 스타일: 번호 매겨진 항목과 단락이 시원하게 분리되도록 설정 */
+    /* 풀이 결과 영역 스타일: 항목별 단락이 완벽하게 분리되도록 설정 */
     #resultTextContainer { background-color: transparent; padding: 20px 0; margin-top: 10px; font-size: 1.02rem; line-height: 2.0; border-top: 1px solid #eee; display: none; font-family: 'Nanum Myeongjo', serif; color: #2a2a2a; }
-    #streamText p { margin-bottom: 1.5rem; text-align: justify; }
+    #streamText p { margin-bottom: 1.8rem; text-align: justify; }
 
     .result-title { font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.2rem; color: #222; text-align: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f0eee9; letter-spacing: 1px; }
     #chatSection { display: none; margin-top: 30px; }
@@ -204,7 +204,7 @@
     
     let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
     if (category === '용신') {
-      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n1. 용신 오행\n2. 행운의 색\n3. 상징 물건\n4. 인테리어 소품\n5. 행운의 음식\n★ 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
+      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.\n★ 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
     }
     
     const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
@@ -223,8 +223,8 @@
         
         let cleaned = cleanMarkdownAndEmoji(displayTxt);
 
-        // 핵심: "1.", "2.", "3." 같은 번호 앞에는 강제로 줄바꿈을 넣어 단락이 예쁘게 분리되도록 정돈합니다.
-        cleaned = cleaned.replace(/(\s+[0-9]+\.\s+)/g, '\n\n$1');
+        // 핵심: "첫째,", "둘째,", "셋째,", "넷째,", "다섯째," 및 숫자 번호 앞에는 무조건 강제 줄바꿈을 넣어 독립된 문단으로 분리합니다.
+        cleaned = cleaned.replace(/(\s+(첫째,|둘째,|셋째,|넷째,|다섯째,|\d+\.\s+))/g, '\n\n$1');
 
         let rawParagraphs = cleaned.split(/\n+/);
         let formattedHtml = "";
