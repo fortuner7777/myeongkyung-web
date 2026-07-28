@@ -13,17 +13,17 @@ export default async function handler(req, res) {
     const payload = {
       system_instruction: { parts: [{ text: systemPrompt }] },
       contents: [{ parts: [{ text: prompt }] }],
-      // 풀이가 중간에 잘리지 않도록 토큰 한도를 4000으로 넉넉하게 상향합니다.
-      generationConfig: { temperature: 0.6, maxOutputTokens: 4000 }
+      // 글이 절대 중간에 잘리지 않도록 토큰 한도를 넉넉하게 8000으로 확장합니다.
+      generationConfig: { temperature: 0.6, maxOutputTokens: 8000 }
     };
 
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
-    const data = await response.json();
+    let data = await response.json();
     
     if (data.candidates && data.candidates[0].content.parts[0].text) {
       return res.status(200).json({ text: data.candidates[0].content.parts[0].text });
