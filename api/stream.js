@@ -25,8 +25,8 @@ export default async function handler(req, res) {
 
     let data = await response.json();
     
-    if (data.candidates && data.candidates[0].content.parts[0].text) {
-      return res.status(200).json({ text: data.candidates[0].content.parts[0].text });
+    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+  return res.status(200).json({ text: data.candidates[0].content.parts[0].text });
     } else {
       return res.status(500).json({ error: data.error?.message || 'AI 응답 생성 실패' });
     }
