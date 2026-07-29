@@ -255,12 +255,14 @@
     initLiveSocialProof();
   }
 
-  // ★ 정확한 앱 키로 수정 완료! 
+  // ★ URL을 정확한 등록 주소로 하드코딩하여 링크 유실 완벽 방지
   function shareKakao(category, userName) {
     if (!window.Kakao) return;
     if (!Kakao.isInitialized()) {
-      Kakao.init('f59ef7963420386b813d7219e3bd6e75'); 
+      Kakao.init('f9962f2a1453deec6749989a954614ab'); 
     }
+    
+    const shareUrl = 'https://myeongkyung-web.vercel.app'; // 등록된 도메인 강제 할당
     
     Kakao.Share.sendDefault({
       objectType: 'feed',
@@ -269,16 +271,16 @@
         description: '내 운명을 비추는 맑은 거울, 명경에서 소름 돋는 심층 풀이를 확인해보세요.',
         imageUrl: 'https://cdn-icons-png.flaticon.com/512/3050/3050519.png',
         link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
         },
       },
       buttons: [
         {
           title: '내 사주 무료로 확인하기',
           link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
+            mobileWebUrl: shareUrl,
+            webUrl: shareUrl,
           },
         },
       ],
