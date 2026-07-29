@@ -86,7 +86,7 @@
   </div>
   <div id="resultTextContainer"></div>
   
-  <!-- 프라이빗 해답소 섹션 (계좌 및 입금 안내 문구 반영 완료) -->
+  <!-- 프라이빗 해답소 섹션 -->
   <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div></div>
     
@@ -256,9 +256,14 @@
     const yearName = targetYear === new Date().getFullYear() ? "올해" : "내년";
     
     let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
+    
+    // 용신 카테고리일 때의 특수 프롬프트
     if (category === '용신') {
-      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.\n★ 맨 마지막 줄에 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 적으세요.`;
+      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.`;
     }
+    
+    // 핵심 수정사항: 모든 카테고리의 맨 마지막 줄에 AI가 [용신: X]를 의무적으로 출력하도록 지시
+    categoryInstruction += `\n★ 맨 마지막 줄에 반드시 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 유저에게 가장 필요한 기운으로 적으세요.`;
     
     const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
     const prompt = `[요청]: ${category} 심층 풀이`;
@@ -270,8 +275,11 @@
         body: JSON.stringify({ systemPrompt, prompt })
       });
       const json = await response.json();
+      
       if (json.text) {
         let fullText = json.text;
+        
+        // 화면에 노출되지 않도록 AI가 뱉은 용신 텍스트 필터링
         let displayTxt = fullText.replace(/\[용신:\s*[목화토금수]\]/g, "");
         
         let cleaned = cleanMarkdownAndEmoji(displayTxt);
@@ -288,32 +296,31 @@
 
         streamTextDiv.innerHTML = formattedHtml;
         
-        if (category === '용신') {
-          let targetElement = "HWA"; 
-          if (fullText.includes("[용신: 목]")) targetElement = "MOK";
-          else if (fullText.includes("[용신: 화]")) targetElement = "HWA";
-          else if (fullText.includes("[용신: 토]")) targetElement = "TO";
-          else if (fullText.includes("[용신: 금]")) targetElement = "GEUM";
-          else if (fullText.includes("[용신: 수]")) targetElement = "SU";
-          
-          const product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
-          if (product && product.affiliateUrl) {
-            productContainer.innerHTML = `
-              <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-                <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 큐레이션</div>
-                <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 20px; line-height: 1.4;">
-                  ${data.name}님의 부족한 기운을 채워줄<br><span style="color: #903c31;">개운 아이템</span>
-                </div>
-                ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">` : ''}
-                <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
-                <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">
-                  개운 아이템 확인하러 가기 ➔
-                </a>
-                <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">
-                  본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.
-                </div>
-              </div>`;
-          }
+        // 용신 추출 및 어떤 풀이에서든 상품 노출
+        let targetElement = "HWA"; // 기본값
+        if (fullText.includes("[용신: 목]")) targetElement = "MOK";
+        else if (fullText.includes("[용신: 화]")) targetElement = "HWA";
+        else if (fullText.includes("[용신: 토]")) targetElement = "TO";
+        else if (fullText.includes("[용신: 금]")) targetElement = "GEUM";
+        else if (fullText.includes("[용신: 수]")) targetElement = "SU";
+        
+        const product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
+        if (product && product.affiliateUrl) {
+          productContainer.innerHTML = `
+            <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+              <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 큐레이션</div>
+              <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 20px; line-height: 1.4;">
+                ${data.name}님의 부족한 기운을 채워줄<br><span style="color: #903c31;">개운 아이템</span>
+              </div>
+              ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">` : ''}
+              <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
+              <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">
+                개운 아이템 확인하러 가기 ➔
+              </a>
+              <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">
+                본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.
+              </div>
+            </div>`;
         }
       } else {
         streamTextDiv.innerHTML = `<div style="color:#d32f2f;">에러 발생: ${json.error || '알 수 없는 오류'}</div>`;
