@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     body { background-color: #fcfbf9; font-family: 'Noto Sans KR', sans-serif; padding: 20px 10px; color: #333; }
-    .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); overflow: hidden; }
     .form-label { font-weight: 500; color: #555; margin-bottom: 5px; font-size: 0.9rem; }
     .fortune-btn { background-color: #3e3a39; color: white; border: none; border-radius: 4px; padding: 9px 0; font-family: 'Nanum Myeongjo', serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; width: 100%; margin-bottom: 8px; transition: 0.3s; }
     .fortune-btn:hover { background-color: #222; color: white; }
@@ -35,6 +35,31 @@
     .chat-divider { border-bottom: 1px solid #f0f0f0; margin: 25px 0; width: 100%; }
     @keyframes mystic-glow { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     .mystic-loading { animation: mystic-glow 2s infinite ease-in-out; color: #827b87; }
+
+    /* ★ 무한 롤링 리뷰 섹션 스타일 ★ */
+    .review-section { margin-top: 40px; padding: 30px 0; background: #fdfdfc; border-radius: 12px; border: 1px solid #f0eee9; }
+    .review-header { text-align: center; margin-bottom: 20px; }
+    .review-header h2 { font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.25rem; color: #222; margin-bottom: 5px; }
+    .review-header p { font-size: 0.8rem; color: #888; }
+    .marquee-wrapper { overflow: hidden; width: 100%; position: relative; }
+    /* 양쪽 끝을 흐리게 처리하는 그라데이션 마스크 */
+    .marquee-wrapper::before, .marquee-wrapper::after { content: ''; position: absolute; top: 0; width: 25px; height: 100%; z-index: 2; pointer-events: none; }
+    .marquee-wrapper::before { left: 0; background: linear-gradient(to right, #fdfdfc 0%, transparent 100%); }
+    .marquee-wrapper::after { right: 0; background: linear-gradient(to left, #fdfdfc 0%, transparent 100%); }
+    
+    .marquee-track { display: flex; width: max-content; animation: scroll-left 35s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .review-card { width: 240px; background: #fff; border-radius: 8px; padding: 18px; margin-right: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid #eaeaea; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; }
+    .review-stars { color: #FFD700; font-size: 0.85rem; letter-spacing: -1px; }
+    .review-date { font-size: 0.7rem; color: #bbb; float: right; margin-top: 2px; }
+    .review-text { font-size: 0.82rem; color: #444; line-height: 1.5; margin: 12px 0; word-break: keep-all; font-weight: 400; }
+    .review-author { font-size: 0.75rem; color: #777; display: flex; align-items: center; gap: 5px; }
+    .review-author::before { content: '👤'; font-size: 0.8rem; opacity: 0.6; }
+    
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } /* 절반을 이동시키면 정확히 루프됨 */
+    }
   </style>
 </head>
 <body>
@@ -88,6 +113,71 @@
   
   <div id="resultTextContainer"></div>
   
+  <!-- ★ 무한 롤링 리뷰 섹션 ★ -->
+  <div class="review-section">
+    <div class="review-header">
+      <h2>실제 내담자 후기</h2>
+      <p>명경을 경험하신 분들의 진솔한 이야기입니다.</p>
+    </div>
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <!-- 원본 그룹 -->
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"답답했던 재물운의 흐름을 정확히 짚어주셔서 속이 뻥 뚫렸습니다. 조언해주신 시기를 잘 참고할게요!"</div>
+          <div class="review-author">김*민</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"정말 잘 맞네요. 특히 제 성향과 장단점을 예리하게 지적해주시고 실행 방법까지 알려주심에 놀랐습니다."</div>
+          <div class="review-author">송*우</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"무료 풀이 퀄리티에 놀라서 프라이빗 상담까지 결제했어요. 4,900원이 전혀 아깝지 않은 명쾌한 해답이었습니다."</div>
+          <div class="review-author">장*진</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"이런 거 잘 안 믿는데 신뢰가 갑니다. 반신반의하며 남편 것도 봤는데 둘의 관계를 너무 정확히 푸셔서 소름 돋았어요."</div>
+          <div class="review-author">최*영</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.26</span></div>
+          <div class="review-text">"기질 내용 참고하기가 참 좋은 것 같아요. 요즘 이직 재선택 길에 서있는데 참고하여 잘 살겠습니다. 감사합니다."</div>
+          <div class="review-author">박*희</div>
+        </div>
+        
+        <!-- 무한 스크롤을 위한 복제 그룹 (수정 금지) -->
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"답답했던 재물운의 흐름을 정확히 짚어주셔서 속이 뻥 뚫렸습니다. 조언해주신 시기를 잘 참고할게요!"</div>
+          <div class="review-author">김*민</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"정말 잘 맞네요. 특히 제 성향과 장단점을 예리하게 지적해주시고 실행 방법까지 알려주심에 놀랐습니다."</div>
+          <div class="review-author">송*우</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"무료 풀이 퀄리티에 놀라서 프라이빗 상담까지 결제했어요. 4,900원이 전혀 아깝지 않은 명쾌한 해답이었습니다."</div>
+          <div class="review-author">장*진</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"이런 거 잘 안 믿는데 신뢰가 갑니다. 반신반의하며 남편 것도 봤는데 둘의 관계를 너무 정확히 푸셔서 소름 돋았어요."</div>
+          <div class="review-author">최*영</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.26</span></div>
+          <div class="review-text">"기질 내용 참고하기가 참 좋은 것 같아요. 요즘 이직 재선택 길에 서있는데 참고하여 잘 살겠습니다. 감사합니다."</div>
+          <div class="review-author">박*희</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 프라이빗 해답소 채팅창 -->
   <div id="chatSection">
     <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
@@ -97,7 +187,6 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
-          <!-- 초기 메시지는 JS에서 동적으로 설정됩니다 -->
           <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 질문을 남겨보세요.</div>
         </div>
       </div>
@@ -153,7 +242,6 @@
   let currentTextForAI = "";
   
   let isVip = false;
-  // ★ 무료 횟수 카운터로 변경 (최대 3회)
   let freeChatCount = parseInt(localStorage.getItem('mk_freeChatCount') || '0', 10);
   const MAX_FREE_CHAT = 3;
 
@@ -195,7 +283,6 @@
     }
   }
 
-  // ★ 무료 체험 상태 적용 (남은 횟수에 따라 다르게 표시)
   function applyFreeChatState() {
     if (isVip) return;
     
@@ -458,7 +545,6 @@
   }
 
   async function sendChatMessage() {
-    // 1. 방어 로직: VIP가 아닌데 3회를 다 썼다면 통신 차단
     if (freeChatCount >= MAX_FREE_CHAT && !isVip) {
       Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.`, 'info');
       document.getElementById('authSection').style.display = 'block';
@@ -521,7 +607,6 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
         
-        // ★ 무료 횟수 차감 및 처리
         if (!isVip) {
           freeChatCount++;
           localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
@@ -547,7 +632,6 @@
             chatHistory.scrollTop = chatHistory.scrollHeight;
           } else {
             sendBtn.disabled = false;
-            // 남은 횟수 안내
             chatHistory.innerHTML += `
               <div class="chat-row bot" style="margin-top: -15px;">
                 <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
