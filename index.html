@@ -257,13 +257,12 @@
     
     let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
     
-    // 용신 카테고리일 때의 특수 프롬프트
     if (category === '용신') {
       categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.`;
     }
     
-    // 핵심 수정사항: 모든 카테고리의 맨 마지막 줄에 AI가 [용신: X]를 의무적으로 출력하도록 지시
-    categoryInstruction += `\n★ 맨 마지막 줄에 반드시 [용신: 목], [용신: 화], [용신: 토], [용신: 금], [용신: 수] 중 하나를 유저에게 가장 필요한 기운으로 적으세요.`;
+    // AI가 절대 빼먹거나 양식을 틀리지 않도록 프롬프트 강화
+    categoryInstruction += `\n★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
     
     const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
     const prompt = `[요청]: ${category} 심층 풀이`;
@@ -279,8 +278,24 @@
       if (json.text) {
         let fullText = json.text;
         
-        // 화면에 노출되지 않도록 AI가 뱉은 용신 텍스트 필터링
-        let displayTxt = fullText.replace(/\[용신:\s*[목화토금수]\]/g, "");
+        // 1. AI 응답에서 띄어쓰기 오차까지 잡아내서 용신 추출 (예: [용신: 목], [용신:목], [ 용신 : 금 ] 등 모두 커버)
+        let targetElement = "";
+        const match = fullText.match(/\[\s*용신\s*:\s*([목화토금수])\s*\]/);
+        if (match) {
+          const el = match[1];
+          if (el === '목') targetElement = 'MOK';
+          else if (el === '화') targetElement = 'HWA';
+          else if (el === '토') targetElement = 'TO';
+          else if (el === '금') targetElement = 'GEUM';
+          else if (el === '수') targetElement = 'SU';
+        } else {
+          // AI가 지시를 무시하고 태그를 아예 안 썼을 경우 랜덤 오행 배정
+          const els = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'];
+          targetElement = els[Math.floor(Math.random() * els.length)];
+        }
+        
+        // 2. 화면 노출용 운세 텍스트에서는 태그 완벽히 삭제
+        let displayTxt = fullText.replace(/\[\s*용신\s*:\s*[목화토금수]\s*\]/g, "");
         
         let cleaned = cleanMarkdownAndEmoji(displayTxt);
         cleaned = cleaned.replace(/(\s+(첫째,|둘째,|셋째,|넷째,|다섯째,|\d+\.\s+))/g, '\n\n$1');
@@ -296,15 +311,19 @@
 
         streamTextDiv.innerHTML = formattedHtml;
         
-        // 용신 추출 및 어떤 풀이에서든 상품 노출
-        let targetElement = "HWA"; // 기본값
-        if (fullText.includes("[용신: 목]")) targetElement = "MOK";
-        else if (fullText.includes("[용신: 화]")) targetElement = "HWA";
-        else if (fullText.includes("[용신: 토]")) targetElement = "TO";
-        else if (fullText.includes("[용신: 금]")) targetElement = "GEUM";
-        else if (fullText.includes("[용신: 수]")) targetElement = "SU";
+        // 3. 구글 시트에서 상품 가져오기
+        let product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
         
-        const product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
+        // 4. 안전장치: 만약 추출된 오행(혹은 랜덤 오행)의 상품이 구글 시트에 하나도 없다면, 있는 오행 중에서라도 띄워주기
+        if (!product || !product.affiliateUrl) {
+          const fallbacks = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'].filter(e => e !== targetElement);
+          for (let f of fallbacks) {
+            product = await callGasApi({ action: "getAffiliateProduct", elementKey: f });
+            if (product && product.affiliateUrl) break;
+          }
+        }
+        
+        // 5. 상품 화면에 렌더링
         if (product && product.affiliateUrl) {
           productContainer.innerHTML = `
             <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
