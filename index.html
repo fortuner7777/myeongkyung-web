@@ -255,10 +255,11 @@
     initLiveSocialProof();
   }
 
+  // ★ 정확한 앱 키로 수정 완료! 
   function shareKakao(category, userName) {
     if (!window.Kakao) return;
     if (!Kakao.isInitialized()) {
-      Kakao.init('f59ef7963420386b813d7219e3bd67e5'); 
+      Kakao.init('f59ef7963420386b813d7219e3bd6e75'); 
     }
     
     Kakao.Share.sendDefault({
@@ -516,7 +517,6 @@
           }
         }
         
-        // ★ 개운 아이템 카드 HTML 생성
         let productCardHtml = "";
         if (product && product.affiliateUrl) {
           let talismanTitle = "";
@@ -559,7 +559,6 @@
             </div>`;
         }
 
-        // ★ 카카오톡 공유 버튼 (개운 아이템 바로 아래에 확실히 배치)
         const shareHtml = `
           <div style="margin-top: 15px;">
             <button onclick="shareKakao('${category}', '${data.name}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
