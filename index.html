@@ -21,9 +21,7 @@
 
     .result-title { font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.2rem; color: #222; text-align: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f0eee9; letter-spacing: 1px; }
     
-    /* 채팅 섹션 항시 노출되도록 block 처리 및 디자인 구분선 추가 */
     #chatSection { display: block; margin-top: 50px; border-top: 2px dashed #eaeaea; padding-top: 30px; }
-    
     #chatHistory { height: 400px; overflow-y: auto; background: #ffffff; padding: 10px 5px; margin-bottom: 20px; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; scrollbar-width: none; }
     #chatHistory::-webkit-scrollbar { display: none; }
     .chat-row { display: flex; margin-bottom: 35px; width: 100%; }
@@ -90,7 +88,7 @@
   
   <div id="resultTextContainer"></div>
   
-  <!-- 프라이빗 해답소 채팅창 (항상 노출됨) -->
+  <!-- 프라이빗 해답소 채팅창 -->
   <div id="chatSection">
     <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
     <div style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 15px;">누구에게도 말 못할 고민, 신녀에게 물어보세요.</div>
@@ -109,7 +107,7 @@
     </div>
   </div>
 
-  <!-- 프라이빗 해답소 결제 섹션 (기본적으로 숨김 처리, 1회 무료 채팅 혹은 새로고침 시 등장) -->
+  <!-- 결제 섹션 -->
   <div id="authSection" style="display: none; margin-top:40px; margin-bottom:30px; border-top: 2px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">정식 코드를 발급받아 무제한 상담을 이어가세요.</div></div>
     
@@ -124,7 +122,7 @@
         <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
         <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
         
-        <!-- 🏦 원클릭 송금 안내 영역 -->
+        <!-- 원클릭 송금 안내 영역 -->
         <div style="background: #fafafa; padding: 15px 14px; border-radius: 6px; border: 1px solid #f0f0f0; margin-bottom: 10px;">
           <div style="font-size: 0.85rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 12px;">
             아래 버튼을 눌러 결제를 진행하신 후, 안내소로 오셔서 입금자명을 남겨주시면 즉시 입장 코드를 발급해 드립니다.
@@ -153,9 +151,7 @@
   let currentLoadedSajuKey = "";
   let currentTextForAI = "";
   
-  // VIP 및 체험판 상태 변수
   let isVip = false;
-  // ★ 브라우저에 저장된 사용 기록을 불러옴 (새로고침 완벽 방어)
   let freeChatUsed = localStorage.getItem('mk_freeChatUsed') === 'true';
 
   window.onload = function() {
@@ -166,20 +162,38 @@
       document.getElementById('rememberMe').checked = true;
     }
     
-    // VIP 코드 검증
     const savedVipCode = localStorage.getItem('vipCode');
     if(savedVipCode) { 
       document.getElementById('vipCode').value = savedVipCode; 
       autoVerifyVipCode(savedVipCode); 
     } else {
-      // VIP가 아닌데 이전에 무료채팅을 쓴 기록이 남아있다면 채팅창 잠금 처리
       applyFreeChatState();
     }
 
     initLiveSocialProof();
   }
 
-  // ★ 무료 체험을 이미 한 유저인지 확인하고 화면을 잠그는 함수
+  // ★ VIP 권한 적용 (화면 및 환영 멘트 싹 바꿈)
+  function applyVipState() {
+    isVip = true;
+    document.getElementById('authSection').style.display = 'none'; 
+    document.getElementById('chatInput').disabled = false;
+    document.getElementById('sendChatBtn').disabled = false;
+    document.getElementById('chatInput').placeholder = "무엇이든 물어보세요...";
+    
+    const welcomeMsg = document.getElementById('defaultWelcomeMsg');
+    if (welcomeMsg) {
+      welcomeMsg.innerHTML = `
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <div class="msg-content">
+          <div class="sender-name">신녀</div>
+          <div class="msg-text">환영합니다. 무제한 프라이빗 상담이 활성화되었습니다.<br>어떤 고민이든 깊고 상세하게 풀어드릴 테니 편히 물어보세요.</div>
+        </div>
+      `;
+    }
+  }
+
+  // 무료 체험 종료 상태 적용
   function applyFreeChatState() {
     if (freeChatUsed && !isVip) {
       document.getElementById('chatInput').disabled = true;
@@ -187,13 +201,15 @@
       document.getElementById('chatInput').placeholder = "무료 체험이 종료되었습니다. 코드를 입력해주세요.";
       document.getElementById('authSection').style.display = 'block';
       
-      // 인사말 변경
-      document.getElementById('defaultWelcomeMsg').innerHTML = `
-        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
-        <div class="msg-content">
-          <div class="sender-name">신녀</div>
-          <div class="msg-text">무료 1회 상담을 이미 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래에서 정식 코드를 발급받아 주시지요.</div>
-        </div>`;
+      const welcomeMsg = document.getElementById('defaultWelcomeMsg');
+      if (welcomeMsg) {
+        welcomeMsg.innerHTML = `
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <div class="msg-content">
+            <div class="sender-name">신녀</div>
+            <div class="msg-text">무료 1회 상담을 이미 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래에서 정식 코드를 발급받아 주시지요.</div>
+          </div>`;
+      }
     }
   }
 
@@ -425,7 +441,6 @@
   }
 
   async function sendChatMessage() {
-    // 1. 방어 로직: VIP가 아닌데 이미 1회를 썼다면 통신조차 막아버림
     if (freeChatUsed && !isVip) {
       Swal.fire('알림', '무료 1회 상담이 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.', 'info');
       document.getElementById('authSection').style.display = 'block';
@@ -450,7 +465,6 @@
     `;
     chatHistory.scrollTop = chatHistory.scrollHeight;
     
-    // ★ 운세 버튼을 누르기 전에 채팅을 먼저 쳤다면, 여기서 백그라운드로 사주 원국을 알아서 도출해옴
     if (!currentTextForAI) {
       try {
         data.action = "getSajuData";
@@ -464,7 +478,16 @@
       }
     }
 
-    const systemPrompt = `당신은 영험한 신녀입니다. 유저의 사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요. 대운 질문 시 과거/미래 장황한 읊기 금지. 반드시 "현재 O세 OO대운을 지나고 있습니다" 명시 후 지금 시기 중심 풀이. 이모지/마크다운 금지. 생년월일 되묻기 금지.`;
+    // ★ VIP 고객 맞춤형 프롬프트 대폭 강화 (분량 확보 및 성별 인식 강제)
+    const systemPrompt = `당신은 30년 경력의 최고 권위를 가진 영험한 신녀입니다. 
+유저의 이름은 ${data.name}, 성별은 ${data.gender === 'M' ? '남성' : '여성'}입니다. 
+사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요.
+
+[답변 원칙]
+1. 분량 및 깊이: 유료 결제 VIP 고객을 위한 프리미엄 상담입니다. 단답형이나 짧은 답변은 절대 금지하며, 버튼을 눌러 보는 일반 운세 풀이보다 더 길고(최소 3~4문단 이상), 구체적이고 깊이 있게 설명해야 합니다.
+2. 성별 및 인연 해석: 유저가 ${data.gender === 'M' ? '남성' : '여성'}이라는 점을 절대 잊지 마세요. 연애운, 배우자운 등을 질문할 경우 무조건 이성(남성이면 여자, 여성이면 남자)과의 인연으로 해석해야 합니다. 황당한 동성 해석을 절대 피하세요.
+3. 시기 명시: 대운 질문 시 반드시 "현재 O세 OO대운을 지나고 있습니다"라고 명시한 후, 어떤 달(월)이나 해(년)에 기운이 어떻게 변하는지 구체적인 시기와 대비책을 알려주세요.
+4. 이모지 및 마크다운 기호 사용 금지. 유저에게 질문(생년월일 등) 되묻기 금지.`;
     
     try {
       const response = await fetch('/api/stream', {
@@ -478,21 +501,16 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
         
-        // ★ 1회 무료 체험 종료 시 영구 기록 및 결제창 소환 로직
         if (!isVip) {
-          // 브라우저 쿠키에 '무료 썼음' 기록 저장
           freeChatUsed = true;
           localStorage.setItem('mk_freeChatUsed', 'true');
           
-          // 채팅 입력창 완전히 차단
           document.getElementById('chatInput').disabled = true;
           document.getElementById('sendChatBtn').disabled = true;
           document.getElementById('chatInput').placeholder = "코드 입력 후 무제한 대화가 가능합니다.";
           
-          // 결제 섹션 노출
           document.getElementById('authSection').style.display = 'block';
           
-          // 신녀의 마무리 멘트 출력
           chatHistory.innerHTML += `
             <div class="chat-row bot">
               <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
@@ -506,7 +524,6 @@
           `;
           chatHistory.scrollTop = chatHistory.scrollHeight;
         } else {
-          // VIP면 계속 채팅 가능
           sendBtn.disabled = false;
         }
 
@@ -527,14 +544,8 @@
       const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code });
       btn.innerText = '입장하기'; btn.disabled = false;
       if(isValid) { 
-        isVip = true;
         localStorage.setItem('vipCode', code); 
-        document.getElementById('authSection').style.display = 'none'; 
-        
-        // 입력창 다시 활성화
-        document.getElementById('chatInput').disabled = false;
-        document.getElementById('sendChatBtn').disabled = false;
-        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+        applyVipState();
         Swal.fire('인증 성공', '환영합니다. 정식 입장이 완료되었습니다.', 'success');
       } 
       else { Swal.fire('인증 실패', '유효하지 않은 코드입니다.', 'error'); }
@@ -545,11 +556,7 @@
     try { 
       const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code }); 
       if(isValid) { 
-        isVip = true;
-        document.getElementById('authSection').style.display = 'none'; 
-        document.getElementById('chatInput').disabled = false;
-        document.getElementById('sendChatBtn').disabled = false;
-        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+        applyVipState();
       } else { 
         localStorage.removeItem('vipCode'); 
         applyFreeChatState();
