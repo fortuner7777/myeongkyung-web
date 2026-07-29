@@ -255,7 +255,6 @@
     initLiveSocialProof();
   }
 
-  // ★ 발급받으신 자바스크립트 키 적용 완료
   function shareKakao(category, userName) {
     if (!window.Kakao) return;
     if (!Kakao.isInitialized()) {
@@ -517,6 +516,8 @@
           }
         }
         
+        // ★ 개운 아이템 카드 HTML 생성
+        let productCardHtml = "";
         if (product && product.affiliateUrl) {
           let talismanTitle = "";
           let talismanDesc = "";
@@ -538,7 +539,7 @@
             talismanDesc = "정체된 운의 흐름을 유연하게 풀고 상황을 반전시킬 지혜가 필요합니다. 메마른 사주를 적셔주는 생명수처럼 당신의 운로를 부드럽게 열어줄 것입니다.";
           }
 
-          productContainer.innerHTML = `
+          productCardHtml = `
             <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
               <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 1:1 맞춤 비방(祕方)</div>
               <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 12px; line-height: 1.4;">
@@ -558,15 +559,17 @@
             </div>`;
         }
 
+        // ★ 카카오톡 공유 버튼 (개운 아이템 바로 아래에 확실히 배치)
         const shareHtml = `
           <div style="margin-top: 15px;">
-            <button onclick="shareKakao('${category}', '${data.name}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s;">
+            <button onclick="shareKakao('${category}', '${data.name}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
               <svg viewBox="0 0 32 32" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.16 6.64 5.44 8.48l-1.12 4.16c-.16.56.48 1.04.96.72l4.8-3.2c.8.24 1.68.32 2.56.32 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#191919"/></svg>
               내 사주 결과 카카오톡으로 공유하기
             </button>
           </div>
         `;
-        productContainer.innerHTML += shareHtml;
+
+        productContainer.innerHTML = productCardHtml + shareHtml;
 
       } else {
         streamTextDiv.innerHTML = `<div style="color:#d32f2f;">에러 발생: ${json.error || '알 수 없는 오류'}</div>`;
@@ -678,7 +681,7 @@
         }
 
       } else {
-        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}고객센터 문의`;
         sendBtn.disabled = false;
       }
     } catch(err) {
