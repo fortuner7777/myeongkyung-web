@@ -97,7 +97,8 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
-          <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">첫 질문(무료)</span>을 남겨보세요.</div>
+          <!-- 초기 메시지는 JS에서 동적으로 설정됩니다 -->
+          <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 질문을 남겨보세요.</div>
         </div>
       </div>
     </div>
@@ -152,7 +153,9 @@
   let currentTextForAI = "";
   
   let isVip = false;
-  let freeChatUsed = localStorage.getItem('mk_freeChatUsed') === 'true';
+  // ★ 무료 횟수 카운터로 변경 (최대 3회)
+  let freeChatCount = parseInt(localStorage.getItem('mk_freeChatCount') || '0', 10);
+  const MAX_FREE_CHAT = 3;
 
   window.onload = function() {
     if(localStorage.getItem('savedName')) {
@@ -192,20 +195,33 @@
     }
   }
 
+  // ★ 무료 체험 상태 적용 (남은 횟수에 따라 다르게 표시)
   function applyFreeChatState() {
-    if (freeChatUsed && !isVip) {
+    if (isVip) return;
+    
+    const welcomeMsg = document.getElementById('defaultWelcomeMsg');
+
+    if (freeChatCount >= MAX_FREE_CHAT) {
       document.getElementById('chatInput').disabled = true;
       document.getElementById('sendChatBtn').disabled = true;
       document.getElementById('chatInput').placeholder = "무료 체험이 종료되었습니다. 코드를 입력해주세요.";
       document.getElementById('authSection').style.display = 'block';
       
-      const welcomeMsg = document.getElementById('defaultWelcomeMsg');
       if (welcomeMsg) {
         welcomeMsg.innerHTML = `
           <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
           <div class="msg-content">
             <div class="sender-name">신녀</div>
-            <div class="msg-text">무료 1회 상담을 이미 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래에서 정식 코드를 발급받아 주시지요.</div>
+            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래에서 정식 코드를 발급받아 주시지요.</div>
+          </div>`;
+      }
+    } else {
+      if (welcomeMsg) {
+        welcomeMsg.innerHTML = `
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <div class="msg-content">
+            <div class="sender-name">신녀</div>
+            <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">질문(남은 무료: ${MAX_FREE_CHAT - freeChatCount}회)</span>을 남겨보세요.</div>
           </div>`;
       }
     }
@@ -442,8 +458,9 @@
   }
 
   async function sendChatMessage() {
-    if (freeChatUsed && !isVip) {
-      Swal.fire('알림', '무료 1회 상담이 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.', 'info');
+    // 1. 방어 로직: VIP가 아닌데 3회를 다 썼다면 통신 차단
+    if (freeChatCount >= MAX_FREE_CHAT && !isVip) {
+      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.`, 'info');
       document.getElementById('authSection').style.display = 'block';
       return;
     }
@@ -481,7 +498,6 @@
 
     const currentYear = new Date().getFullYear();
 
-    // ★ 유료 결제 VIP 고객을 위한 프리미엄 프롬프트 (분량, 성별, 시기, 어투 완벽 통제)
     const systemPrompt = `당신은 수많은 세월동안 하늘의 기운을 읽어온 영험한 신녀입니다. 
 유저의 이름은 ${data.name}, 성별은 ${data.gender === 'M' ? '남성' : '여성'}입니다. 
 현재 시점은 ${currentYear}년입니다. 사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요.
@@ -505,28 +521,42 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
         
+        // ★ 무료 횟수 차감 및 처리
         if (!isVip) {
-          freeChatUsed = true;
-          localStorage.setItem('mk_freeChatUsed', 'true');
+          freeChatCount++;
+          localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
           
-          document.getElementById('chatInput').disabled = true;
-          document.getElementById('sendChatBtn').disabled = true;
-          document.getElementById('chatInput').placeholder = "코드 입력 후 무제한 대화가 가능합니다.";
-          
-          document.getElementById('authSection').style.display = 'block';
-          
-          chatHistory.innerHTML += `
-            <div class="chat-row bot">
-              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
-              <div class="msg-content">
-                <div class="sender-name">신녀</div>
-                <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
-                  여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래에서 코드를 발급받아 주시지요.
+          if (freeChatCount >= MAX_FREE_CHAT) {
+            document.getElementById('chatInput').disabled = true;
+            document.getElementById('sendChatBtn').disabled = true;
+            document.getElementById('chatInput').placeholder = "코드 입력 후 무제한 대화가 가능합니다.";
+            
+            document.getElementById('authSection').style.display = 'block';
+            
+            chatHistory.innerHTML += `
+              <div class="chat-row bot">
+                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+                <div class="msg-content">
+                  <div class="sender-name">신녀</div>
+                  <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
+                    여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래에서 코드를 발급받아 주시지요.
+                  </div>
                 </div>
               </div>
-            </div>
-          `;
-          chatHistory.scrollTop = chatHistory.scrollHeight;
+            `;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+          } else {
+            sendBtn.disabled = false;
+            // 남은 횟수 안내
+            chatHistory.innerHTML += `
+              <div class="chat-row bot" style="margin-top: -15px;">
+                <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
+                  (남은 무료 상담: ${MAX_FREE_CHAT - freeChatCount}회)
+                </div>
+              </div>
+            `;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+          }
         } else {
           sendBtn.disabled = false;
         }
