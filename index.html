@@ -84,16 +84,23 @@
     <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('재물운')">재물운</button></div>
     <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('행운의색')">행운의색</button></div>
   </div>
+  
   <div id="resultTextContainer"></div>
   
-  <!-- 프라이빗 해답소 섹션 -->
-  <div id="authSection" style="margin-top:50px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
-    <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">명경 프라이빗 해답소</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">더 깊고 구체적인 혜안이 필요하신가요</div></div>
+  <!-- 프라이빗 해답소 채팅창 (순서를 결제창 위로 올림) -->
+  <div id="chatSection">
+    <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
+    <div id="chatHistory"><div class="chat-row bot"><img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img"><div class="msg-content"><div class="sender-name">신녀</div><div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">첫 질문(무료)</span>을 남겨보세요.</div></div></div></div>
+    <div class="input-group mt-2"><textarea id="chatInput" class="form-control" rows="1" placeholder="마음의 궁금증은..." style="resize:none; border-radius:20px 0 0 20px; background:#f4f4f4; border:none; padding-left:15px; color:#333;"></textarea><button class="btn btn-secondary" id="sendChatBtn" onclick="sendChatMessage()" style="border-radius:0 20px 20px 0; background:#3e3a39; border:none; color:white;">전송</button></div>
+  </div>
+
+  <!-- 프라이빗 해답소 결제 섹션 (기본적으로 숨김 처리, 1회 무료 채팅 후 등장) -->
+  <div id="authSection" style="display: none; margin-top:30px; margin-bottom:30px; border-top: 1px solid #eaeaea; padding-top: 40px;">
+    <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">정식 코드를 발급받아 무제한 상담을 이어가세요.</div></div>
     
     <div style="background: #ffffff; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); line-height: 1.8;">
-      정해진 몇 마디 풀이로는 닿을 수 없는 귀하만의 이야기.<br>어떤 복잡한 상황이든, 누구에게도 털어놓지 못한 딥한 고민이든 마음껏 물어보세요.<br><br>
       
-      <!-- 실시간 소셜 프루프 배지 (단어 줄바꿈 방지 적용) -->
+      <!-- 실시간 소셜 프루프 배지 -->
       <div style="background: #f8f7f4; color: #555555; padding: 11px 14px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 400; border: 1px solid #eae6df; letter-spacing: -0.2px; word-break: keep-all;">
         현재 <span id="visitorName" style="font-weight: 600; color: #222;">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #d32f2f;">46</span>명이 프라이빗 해답소를 이용 중입니다.
       </div>
@@ -102,7 +109,7 @@
         <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
         <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
         
-        <!-- 🏦 원클릭 송금 안내 영역 (카카오페이 링크, 모바일 최적화 적용) -->
+        <!-- 🏦 원클릭 송금 안내 영역 -->
         <div style="background: #fafafa; padding: 15px 14px; border-radius: 6px; border: 1px solid #f0f0f0; margin-bottom: 10px;">
           <div style="font-size: 0.85rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 12px;">
             아래 버튼을 눌러 결제를 진행하신 후, 안내소로 오셔서 입금자명을 남겨주시면 즉시 입장 코드를 발급해 드립니다.
@@ -126,17 +133,16 @@
     
     <div style="padding: 0 5px;"><input type="text" id="vipCode" class="form-control" placeholder="발급받은 코드를 입력해주세요" style="padding:12px; font-size:0.95rem; text-align:center; letter-spacing: 1px; border: 1px solid #ddd; background: #fafafa; border-radius: 6px; margin-bottom: 10px; color: #333;"><button id="verifyBtn" class="btn" onclick="verifyVipCode()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">입장하기</button></div>
   </div>
-
-  <div id="chatSection">
-    <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
-    <div id="chatHistory"><div class="chat-row bot"><img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img"><div class="msg-content"><div class="sender-name">신녀</div><div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 물어보세요.</div></div></div></div>
-    <div class="input-group mt-2"><textarea id="chatInput" class="form-control" rows="1" placeholder="마음의 궁금증은..." style="resize:none; border-radius:20px 0 0 20px; background:#f4f4f4; border:none; padding-left:15px; color:#333;"></textarea><button class="btn btn-secondary" id="sendChatBtn" onclick="sendChatMessage()" style="border-radius:0 20px 20px 0; background:#3e3a39; border:none; color:white;">전송</button></div>
-  </div>
 </div>
+
 <script>
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec"; 
   let currentLoadedSajuKey = "";
   let currentTextForAI = "";
+  
+  // VIP 및 체험판 상태 변수 추가
+  let isVip = false;
+  let freeChatCount = 0;
 
   window.onload = function() {
     if(localStorage.getItem('savedName')) {
@@ -232,6 +238,10 @@
   async function requestFortune(category) {
     const data = getFormData(); if(!data) return;
     const resultBox = document.getElementById('resultTextContainer');
+    
+    // 운세 풀이와 동시에 채팅창(체험판) 노출
+    document.getElementById('chatSection').style.display = 'block';
+    
     resultBox.style.display = 'block'; 
     resultBox.innerHTML = `
       <div class="result-title">[${category} 심층 풀이]</div>
@@ -273,7 +283,6 @@
       categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.`;
     }
     
-    // AI가 절대 빼먹거나 양식을 틀리지 않도록 프롬프트 강화
     categoryInstruction += `\n★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
     
     const systemPrompt = `당신은 30년 경력의 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
@@ -290,7 +299,6 @@
       if (json.text) {
         let fullText = json.text;
         
-        // 1. AI 응답에서 띄어쓰기 오차까지 잡아내서 용신 추출
         let targetElement = "";
         const match = fullText.match(/\[\s*용신\s*:\s*([목화토금수])\s*\]/);
         if (match) {
@@ -301,12 +309,10 @@
           else if (el === '금') targetElement = 'GEUM';
           else if (el === '수') targetElement = 'SU';
         } else {
-          // AI가 지시를 무시하고 태그를 아예 안 썼을 경우 랜덤 오행 배정
           const els = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'];
           targetElement = els[Math.floor(Math.random() * els.length)];
         }
         
-        // 2. 화면 노출용 운세 텍스트에서는 태그 완벽히 삭제
         let displayTxt = fullText.replace(/\[\s*용신\s*:\s*[목화토금수]\s*\]/g, "");
         
         let cleaned = cleanMarkdownAndEmoji(displayTxt);
@@ -323,10 +329,8 @@
 
         streamTextDiv.innerHTML = formattedHtml;
         
-        // 3. 구글 시트에서 상품 가져오기
         let product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
         
-        // 4. 안전장치: 만약 추출된 오행(혹은 랜덤 오행)의 상품이 구글 시트에 하나도 없다면, 있는 오행 중에서라도 띄워주기
         if (!product || !product.affiliateUrl) {
           const fallbacks = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'].filter(e => e !== targetElement);
           for (let f of fallbacks) {
@@ -335,7 +339,6 @@
           }
         }
         
-        // 5. 상품 화면에 렌더링 (부적화 스토리텔링 적용)
         if (product && product.affiliateUrl) {
           let talismanTitle = "";
           let talismanDesc = "";
@@ -388,6 +391,14 @@
     const data = getFormData(); if(!data) return;
     const inputEl = document.getElementById('chatInput'); const question = inputEl.value.trim(); if(!question) return;
     const chatHistory = document.getElementById('chatHistory'); const sendBtn = document.getElementById('sendChatBtn');
+    
+    // 무료 1회 제공 로직 검증
+    if (!isVip && freeChatCount >= 1) {
+      document.getElementById('authSection').style.display = 'block';
+      Swal.fire('알림', '무료 1회 상담이 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.', 'info');
+      return;
+    }
+
     chatHistory.innerHTML += `<div class="chat-divider"></div><div class="chat-row user"><div class="msg-content"><div class="user-text">${question}</div></div></div>`;
     inputEl.value = ''; sendBtn.disabled = true;
     const chatId = 'chat_' + Date.now();
@@ -402,6 +413,7 @@
     `;
     chatHistory.scrollTop = chatHistory.scrollHeight;
     const systemPrompt = `당신은 영험한 신녀입니다. 유저의 사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요. 대운 질문 시 과거/미래 장황한 읊기 금지. 반드시 "현재 O세 OO대운을 지나고 있습니다" 명시 후 지금 시기 중심 풀이. 이모지/마크다운 금지. 생년월일 되묻기 금지.`;
+    
     try {
       const response = await fetch('/api/stream', {
         method: 'POST',
@@ -410,13 +422,43 @@
       });
       const json = await response.json();
       const textDiv = document.getElementById(chatId);
+      
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
+        
+        // 1회 무료 체험 종료 시 결제창 소환 로직
+        if (!isVip) {
+          freeChatCount++;
+          if (freeChatCount >= 1) {
+            document.getElementById('chatInput').disabled = true;
+            document.getElementById('sendChatBtn').disabled = true;
+            document.getElementById('chatInput').placeholder = "코드 입력 후 무제한 대화가 가능합니다.";
+            
+            // 결제(VIP 코드 입력) 섹션 노출
+            document.getElementById('authSection').style.display = 'block';
+            
+            // 신녀의 마무리 멘트 출력
+            chatHistory.innerHTML += `
+              <div class="chat-row bot">
+                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+                <div class="msg-content">
+                  <div class="sender-name">신녀</div>
+                  <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
+                    여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래에서 코드를 발급받아 주시지요.
+                  </div>
+                </div>
+              </div>
+            `;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+          }
+        } else {
+          sendBtn.disabled = false;
+        }
+
       } else {
         textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
+        sendBtn.disabled = false;
       }
-      chatHistory.scrollTop = chatHistory.scrollHeight;
-      sendBtn.disabled = false;
     } catch(err) {
       document.getElementById(chatId).innerHTML = "답변 생성 실패: 통신 오류";
       sendBtn.disabled = false;
@@ -429,13 +471,36 @@
     try {
       const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code });
       btn.innerText = '입장하기'; btn.disabled = false;
-      if(isValid) { localStorage.setItem('vipCode', code); document.getElementById('authSection').style.display = 'none'; document.getElementById('chatSection').style.display = 'block'; } 
+      if(isValid) { 
+        isVip = true;
+        localStorage.setItem('vipCode', code); 
+        document.getElementById('authSection').style.display = 'none'; 
+        document.getElementById('chatSection').style.display = 'block'; 
+        
+        // 입력창 다시 활성화
+        document.getElementById('chatInput').disabled = false;
+        document.getElementById('sendChatBtn').disabled = false;
+        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+        Swal.fire('인증 성공', '환영합니다. 정식 입장이 완료되었습니다.', 'success');
+      } 
       else { Swal.fire('인증 실패', '유효하지 않은 코드입니다.', 'error'); }
     } catch(err) { btn.innerText = '입장하기'; btn.disabled = false; Swal.fire('오류', '인증 중 통신 오류가 발생했습니다.', 'error'); }
   }
 
   async function autoVerifyVipCode(code) {
-    try { const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code }); if(isValid) { document.getElementById('authSection').style.display = 'none'; document.getElementById('chatSection').style.display = 'block'; } else { localStorage.removeItem('vipCode'); } } catch(err) {}
+    try { 
+      const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code }); 
+      if(isValid) { 
+        isVip = true;
+        document.getElementById('authSection').style.display = 'none'; 
+        document.getElementById('chatSection').style.display = 'block'; 
+        document.getElementById('chatInput').disabled = false;
+        document.getElementById('sendChatBtn').disabled = false;
+        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+      } else { 
+        localStorage.removeItem('vipCode'); 
+      } 
+    } catch(err) {}
   }
 </script>
 </body>
