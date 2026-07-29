@@ -237,6 +237,26 @@
   const MAX_FREE_CHAT = 3;
 
   window.onload = function() {
+    // ★ 공유 링크로 들어온 방문자 환영 팝업 로직
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('shared') === 'true') {
+      const inviter = urlParams.get('by');
+      if (inviter) {
+        Swal.fire({
+          title: '초대장이 도착했습니다 💌',
+          html: `<b style="color:#903c31; font-size:1.1rem;">${inviter}</b>님이 명경 프라이빗 해답소로<br>당신을 초대했습니다.<br><br>지금 바로 내 운명을 확인해보세요.`,
+          icon: 'success',
+          confirmButtonText: '내 사주 무료로 보기',
+          confirmButtonColor: '#3e3a39'
+        }).then(() => {
+          // 팝업 닫히면 바로 이름 입력창에 포커스
+          document.getElementById('userName').focus();
+        });
+        // 팝업이 떴으므로 주소창에서 파라미터 삭제 (새로고침 시 또 뜨는 것 방지)
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
     if(localStorage.getItem('savedName')) {
       document.getElementById('userName').value = localStorage.getItem('savedName'); document.getElementById('userGender').value = localStorage.getItem('savedGender') || 'M'; document.getElementById('userDate').value = localStorage.getItem('savedDate');
       if(localStorage.getItem('savedCal')) document.getElementById('calendarType').value = localStorage.getItem('savedCal');
@@ -255,14 +275,15 @@
     initLiveSocialProof();
   }
 
-  // ★ URL을 정확한 등록 주소로 하드코딩하여 링크 유실 완벽 방지
+  // ★ URL에 지인의 이름 파라미터를 붙여서 공유
   function shareKakao(category, userName) {
     if (!window.Kakao) return;
     if (!Kakao.isInitialized()) {
       Kakao.init('f59ef7963420386b813d7219e3bd6e75'); 
     }
     
-    const shareUrl = 'https://myeongkyung-web.vercel.app'; // 등록된 도메인 강제 할당
+    // 공유된 주소에 shared=true와 이름(by) 파라미터를 추가하여 바이럴 유도
+    const shareUrl = `https://myeongkyung-web.vercel.app?shared=true&by=${encodeURIComponent(userName)}`; 
     
     Kakao.Share.sendDefault({
       objectType: 'feed',
@@ -628,7 +649,7 @@
 1. 첫 문장 및 어투: 반드시 "${data.name}님, 수많은 세월동안 하늘의 기운을 읽어온 신녀가 혜안을 내려드리겠습니다."와 같이 영험하고 무게감 있는 어투로 시작하세요. ('30년 경력', '지켜봐 온' 같은 세속적이고 가벼운 표현 절대 금지)
 2. 분량 및 깊이: 유료 결제 VIP 고객을 위한 프리미엄 상담입니다. 절대 짧게 대답하지 말고, 최소 3~4개의 긴 문단으로 나누어 사주 원국과 대운을 바탕으로 구체적이고 깊이 있게 풀이하세요.
 3. 성별 맞춤 해석: 유저가 ${data.gender === 'M' ? '남성' : '여성'}임을 절대 잊지 마세요. 연애운/배우자운 질문 시 무조건 이성(남성이면 여자, 여성이면 남자)과의 만남으로 풀이하세요. 황당하게 동성으로 엮어 해석하는 오류를 절대 범하지 마세요.
-4. 시기 명시 오류 주의: 현재가 ${currentYear}년임을 명심하세요. 지나간 과거(예: 2024년 갑진년, 2025년 을사년 등)를 다가올 미래인 것처럼 말하는 치명적인 오류를 절대 범하지 마세요. 시기를 예측할 때는 반드시 ${currentYear}년 현재와 그 이후의 미래 시점을 구체적으로 짚어주세요. 대운 설명 시 "현재 O세 OO대운을 지나고 있습니다"라고 명시하세요.
+4. 시기 명시 오류 주의: 현재가 ${currentYear}년임을 명심하세요. 지나간 과거(예: 2024년 갑진년, 2025년 대운 등)를 다가올 미래인 것처럼 말하는 치명적인 오류를 절대 범하지 마세요. 시기를 예측할 때는 반드시 ${currentYear}년 현재와 그 이후의 미래 시점을 구체적으로 짚어주세요. 대운 설명 시 "현재 O세 OO대운을 지나고 있습니다"라고 명시하세요.
 5. 이모지 및 마크다운 기호 사용 금지. 유저에게 생년월일이나 질문을 되묻기 금지.`;
     
     try {
@@ -682,7 +703,7 @@
         }
 
       } else {
-        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}고객센터 문의`;
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
         sendBtn.disabled = false;
       }
     } catch(err) {
