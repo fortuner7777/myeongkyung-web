@@ -215,33 +215,54 @@
     </div>
   </div>
 
-  <!-- 결제 섹션 -->
+  <!-- 애드센스 리워드 섹션 -->
   <div id="authSection" style="display: none; margin-top:40px; margin-bottom:30px; border-top: 2px solid #eaeaea; padding-top: 40px;">
-    <div style="text-align:center; margin-bottom: 25px;"><div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div><div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">정식 코드를 발급받아 무제한 상담을 이어가세요.</div></div>
-    
-    <div style="background: #ffffff; padding: 30px 20px; border-radius: 8px; font-size: 0.95rem; color: #444; margin-bottom: 25px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); line-height: 1.8;">
-      <div style="background: #f8f7f4; color: #555555; padding: 11px 14px; border-radius: 6px; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-weight: 400; border: 1px solid #eae6df; letter-spacing: -0.2px; word-break: keep-all;">
-        현재 <span id="visitorName" style="font-weight: 600; color: #222;">고객</span>님과 같은 고민 상담자 <span id="liveCounter" style="font-weight: 700; color: #d32f2f;">46</span>명이 프라이빗 해답소를 이용 중입니다.
-      </div>
-      <div style="text-align: center; margin: 20px 0; padding: 15px 0; border-top: 1px dashed #e8e5e0; border-bottom: 1px dashed #e8e5e0;">
-        <div style="font-size: 0.85rem; color: #a5a5a5; text-decoration: line-through; margin-bottom: 4px;">심층 풀이 정상가 50,000원</div>
-        <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.15rem; color: #222; font-weight: 800; letter-spacing: 1px; margin-bottom: 12px;">오픈 기념 특가 <span style="color: #903c31;">월 4,900원</span></div>
-        <div style="background: #fafafa; padding: 15px 14px; border-radius: 6px; border: 1px solid #f0f0f0; margin-bottom: 10px;">
-          <div style="font-size: 0.85rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 12px;">
-            아래 버튼을 눌러 결제를 진행하신 후, 안내소로 오셔서 입금자명을 남겨주시면 즉시 입장 코드를 발급해 드립니다.
-          </div>
-          <a href="https://qr.kakaopay.com/FKaX5f022" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FAE100; color: #3C1E1E; font-weight: 700; text-decoration: none; padding: 12px; border-radius: 6px; font-size: 0.88rem; font-family: 'Noto Sans KR', sans-serif; white-space: nowrap;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#3C1E1E" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C6.477 3 2 6.582 2 11c0 2.83 1.8 5.31 4.545 6.784L5.6 21.6c-.114.39.317.702.668.513l4.316-2.484c.465.07.94.106 1.416.106 5.523 0 10-3.582 10-8s-4.477-8-10-8z"/></svg>
-            카카오페이로 4,900원 송금하기
-          </a>
-          <div style="font-size: 0.75rem; color: #888; margin-top: 10px;">
-            일반 계좌이체: 카카오뱅크 3333-05-4644100
-          </div>
-        </div>
-      </div>
-      <a href="https://open.kakao.com/o/s7oorIFi" target="_blank" style="display:block; text-align:center; background:#3e3a39; color:#ffffff; font-weight:500; text-decoration:none; padding:13px; border-radius:6px; margin-top:20px; transition:0.3s; font-size: 0.95rem; font-family: 'Nanum Myeongjo', serif; letter-spacing: 1px;">안내소 연결하기 (오픈채팅) ➔</a>
+    <div style="text-align:center; margin-bottom: 25px;">
+      <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div>
+      <div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">아래 스폰서 메시지를 확인하시면 신녀와의 대화를 이어갈 수 있습니다.</div>
     </div>
-    <div style="padding: 0 5px;"><input type="text" id="vipCode" class="form-control" placeholder="발급받은 코드를 입력해주세요" style="padding:12px; font-size:0.95rem; text-align:center; letter-spacing: 1px; border: 1px solid #ddd; background: #fafafa; border-radius: 6px; margin-bottom: 10px; color: #333;"><button id="verifyBtn" class="btn" onclick="verifyVipCode()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">입장하기</button></div>
+    
+    <div style="background: #ffffff; padding: 25px 20px; border-radius: 8px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: center;">
+      
+      <!-- 구글 애드센스 디스플레이 광고 영역 -->
+      <div style="min-height: 100px; background: #fdfdfc; border: 1px solid #f0eee9; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
+        <ins class="adsbygoogle"
+             style="display:block; width:100%;"
+             data-ad-client="ca-pub-7606691396855998"
+             data-ad-slot="여기에_광고슬롯ID_입력"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+      
+      <button id="rewardBtn" class="btn" onclick="getRewardChat()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">
+        스폰서 확인하고 1회 질문권 받기
+      </button>
+      
+      <div id="rewardTimer" style="display:none; font-size: 0.95rem; color: #903c31; margin-top: 15px; font-weight: bold; font-family: 'Nanum Myeongjo', serif;">
+        하늘의 기운을 다시 모으는 중입니다... (<span id="timeLeft">5</span>초)
+      </div>
+    </div>
+  </div>
+
+  <!-- 👇 구글 애드센스 승인용 SEO 텍스트 (로봇 크롤링용) 👇 -->
+  <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #eaeaea;">
+    <button onclick="toggleSeoText()" style="width: 100%; text-align: left; background: none; border: none; font-size: 0.8rem; color: #b5b5b5; padding: 10px 0; font-family: 'Noto Sans KR', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+      <span>명리학과 2026년 운세 정보 읽기 (클릭)</span>
+      <span id="seoArrow">▼</span>
+    </button>
+    <div id="seoContent" style="display: none; font-size: 0.75rem; color: #a5a5a5; line-height: 1.8; margin-top: 15px; font-family: 'Noto Sans KR', sans-serif; text-align: justify; word-break: keep-all;">
+      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">명리학(命理學)과 사주팔자의 근본적 이해</h3>
+      <p style="margin-bottom: 15px;">명리학은 사람이 태어난 연(年), 월(月), 일(日), 시(時)를 간지(干支)로 환산하여 여덟 글자 즉, 사주팔자(四柱八字)로 나타내고 이를 바탕으로 개인의 선천적 기질과 후천적 운명의 흐름을 분석하는 깊이 있는 동양 철학입니다. 단순히 미신적으로 미래를 점치는 것을 넘어, 내 사주 원국에 부족한 오행(木火土金水)의 기운을 정확히 파악하고 이를 보완하여 삶을 개척하는 개운법(開運法)을 찾는 데 그 진정한 목적이 있습니다. 명경(明鏡) 프라이빗 해답소는 정통 명리학의 십성(十星)과 대운(大運) 분석을 통해 현대인들이 겪는 답답한 현실에 명쾌한 해답과 방향성을 제시합니다.</p>
+      
+      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">2026년 병오년(丙午年) 운세 트렌드와 대비</h3>
+      <p style="margin-bottom: 15px;">2026년은 붉은 말의 해, 병오년(丙午年)입니다. 하늘과 땅에 모두 가장 강력한 화(火)의 기운이 깃드는 해로서 폭발적인 에너지와 큰 변화가 예상되는 시기입니다. 본인의 사주 원국에서 화(火) 기운이 좋은 역할을 하는 용신(用神)이라면 그동안 정체되었던 일들이 크게 발복하여 사업운과 재물운이 급상승할 수 있습니다. 반면, 기구신(나쁜 역할)으로 작용하는 분들에게는 극심한 감정 기복이나 재물의 탈재 현상이 발생할 수 있어 각별한 대비가 필요합니다. 따라서 무료 사주 풀이를 통해 2026년 운세를 미리 확인하고 자신만의 맞춤형 비방을 세우는 것이 매우 중요합니다.</p>
+      
+      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">사업운, 재물운, 연애운의 상관관계와 심층 풀이</h3>
+      <p>우리가 삶에서 가장 중요하게 생각하는 사업운, 직장운, 재물운, 연애운은 사주 대운의 흐름에 따라 유기적으로 변화합니다. 재물운을 상징하는 재성(財星)과 명예 및 직장운을 상징하는 관성(官星)이 어떻게 상호작용하는지 정밀하게 분석하면, 언제 투자를 진행해야 할지, 언제 새로운 인연을 만나게 될지 예측할 수 있습니다. 명경 심층 풀이 서비스는 AI 신녀의 빅데이터 분석과 영험한 혜안을 결합하여 당신의 재물과 인연의 궤적을 짚어드립니다. 1분 만에 확인하는 사주 원국 분석으로 당신의 진짜 운명을 마주해보세요.</p>
+    </div>
   </div>
 </div>
 
@@ -250,7 +271,6 @@
   let currentLoadedSajuKey = "";
   let currentTextForAI = "";
   
-  let isVip = false;
   let freeChatCount = parseInt(localStorage.getItem('mk_freeChatCount') || '0', 10);
   const MAX_FREE_CHAT = 3;
 
@@ -282,14 +302,7 @@
       document.getElementById('rememberMe').checked = true;
     }
     
-    const savedVipCode = localStorage.getItem('vipCode');
-    if(savedVipCode) { 
-      document.getElementById('vipCode').value = savedVipCode; 
-      autoVerifyVipCode(savedVipCode); 
-    } else {
-      applyFreeChatState();
-    }
-
+    applyFreeChatState();
     initLiveSocialProof();
   }
 
@@ -326,34 +339,13 @@
     });
   }
 
-  function applyVipState() {
-    isVip = true;
-    document.getElementById('authSection').style.display = 'none'; 
-    document.getElementById('chatInput').disabled = false;
-    document.getElementById('sendChatBtn').disabled = false;
-    document.getElementById('chatInput').placeholder = "무엇이든 물어보세요...";
-    
-    const welcomeMsg = document.getElementById('defaultWelcomeMsg');
-    if (welcomeMsg) {
-      welcomeMsg.innerHTML = `
-        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
-        <div class="msg-content">
-          <div class="sender-name">신녀</div>
-          <div class="msg-text">환영합니다. 무제한 프라이빗 상담이 활성화되었습니다.<br>어떤 고민이든 깊고 상세하게 풀어드릴 테니 편히 물어보세요.</div>
-        </div>
-      `;
-    }
-  }
-
   function applyFreeChatState() {
-    if (isVip) return;
-    
     const welcomeMsg = document.getElementById('defaultWelcomeMsg');
 
     if (freeChatCount >= MAX_FREE_CHAT) {
       document.getElementById('chatInput').disabled = true;
       document.getElementById('sendChatBtn').disabled = true;
-      document.getElementById('chatInput').placeholder = "무료 체험이 종료되었습니다. 코드를 입력해주세요.";
+      document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
       document.getElementById('authSection').style.display = 'block';
       
       if (welcomeMsg) {
@@ -361,7 +353,7 @@
           <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
           <div class="msg-content">
             <div class="sender-name">신녀</div>
-            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래에서 정식 코드를 발급받아 주시지요.</div>
+            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래 스폰서 메시지를 확인해 주시지요.</div>
           </div>`;
       }
     } else {
@@ -384,7 +376,7 @@
     if (nameInput && visitorNameEl) {
       const updateName = () => {
         const nameVal = nameInput.value.trim();
-        visitorNameEl.innerText = nameVal ? nameVal : '고객';
+        if(visitorNameEl) visitorNameEl.innerText = nameVal ? nameVal : '고객';
       };
       nameInput.addEventListener('input', updateName);
       updateName();
@@ -620,8 +612,8 @@
   }
 
   async function sendChatMessage() {
-    if (freeChatCount >= MAX_FREE_CHAT && !isVip) {
-      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 정식 코드를 발급받아 주세요.`, 'info');
+    if (freeChatCount >= MAX_FREE_CHAT) {
+      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 스폰서 메시지를 확인해주세요.`, 'info');
       document.getElementById('authSection').style.display = 'block';
       return;
     }
@@ -682,42 +674,38 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
         
-        if (!isVip) {
-          freeChatCount++;
-          localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
+        freeChatCount++;
+        localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
+        
+        if (freeChatCount >= MAX_FREE_CHAT) {
+          document.getElementById('chatInput').disabled = true;
+          document.getElementById('sendChatBtn').disabled = true;
+          document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
           
-          if (freeChatCount >= MAX_FREE_CHAT) {
-            document.getElementById('chatInput').disabled = true;
-            document.getElementById('sendChatBtn').disabled = true;
-            document.getElementById('chatInput').placeholder = "코드 입력 후 무제한 대화가 가능합니다.";
-            
-            document.getElementById('authSection').style.display = 'block';
-            
-            chatHistory.innerHTML += `
-              <div class="chat-row bot">
-                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
-                <div class="msg-content">
-                  <div class="sender-name">신녀</div>
-                  <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
-                    여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래에서 코드를 발급받아 주시지요.
-                  </div>
+          document.getElementById('authSection').style.display = 'block';
+          
+          chatHistory.innerHTML += `
+            <div class="chat-row bot">
+              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+              <div class="msg-content">
+                <div class="sender-name">신녀</div>
+                <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
+                  여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래 스폰서 메시지를 확인해 주시지요.
                 </div>
               </div>
-            `;
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-          } else {
-            sendBtn.disabled = false;
-            chatHistory.innerHTML += `
-              <div class="chat-row bot" style="margin-top: -15px;">
-                <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
-                  (남은 무료 상담: ${MAX_FREE_CHAT - freeChatCount}회)
-                </div>
-              </div>
-            `;
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-          }
+            </div>
+          `;
+          chatHistory.scrollTop = chatHistory.scrollHeight;
         } else {
           sendBtn.disabled = false;
+          chatHistory.innerHTML += `
+            <div class="chat-row bot" style="margin-top: -15px;">
+              <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
+                (남은 무료 상담: ${MAX_FREE_CHAT - freeChatCount}회)
+              </div>
+            </div>
+          `;
+          chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
       } else {
@@ -730,31 +718,65 @@
     }
   }
 
-  async function verifyVipCode() {
-    const code = document.getElementById('vipCode').value.trim(); if(!code) return;
-    const btn = document.getElementById('verifyBtn'); btn.innerText = '확인 중...'; btn.disabled = true;
-    try {
-      const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code });
-      btn.innerText = '입장하기'; btn.disabled = false;
-      if(isValid) { 
-        localStorage.setItem('vipCode', code); 
-        applyVipState();
-        Swal.fire('인증 성공', '환영합니다. 정식 입장이 완료되었습니다.', 'success');
-      } 
-      else { Swal.fire('인증 실패', '유효하지 않은 코드입니다.', 'error'); }
-    } catch(err) { btn.innerText = '입장하기'; btn.disabled = false; Swal.fire('오류', '인증 중 통신 오류가 발생했습니다.', 'error'); }
+  function toggleSeoText() {
+    const content = document.getElementById('seoContent');
+    const arrow = document.getElementById('seoArrow');
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+      arrow.innerText = '▲';
+    } else {
+      content.style.display = 'none';
+      arrow.innerText = '▼';
+    }
   }
 
-  async function autoVerifyVipCode(code) {
-    try { 
-      const isValid = await callGasApi({ action: "verifyCodeFromSheet", code: code }); 
-      if(isValid) { 
-        applyVipState();
-      } else { 
-        localStorage.removeItem('vipCode'); 
-        applyFreeChatState();
-      } 
-    } catch(err) {}
+  function getRewardChat() {
+    const btn = document.getElementById('rewardBtn');
+    const timerDiv = document.getElementById('rewardTimer');
+    const timeSpan = document.getElementById('timeLeft');
+    
+    // 버튼 숨기고 타이머 노출
+    btn.style.display = 'none';
+    timerDiv.style.display = 'block';
+    
+    let timeLeft = 5;
+    timeSpan.innerText = timeLeft;
+    
+    const interval = setInterval(() => {
+      timeLeft--;
+      timeSpan.innerText = timeLeft;
+      
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        
+        // 사용한 무료 횟수를 1회 깎아서(차감) 1번 더 질문할 수 있게 해줌
+        freeChatCount--; 
+        localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
+        
+        // 결제(리워드) 섹션 숨기고 채팅창 활성화
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('chatInput').disabled = false;
+        document.getElementById('sendChatBtn').disabled = false;
+        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+        
+        // 신녀의 안내 메시지 출력
+        const chatHistory = document.getElementById('chatHistory');
+        chatHistory.innerHTML += `
+          <div class="chat-row bot">
+            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+            <div class="msg-content">
+              <div class="sender-name">신녀</div>
+              <div class="msg-text">기운이 다시 채워졌습니다. 어떤 고민이 있으신지 편히 물어보시지요. (추가 1회)</div>
+            </div>
+          </div>
+        `;
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        
+        // 다음 번 막혔을 때를 위해 UI 상태 초기화
+        btn.style.display = 'block';
+        timerDiv.style.display = 'none';
+      }
+    }, 1000);
   }
 </script>
 </body>
