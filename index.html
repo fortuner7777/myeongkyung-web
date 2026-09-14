@@ -89,23 +89,21 @@
     <h1 style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.7rem; color: #1a1a1a; letter-spacing: 2px; margin: 0;">명경 <span style="font-size: 1.2rem; font-weight: 400; color: #666;">(明鏡)</span></h1>
   </div>
   
-<header style={{ marginBottom: '2rem', textAlign: 'center', wordBreak: 'keep-all' }}>
-    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333' }}>
-    명경 - 프라이빗 사주/운세 해답소
-  </h1>
-  
-    <div style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem' }}>
-    <p style={{ fontWeight: '600', marginBottom: '0.5rem', fontSize: '1.1rem' }}>
-      답답한 현실, 내 운명의 흐름은 어떻게 흘러가고 있을까요?
-    </p>
-    <p>
-      명경 심층 사주 풀이 서비스는 당신의 선천적 기질과 다가올 미래의 기운을 정밀하게 분석합니다.<br />
-      나의 사주 원국에 숨겨진 용신을 파악하고 다가올 기회를 잡기 위한 첫걸음,<br />
-      지금 바로 아래에 정보를 입력하여 나의 진짜 운명을 마주해 보세요.
-    </p>
-  </div>
-</header>
-  
+  <header style="margin-bottom: 1.5rem; word-break: keep-all; padding: 0 10px;">
+    <h1 style="font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; text-align: center;">
+      명경 - 프라이빗 사주/운세 해답소
+    </h1>
+    <div style="color: #666; line-height: 1.5; font-size: 0.9rem; text-align: center;">
+      <p style="font-weight: 500; margin-bottom: 0.25rem; color: #444;">
+        답답한 현실, 내 운명의 흐름은 어떻게 흘러가고 있을까요?
+      </p>
+      <p style="margin-bottom: 0;">
+        명경 심층 사주 풀이 서비스는 당신의 선천적 기질과 다가올 미래의 기운을 정밀하게 분석합니다.<br />
+        나의 사주 원국에 숨겨진 용신을 파악하고 다가올 기회를 잡기 위한 첫걸음,<br />
+        지금 바로 아래에 정보를 입력하여 나의 진짜 운명을 마주해 보세요.
+      </p>
+    </div>
+  </header>
   
   <div class="row gx-2 mb-3">
     <div class="col-8"><label class="form-label">이름</label><input type="text" id="userName" class="form-control form-control-sm" placeholder="이름 입력" onchange="resetSajuTable()"></div>
@@ -266,20 +264,21 @@
     </div>
   </div>
 
-  <!-- 👇 구글 애드센스 승인용 SEO 텍스트 (로봇 크롤링용) 👇 -->
+  <!-- 👇 구글 애드센스 승인용 SEO 텍스트 (숨김 해제 및 버튼 제거 완벽 적용) 👇 -->
   <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #eaeaea;">
-    <button onclick="toggleSeoText()" style="width: 100%; text-align: left; background: none; border: none; font-size: 0.8rem; color: #b5b5b5; padding: 10px 0; font-family: 'Noto Sans KR', sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-      <span>명리학과 2026년 운세 정보 읽기 (클릭)</span>
-      <span id="seoArrow">▼</span>
-    </button>
-    <div id="seoContent" style="display: block; font-size: 0.75rem; color: #a5a5a5; line-height: 1.8; margin-top: 15px; font-family: 'Noto Sans KR', sans-serif; text-align: justify; word-break: keep-all;">
-      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">명리학(命理學)과 사주팔자의 근본적 이해</h3>
+    <!-- 아코디언 버튼 삭제 및 단순 제목화 -->
+    <div style="width: 100%; font-size: 0.9rem; font-weight: 700; color: #555; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; margin-bottom: 15px; font-family: 'Noto Sans KR', sans-serif;">
+      명리학과 2026년 운세 가이드
+    </div>
+    
+    <div id="seoContent" style="display: block; font-size: 0.75rem; color: #888; line-height: 1.8; font-family: 'Noto Sans KR', sans-serif; text-align: justify; word-break: keep-all;">
+      <h3 style="font-size: 0.85rem; color: #666; font-weight: 700; margin-bottom: 8px;">명리학(命理學)과 사주팔자의 근본적 이해</h3>
       <p style="margin-bottom: 15px;">명리학은 사람이 태어난 연(年), 월(月), 일(日), 시(時)를 간지(干支)로 환산하여 여덟 글자 즉, 사주팔자(四柱八字)로 나타내고 이를 바탕으로 개인의 선천적 기질과 후천적 운명의 흐름을 분석하는 깊이 있는 동양 철학입니다. 단순히 미신적으로 미래를 점치는 것을 넘어, 내 사주 원국에 부족한 오행(木火土金水)의 기운을 정확히 파악하고 이를 보완하여 삶을 개척하는 개운법(開運法)을 찾는 데 그 진정한 목적이 있습니다. 명경(明鏡) 프라이빗 해답소는 정통 명리학의 십성(十星)과 대운(大運) 분석을 통해 현대인들이 겪는 답답한 현실에 명쾌한 해답과 방향성을 제시합니다.</p>
       
-      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">2026년 병오년(丙午年) 운세 트렌드와 대비</h3>
+      <h3 style="font-size: 0.85rem; color: #666; font-weight: 700; margin-bottom: 8px;">2026년 병오년(丙午年) 운세 트렌드와 대비</h3>
       <p style="margin-bottom: 15px;">2026년은 붉은 말의 해, 병오년(丙午年)입니다. 하늘과 땅에 모두 가장 강력한 화(火)의 기운이 깃드는 해로서 폭발적인 에너지와 큰 변화가 예상되는 시기입니다. 본인의 사주 원국에서 화(火) 기운이 좋은 역할을 하는 용신(用神)이라면 그동안 정체되었던 일들이 크게 발복하여 사업운과 재물운이 급상승할 수 있습니다. 반면, 기구신(나쁜 역할)으로 작용하는 분들에게는 극심한 감정 기복이나 재물의 탈재 현상이 발생할 수 있어 각별한 대비가 필요합니다. 따라서 무료 사주 풀이를 통해 2026년 운세를 미리 확인하고 자신만의 맞춤형 비방을 세우는 것이 매우 중요합니다.</p>
       
-      <h3 style="font-size: 0.85rem; color: #888; font-weight: 700; margin-bottom: 8px;">사업운, 재물운, 연애운의 상관관계와 심층 풀이</h3>
+      <h3 style="font-size: 0.85rem; color: #666; font-weight: 700; margin-bottom: 8px;">사업운, 재물운, 연애운의 상관관계와 심층 풀이</h3>
       <p>우리가 삶에서 가장 중요하게 생각하는 사업운, 직장운, 재물운, 연애운은 사주 대운의 흐름에 따라 유기적으로 변화합니다. 재물운을 상징하는 재성(財星)과 명예 및 직장운을 상징하는 관성(官星)이 어떻게 상호작용하는지 정밀하게 분석하면, 언제 투자를 진행해야 할지, 언제 새로운 인연을 만나게 될지 예측할 수 있습니다. 명경 심층 풀이 서비스는 AI 신녀의 빅데이터 분석과 영험한 혜안을 결합하여 당신의 재물과 인연의 궤적을 짚어드립니다. 1분 만에 확인하는 사주 원국 분석으로 당신의 진짜 운명을 마주해보세요.</p>
     </div>
   </div>
@@ -734,18 +733,6 @@
     } catch(err) {
       document.getElementById(chatId).innerHTML = "답변 생성 실패: 통신 오류";
       sendBtn.disabled = false;
-    }
-  }
-
-  function toggleSeoText() {
-    const content = document.getElementById('seoContent');
-    const arrow = document.getElementById('seoArrow');
-    if (content.style.display === 'none') {
-      content.style.display = 'block';
-      arrow.innerText = '▲';
-    } else {
-      content.style.display = 'none';
-      arrow.innerText = '▼';
     }
   }
 
