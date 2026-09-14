@@ -88,6 +88,27 @@
     <div style="font-size: 0.8rem; color: #888; font-weight: 300; letter-spacing: 3px; margin-bottom: 8px;">내 운명을 비추는 맑은 거울</div>
     <h1 style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.7rem; color: #1a1a1a; letter-spacing: 2px; margin: 0;">명경 <span style="font-size: 1.2rem; font-weight: 400; color: #666;">(明鏡)</span></h1>
   </div>
+  
+<header style={{ marginBottom: '2rem', textAlign: 'center', wordBreak: 'keep-all' }}>
+  {/* 구글 봇이 사이트 주제를 명확히 파악할 수 있도록 돕는 H1 태그 (페이지당 1개 권장) */}
+  <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333' }}>
+    명경 - 프라이빗 사주/운세 해답소
+  </h1>
+  
+  {/* 실제 콘텐츠로 인식되는 본문 P 태그 영역 */}
+  <div style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem' }}>
+    <p style={{ fontWeight: '600', marginBottom: '0.5rem', fontSize: '1.1rem' }}>
+      답답한 현실, 내 운명의 흐름은 어떻게 흘러가고 있을까요?
+    </p>
+    <p>
+      명경 심층 사주 풀이 서비스는 당신의 선천적 기질과 다가올 미래의 기운을 정밀하게 분석합니다.<br />
+      나의 사주 원국에 숨겨진 용신을 파악하고 다가올 기회를 잡기 위한 첫걸음,<br />
+      지금 바로 아래에 정보를 입력하여 나의 진짜 운명을 마주해 보세요.
+    </p>
+  </div>
+</header>
+  
+  
   <div class="row gx-2 mb-3">
     <div class="col-8"><label class="form-label">이름</label><input type="text" id="userName" class="form-control form-control-sm" placeholder="이름 입력" onchange="resetSajuTable()"></div>
     <div class="col-4"><label class="form-label">성별</label><select id="userGender" class="form-select form-select-sm" onchange="resetSajuTable()"><option value="M">남성</option><option value="F">여성</option></select></div>
