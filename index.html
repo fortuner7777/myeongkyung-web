@@ -35,11 +35,9 @@
     .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); overflow: hidden; }
     .form-label { font-weight: 500; color: #555; margin-bottom: 5px; font-size: 0.9rem; }
     
-    /* 💡 메뉴 버튼 크기 업그레이드 */
     .fortune-btn { background-color: #3e3a39; color: white; border: none; border-radius: 6px; padding: 12px 0; font-family: 'Nanum Myeongjo', serif; font-weight: 600; font-size: 1rem; letter-spacing: 1px; width: 100%; margin-bottom: 12px; transition: 0.3s; position: relative; }
     .fortune-btn:hover { background-color: #222; color: white; }
     
-    /* 💡 HOT 배지 스타일 */
     .hot-badge { position: absolute; top: -6px; right: -6px; background-color: #d9381e; color: white; font-size: 0.65rem; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); letter-spacing: 0; }
 
     #sajuTableBox { display: none; margin-bottom: 20px; }
@@ -142,7 +140,6 @@
   </div>
   <div id="sajuTableBox"></div>
   
-  <!-- 💡 핵심 6가지 메뉴 버튼 (재물운, 연애운에 HOT 뱃지) -->
   <div class="row gx-2">
     <div class="col-6">
       <button class="btn fortune-btn" onclick="requestFortune('총운')">총운</button>
@@ -170,7 +167,6 @@
   
   <div id="resultTextContainer"></div>
   
-  <!-- 무한 롤링 리뷰 섹션 -->
   <div class="review-section">
     <div class="review-header">
       <h2>실제 내담자 후기</h2>
@@ -233,7 +229,6 @@
     </div>
   </div>
 
-  <!-- 프라이빗 해답소 채팅창 -->
   <div id="chatSection">
     <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
     <div style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 15px;">누구에게도 말 못할 고민, 신녀에게 물어보세요.</div>
@@ -252,7 +247,6 @@
     </div>
   </div>
 
-  <!-- 애드센스 리워드 섹션 -->
   <div id="authSection" style="display: none; margin-top:40px; margin-bottom:30px; border-top: 2px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;">
       <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div>
@@ -260,8 +254,6 @@
     </div>
     
     <div style="background: #ffffff; padding: 25px 20px; border-radius: 8px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: center;">
-      
-      <!-- 구글 애드센스 디스플레이 광고 영역 -->
       <div style="min-height: 100px; background: #fdfdfc; border: 1px solid #f0eee9; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
         <ins class="adsbygoogle"
              style="display:block; width:100%;"
@@ -284,9 +276,7 @@
     </div>
   </div>
 
-  <!-- 👇 구글 애드센스 승인용 SEO 텍스트 (숨김 해제 및 버튼 제거 완벽 적용) 👇 -->
   <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #eaeaea;">
-    <!-- 아코디언 버튼 삭제 및 단순 제목화 -->
     <div style="width: 100%; font-size: 0.9rem; font-weight: 700; color: #555; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; margin-bottom: 15px; font-family: 'Noto Sans KR', sans-serif;">
       명리학과 2026년 운세 가이드
     </div>
@@ -313,7 +303,6 @@
   const MAX_FREE_CHAT = 3;
 
   window.onload = function() {
-    // ★ 공유 링크로 들어온 방문자 환영 팝업 로직
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('shared') === 'true') {
       const inviter = urlParams.get('by');
@@ -325,10 +314,8 @@
           confirmButtonText: '내 사주 무료로 보기',
           confirmButtonColor: '#3e3a39'
         }).then(() => {
-          // 팝업 닫히면 바로 이름 입력창에 포커스
           document.getElementById('userName').focus();
         });
-        // 팝업이 떴으므로 주소창에서 파라미터 삭제 (새로고침 시 또 뜨는 것 방지)
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
@@ -344,14 +331,12 @@
     initLiveSocialProof();
   }
 
-  // ★ URL에 지인의 이름 파라미터를 붙여서 공유
   function shareKakao(category, userName) {
     if (!window.Kakao) return;
     if (!Kakao.isInitialized()) {
       Kakao.init('f59ef7963420386b813d7219e3bd6e75'); 
     }
     
-    // 공유된 주소에 shared=true와 이름(by) 파라미터를 추가하여 바이럴 유도
     const shareUrl = `https://myeongkyung-web.vercel.app?shared=true&by=${encodeURIComponent(userName)}`; 
     
     Kakao.Share.sendDefault({
@@ -659,11 +644,9 @@
     const chatHistory = document.getElementById('chatHistory'); 
     const sendBtn = document.getElementById('sendChatBtn');
 
-    // 사용자의 질문 출력
     chatHistory.innerHTML += `<div class="chat-divider"></div><div class="chat-row user"><div class="msg-content"><div class="user-text">${question}</div></div></div>`;
     inputEl.value = ''; 
     
-    // 💡 [핵심 로직] 질문에 "궁합"이라는 단어가 포함되어 있다면 상대방 정보 폼 출력
     if (question.includes("궁합")) {
       showPartnerInputForm(question);
       return;
@@ -682,7 +665,6 @@
     `;
     chatHistory.scrollTop = chatHistory.scrollHeight;
     
-    // 본인 사주 정보 로드 확인
     if (!currentTextForAI) {
       try {
         data.action = "getSajuData";
@@ -764,7 +746,7 @@
 
 
   // ==========================================
-  // 2. [신규 추가] 상대방 정보 입력 폼 출력 함수
+  // 2. 상대방 정보 입력 폼 출력 함수 (메인 폼과 동일한 디자인 적용)
   // ==========================================
   function showPartnerInputForm(question) {
     const chatHistory = document.getElementById('chatHistory');
@@ -775,27 +757,51 @@
           <div class="sender-name">신녀</div>
           <div class="msg-text">
             궁합을 보시려거든 인연이 닿은 그분의 명식도 함께 짚어보아야 합니다.<br>아래에 상대방의 정보를 적어주시지요.
-            <div style="margin-top:15px; padding:15px; background:#fff; border:1px solid #e8e8e8; border-radius:8px; font-family:'Noto Sans KR', sans-serif;">
+            
+            <div style="margin-top:15px; padding:20px 15px; background:#fff; border:1px solid #e8e8e8; border-radius:8px; font-family:'Noto Sans KR', sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
               
-              <div class="row gx-2 mb-2">
-                <div class="col-7"><input type="text" id="pName" placeholder="상대방 이름" class="form-control form-control-sm"></div>
-                <div class="col-5"><select id="pGender" class="form-select form-select-sm"><option value="M">남성</option><option value="F">여성</option></select></div>
+              <div style="font-size: 0.95rem; font-weight: 700; color: #333; margin-bottom: 15px; text-align: center;">
+                상대방의 생년월일시를 입력해 주세요.
               </div>
               
-              <div class="d-flex gap-1 mb-2">
-                <select id="pCal" class="form-select form-select-sm" style="width: 80px;"><option value="solar">양력</option><option value="lunar">음력</option></select>
-                <input type="text" id="pDate" placeholder="생년월일 (예: 19900101)" maxlength="8" class="form-control form-control-sm">
-              </div>
-              
-              <div class="d-flex gap-2 mb-3 align-items-center">
-                <input type="time" id="pTime" class="form-control form-control-sm">
-                <div class="form-check mb-0" style="white-space:nowrap; margin-top:3px;">
-                  <input class="form-check-input" type="checkbox" id="pUnknownTime" onchange="document.getElementById('pTime').disabled = this.checked; if(this.checked) document.getElementById('pTime').value='';">
-                  <label class="form-check-label text-muted" style="font-size:0.8rem; cursor:pointer;" for="pUnknownTime">모름</label>
+              <div class="row gx-2 mb-3 text-start">
+                <div class="col-8">
+                  <label class="form-label" style="font-size: 0.8rem;">이름</label>
+                  <input type="text" id="pName" class="form-control form-control-sm" placeholder="이름 입력">
+                </div>
+                <div class="col-4">
+                  <label class="form-label" style="font-size: 0.8rem;">성별</label>
+                  <select id="pGender" class="form-select form-select-sm">
+                    <option value="M">남성</option>
+                    <option value="F">여성</option>
+                  </select>
                 </div>
               </div>
               
-              <button id="startCompatibilityBtn" class="btn w-100" style="background:#3e3a39; color:white; font-size:0.9rem; font-family: 'Nanum Myeongjo', serif; font-weight:bold;" onclick="submitCompatibility('${question}')">
+              <div class="row gx-2 mb-3 text-start">
+                <div class="col-7">
+                  <label class="form-label" style="font-size: 0.8rem;">생년월일 (8자리)</label>
+                  <div class="d-flex gap-1">
+                    <select id="pCal" class="form-select form-select-sm" style="width: 80px; text-align: center; padding: 0 5px;">
+                      <option value="solar">양력</option>
+                      <option value="lunar">음력</option>
+                    </select>
+                    <input type="text" id="pDate" class="form-control form-control-sm" placeholder="예: 19900101" maxlength="8">
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="d-flex justify-content-between align-items-end mb-1">
+                    <label class="form-label mb-0" style="font-size: 0.8rem;">태어난 시간</label>
+                    <div class="form-check mb-0" style="font-size: 0.8rem; display: flex; align-items: center; gap: 3px;">
+                      <input class="form-check-input m-0" type="checkbox" id="pUnknownTime" onchange="document.getElementById('pTime').disabled = this.checked; if(this.checked) document.getElementById('pTime').value='';">
+                      <label class="form-check-label text-muted" for="pUnknownTime" style="cursor: pointer; margin-top:2px;">모름</label>
+                    </div>
+                  </div>
+                  <input type="time" id="pTime" class="form-control form-control-sm">
+                </div>
+              </div>
+              
+              <button id="startCompatibilityBtn" class="btn w-100" style="background:#3e3a39; color:white; font-size:0.95rem; font-family: 'Nanum Myeongjo', serif; font-weight:bold; padding: 10px 0; border-radius: 6px; margin-top: 5px;" onclick="submitCompatibility('${question}')">
                 두 사람의 운명 꿰뚫어 보기 ➔
               </button>
             </div>
@@ -808,7 +814,7 @@
 
 
   // ==========================================
-  // 3. [신규 추가] 궁합 분석 요청 함수
+  // 3. 궁합 분석 요청 함수
   // ==========================================
   async function submitCompatibility(originalQuestion) {
     const pName = document.getElementById('pName').value.trim();
@@ -819,13 +825,12 @@
     const pUnknownTime = document.getElementById('pUnknownTime').checked;
 
     if(!pName || !pDate || (!pTime && !pUnknownTime)) {
-      Swal.fire('알림', '상대방의 이름과 생년월일을 정확히 입력해주세요.', 'warning'); return;
+      Swal.fire('알림', '상대방의 이름과 생년월일시를 정확히 입력해주세요.', 'warning'); return;
     }
     if(pDate.length !== 8 || isNaN(pDate)) { 
       Swal.fire('알림', '생년월일은 숫자 8자리여야 합니다.', 'warning'); return; 
     }
 
-    // 버튼 비활성화 및 로딩 처리
     const btn = document.getElementById('startCompatibilityBtn');
     btn.innerText = "두 분의 사주를 대조하는 중입니다...";
     btn.disabled = true;
@@ -847,18 +852,15 @@
     const partnerData = { name: pName, gender: pGender, date: pDate, time: pTime, calendar: pCal, unknownTime: pUnknownTime, action: "getSajuData" };
 
     try {
-      // 1. 내 사주가 없으면 가져오기
       if (!currentTextForAI) {
         myData.action = "getSajuData";
         const sajuResult = await callGasApi(myData);
         currentTextForAI = sajuResult.textForAI;
       }
       
-      // 2. 상대방 사주 가져오기 (기존 Apps Script의 API 재활용)
       const partnerSajuResult = await callGasApi(partnerData);
       const partnerTextForAI = partnerSajuResult.textForAI;
 
-      // 3. 제미나이에게 보낼 강력한 궁합 프롬프트 작성
       const currentYear = new Date().getFullYear();
       const systemPrompt = `당신은 수많은 세월동안 하늘의 기운을 읽어온 영험한 신녀입니다. 
 현재 시점은 ${currentYear}년입니다. 아래 두 사람의 사주 정보를 바탕으로 궁합을 심층 분석하세요.
@@ -882,7 +884,6 @@
       if (json.text) {
         textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
         
-        // 궁합 풀이도 무료 횟수 1회 차감
         freeChatCount++;
         localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
         
@@ -907,7 +908,6 @@
     const timerDiv = document.getElementById('rewardTimer');
     const timeSpan = document.getElementById('timeLeft');
     
-    // 버튼 숨기고 타이머 노출
     btn.style.display = 'none';
     timerDiv.style.display = 'block';
     
@@ -921,17 +921,14 @@
       if (timeLeft <= 0) {
         clearInterval(interval);
         
-        // 사용한 무료 횟수를 1회 깎아서(차감) 1번 더 질문할 수 있게 해줌
         freeChatCount--; 
         localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
         
-        // 결제(리워드) 섹션 숨기고 채팅창 활성화
         document.getElementById('authSection').style.display = 'none';
         document.getElementById('chatInput').disabled = false;
         document.getElementById('sendChatBtn').disabled = false;
         document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
         
-        // 신녀의 안내 메시지 출력
         const chatHistory = document.getElementById('chatHistory');
         chatHistory.innerHTML += `
           <div class="chat-row bot">
@@ -944,7 +941,6 @@
         `;
         chatHistory.scrollTop = chatHistory.scrollHeight;
         
-        // 다음 번 막혔을 때를 위해 UI 상태 초기화
         btn.style.display = 'block';
         timerDiv.style.display = 'none';
       }
