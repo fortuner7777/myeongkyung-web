@@ -34,8 +34,14 @@
     body { background-color: #fcfbf9; font-family: 'Noto Sans KR', sans-serif; padding: 20px 10px; color: #333; }
     .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); overflow: hidden; }
     .form-label { font-weight: 500; color: #555; margin-bottom: 5px; font-size: 0.9rem; }
-    .fortune-btn { background-color: #3e3a39; color: white; border: none; border-radius: 4px; padding: 9px 0; font-family: 'Nanum Myeongjo', serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; width: 100%; margin-bottom: 8px; transition: 0.3s; }
+    
+    /* 💡 메뉴 버튼 크기 업그레이드 */
+    .fortune-btn { background-color: #3e3a39; color: white; border: none; border-radius: 6px; padding: 12px 0; font-family: 'Nanum Myeongjo', serif; font-weight: 600; font-size: 1rem; letter-spacing: 1px; width: 100%; margin-bottom: 12px; transition: 0.3s; position: relative; }
     .fortune-btn:hover { background-color: #222; color: white; }
+    
+    /* 💡 HOT 배지 스타일 */
+    .hot-badge { position: absolute; top: -6px; right: -6px; background-color: #d9381e; color: white; font-size: 0.65rem; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); letter-spacing: 0; }
+
     #sajuTableBox { display: none; margin-bottom: 20px; }
     
     #resultTextContainer { background-color: transparent; padding: 20px 0; margin-top: 10px; font-size: 1.02rem; line-height: 2.0; border-top: 1px solid #eee; display: none; font-family: 'Nanum Myeongjo', serif; color: #2a2a2a; }
@@ -135,17 +141,31 @@
     <button class="btn btn-sm btn-outline-secondary" onclick="viewSajuOnly()" style="font-family: 'Nanum Myeongjo', serif; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; color: #555; border-color: #ddd;">🔍 원국/대운 보기</button>
   </div>
   <div id="sajuTableBox"></div>
+  
+  <!-- 💡 핵심 6가지 메뉴 버튼 (재물운, 연애운에 HOT 뱃지) -->
   <div class="row gx-2">
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('총운')">총운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('올해운세')">올해운세</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('내년운세')">내년운세</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('성격')">성격</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('신살풀이')">신살풀이</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('용신')">용신</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('건강')">건강</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('사업운')">사업운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('재물운')">재물운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('행운의색')">행운의색</button></div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('총운')">총운</button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('올해운세')">올해운세</button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('성격')">성격</button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('사업운')">사업운</button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('연애운')">
+        연애운 <span class="hot-badge">HOT</span>
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" onclick="requestFortune('재물운')">
+        재물운 <span class="hot-badge">HOT</span>
+      </button>
+    </div>
   </div>
   
   <div id="resultTextContainer"></div>
@@ -506,15 +526,10 @@
     
     let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
     
-    if (category === '용신') {
-      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.`;
-    }
-    
-    categoryInstruction += `\n★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
-    
     const systemPrompt = `당신은 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 
 현재 연도는 ${currentYear}년입니다. 미래를 예측할 때 반드시 ${currentYear}년 이후의 시점을 기준으로 풀이하고, 과거 연도를 미래처럼 말하는 오류를 범하지 마세요.
-이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
+이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.
+★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
     const prompt = `[요청]: ${category} 심층 풀이`;
 
     try {
