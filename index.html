@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <!-- 카카오톡 / 일반 Open Graph 태그 -->
 <meta property="og:type" content="website" />
@@ -238,19 +238,22 @@
     </div>
   </div>
 
-  <!-- 애드센스 리워드 섹션 -->
+  <!-- 애드센스 리워드 섹션 (카카오톡 공유 바이럴로 임시 대체) -->
   <div id="authSection" style="display: none; margin-top:40px; margin-bottom:30px; border-top: 2px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;">
       <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div>
-      <div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">아래 스폰서 메시지를 확인하시면 신녀와의 대화를 이어갈 수 있습니다.</div>
+      <div style="font-size: 0.85rem; color: #888; font-weight: 300; letter-spacing: 1px;">명경을 친구에게 공유해주시면, 신녀와의 대화를 1회 더 이어갈 수 있습니다.</div>
     </div>
     <div style="background: #ffffff; padding: 25px 20px; border-radius: 8px; border: 1px solid #e8e5e0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: center;">
-      <div style="min-height: 100px; background: #fdfdfc; border: 1px solid #f0eee9; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6px;">
-        <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-7606691396855998" data-ad-slot="여기에_광고슬롯ID_입력" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      
+      <button id="rewardBtn" class="btn" onclick="getRewardByShare()" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding:14px; font-size:1rem; font-weight: 700; background: #FEE500; color: #191919; border-radius:6px; border: none; transition: 0.3s; font-family: 'Noto Sans KR', sans-serif;">
+        <svg viewBox="0 0 32 32" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.16 6.64 5.44 8.48l-1.12 4.16c-.16.56.48 1.04.96.72l4.8-3.2c.8.24 1.68.32 2.56.32 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#191919"/></svg>
+        카카오톡 공유하고 1회 질문권 받기
+      </button>
+      
+      <div id="rewardTimer" style="display:none; font-size: 0.95rem; color: #903c31; margin-top: 15px; font-weight: bold; font-family: 'Nanum Myeongjo', serif;">
+        하늘의 기운을 다시 모으는 중입니다... (<span id="timeLeft">5</span>초)
       </div>
-      <button id="rewardBtn" class="btn" onclick="getRewardChat()" style="width: 100%; padding:14px; font-size:1rem; font-family: 'Nanum Myeongjo', serif; font-weight: 700; background: #3e3a39; color: white; border-radius:6px; border: none; transition: 0.3s; letter-spacing: 1px;">스폰서 확인하고 1회 질문권 받기</button>
-      <div id="rewardTimer" style="display:none; font-size: 0.95rem; color: #903c31; margin-top: 15px; font-weight: bold; font-family: 'Nanum Myeongjo', serif;">하늘의 기운을 다시 모으는 중입니다... (<span id="timeLeft">5</span>초)</div>
     </div>
   </div>
 
@@ -290,7 +293,6 @@
   
 </div>
 
-<!-- 완전히 복구 및 개선된 자바스크립트 영역 -->
 <script>
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec"; 
   let currentLoadedSajuKey = "";
@@ -421,7 +423,6 @@
     if(isUnknown) timeInput.value = ''; 
   }
 
-  // ★ 수정된 정보 저장 로직 (체크한 상태에서 입력하면 즉시 덮어씌워짐)
   function saveUserInfo() {
     if(document.getElementById('rememberMe').checked) {
       localStorage.setItem('savedName', document.getElementById('userName').value); 
@@ -435,7 +436,6 @@
     }
   }
 
-  // ★ 글씨를 수정할 때마다 저장 함수도 함께 실행되도록 연동
   function resetSajuTable() { 
     currentLoadedSajuKey = ""; 
     if(document.getElementById('rememberMe').checked) saveUserInfo();
@@ -735,7 +735,10 @@
     }
   }
 
-  function getRewardChat() {
+  function getRewardByShare() {
+    const userName = document.getElementById('userName').value || '고객';
+    shareKakao('프라이빗 해답소', userName); 
+    
     const btn = document.getElementById('rewardBtn');
     const timerDiv = document.getElementById('rewardTimer');
     const timeSpan = document.getElementById('timeLeft');
@@ -752,6 +755,7 @@
       
       if (timeLeft <= 0) {
         clearInterval(interval);
+        
         freeChatCount--; 
         localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
         
@@ -772,7 +776,7 @@
         `;
         chatHistory.scrollTop = chatHistory.scrollHeight;
         
-        btn.style.display = 'block';
+        btn.style.display = 'flex';
         timerDiv.style.display = 'none';
       }
     }, 1000);
