@@ -153,10 +153,8 @@
     </div>
   </div>
   
-  <!-- ★ 결과 텍스트가 출력되는 핵심 태그 ★ -->
   <div id="resultTextContainer"></div>
   
-  <!-- 무한 롤링 리뷰 섹션 -->
   <div class="review-section">
     <div class="review-header">
       <h2>실제 내담자 후기</h2>
@@ -219,7 +217,6 @@
     </div>
   </div>
 
-  <!-- 프라이빗 해답소 채팅창 -->
   <div id="chatSection">
     <div style="font-weight:bold; color:#222; margin-bottom:15px; font-size:1.1rem; text-align: center; font-family: 'Nanum Myeongjo', serif;">명경 프라이빗 해답소</div>
     <div style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 15px;">누구에게도 말 못할 고민, 신녀에게 물어보세요.</div>
@@ -238,7 +235,6 @@
     </div>
   </div>
 
-  <!-- 애드센스 리워드 섹션 (카카오톡 공유 바이럴로 임시 대체) -->
   <div id="authSection" style="display: none; margin-top:40px; margin-bottom:30px; border-top: 2px solid #eaeaea; padding-top: 40px;">
     <div style="text-align:center; margin-bottom: 25px;">
       <div style="font-family: 'Nanum Myeongjo', serif; font-size: 1.35rem; font-weight: 700; color: #222; margin-bottom: 8px;">더 깊은 혜안이 필요하신가요?</div>
@@ -252,12 +248,10 @@
       </button>
       
       <div id="rewardTimer" style="display:none; font-size: 0.95rem; color: #903c31; margin-top: 15px; font-weight: bold; font-family: 'Nanum Myeongjo', serif;">
-        하늘의 기운을 다시 모으는 중입니다... (<span id="timeLeft">5</span>초)
       </div>
     </div>
   </div>
 
-  <!-- 👇 명경 운세 칼럼 링크 (애드센스 승인 핵심 구조) 👇 -->
   <div style="margin-top: 50px; padding: 30px 20px; background: #faf9f7; border-radius: 12px; border: 1px solid #e8e5e0;">
     <h3 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.25rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
       명경 운세 칼럼 📖
@@ -297,12 +291,12 @@
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec"; 
   let currentLoadedSajuKey = "";
   let currentTextForAI = "";
+  let isSharing = false;
   
   let freeChatCount = parseInt(localStorage.getItem('mk_freeChatCount') || '0', 10);
   const MAX_FREE_CHAT = 3;
 
   window.onload = function() {
-    // 공유 링크 환영 팝업
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('shared') === 'true') {
       const inviter = urlParams.get('by');
@@ -320,7 +314,6 @@
       }
     }
 
-    // 저장된 정보 불러오기
     if(localStorage.getItem('savedName')) {
       document.getElementById('userName').value = localStorage.getItem('savedName'); 
       document.getElementById('userGender').value = localStorage.getItem('savedGender') || 'M'; 
@@ -739,23 +732,24 @@
     const userName = document.getElementById('userName').value || '고객';
     shareKakao('프라이빗 해답소', userName); 
     
+    isSharing = true;
+    
     const btn = document.getElementById('rewardBtn');
     const timerDiv = document.getElementById('rewardTimer');
-    const timeSpan = document.getElementById('timeLeft');
     
     btn.style.display = 'none';
     timerDiv.style.display = 'block';
-    
-    let timeLeft = 5;
-    timeSpan.innerText = timeLeft;
-    
-    const interval = setInterval(() => {
-      timeLeft--;
-      timeSpan.innerText = timeLeft;
+    timerDiv.innerHTML = "카카오톡 공유 상태를 확인하고 있습니다...<br><span style='font-size:0.8rem; color:#888; font-weight:normal;'>(공유 후 이 화면으로 돌아와주세요)</span>";
+  }
+
+  document.addEventListener("visibilitychange", function() {
+    if (document.visibilityState === 'visible' && isSharing) {
+      isSharing = false; 
       
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        
+      const timerDiv = document.getElementById('rewardTimer');
+      timerDiv.innerHTML = "하늘의 기운을 확인하여 채우는 중입니다...";
+      
+      setTimeout(() => {
         freeChatCount--; 
         localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
         
@@ -776,11 +770,12 @@
         `;
         chatHistory.scrollTop = chatHistory.scrollHeight;
         
+        const btn = document.getElementById('rewardBtn');
         btn.style.display = 'flex';
         timerDiv.style.display = 'none';
-      }
-    }, 1000);
-  }
+      }, 1500);
+    }
+  });
 </script>
 </body>
 </html>
