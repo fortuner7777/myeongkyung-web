@@ -125,16 +125,38 @@
   </div>
   <div id="sajuTableBox"></div>
   <div class="row gx-2">
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('총운')">총운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('올해운세')">올해운세</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('내년운세')">내년운세</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('성격')">성격</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('신살풀이')">신살풀이</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('용신')">용신</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('건강')">건강</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('사업운')">사업운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('재물운')">재물운</button></div>
-    <div class="col-6"><button class="btn fortune-btn" onclick="requestFortune('행운의색')">행운의색</button></div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('총운')">
+        총운
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('올해운세')">
+        올해운세
+        <span style="position: absolute; top: -6px; right: -2px; background: #e53935; color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-family: 'Noto Sans KR', sans-serif; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">HOT</span>
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('재물운')">
+        재물운
+        <span style="position: absolute; top: -6px; right: -2px; background: #e53935; color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-family: 'Noto Sans KR', sans-serif; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">HOT</span>
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('사업운')">
+        사업운
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('용신')">
+        용신
+      </button>
+    </div>
+    <div class="col-6">
+      <button class="btn fortune-btn" style="position: relative;" onclick="requestFortune('성격')">
+        성격
+      </button>
+    </div>
   </div>
   
   <div id="resultTextContainer"></div>
