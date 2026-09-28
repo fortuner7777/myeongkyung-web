@@ -95,7 +95,7 @@
   </header>
   
   <div class="row gx-2 mb-3">
-    <div class="col-8"><label class="form-label">이름</label><input type="text" id="userName" class="form-control form-control-sm" placeholder="이름 입력" onchange="resetSajuTable()"></div>
+    <div class="col-8"><label class="form-label">이름</label><input type="text" id="userName" class="form-control form-control-sm" placeholder="이름 입력" onchange="resetSajuTable()" onkeyup="resetSajuTable()"></div>
     <div class="col-4"><label class="form-label">성별</label><select id="userGender" class="form-select form-select-sm" onchange="resetSajuTable()"><option value="M">남성</option><option value="F">여성</option></select></div>
   </div>
   <div class="row gx-2 mb-3">
@@ -103,7 +103,7 @@
       <label class="form-label">생년월일 (8자리)</label>
       <div class="d-flex gap-1">
         <select id="calendarType" class="form-select form-select-sm" style="width: 80px; text-align: center; padding: 0 5px;" onchange="resetSajuTable()"><option value="solar">양력</option><option value="lunar">음력</option></select>
-        <input type="text" id="userDate" class="form-control form-control-sm" placeholder="예: 19810731" maxlength="8" onkeyup="resetSajuTable()">
+        <input type="text" id="userDate" class="form-control form-control-sm" placeholder="예: 19810731" maxlength="8" onchange="resetSajuTable()" onkeyup="resetSajuTable()">
       </div>
     </div>
     <div class="col-5">
@@ -123,7 +123,8 @@
     </div>
     <button class="btn btn-sm btn-outline-secondary" onclick="viewSajuOnly()" style="font-family: 'Nanum Myeongjo', serif; font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; color: #555; border-color: #ddd;">🔍 원국/대운 보기</button>
   </div>
- <div id="sajuTableBox"></div>
+  
+  <div id="sajuTableBox"></div>
   
   <div class="row gx-2">
     <div class="col-6">
@@ -152,7 +153,7 @@
     </div>
   </div>
   
-  <!-- ★ 이 태그가 실수로 지워지면 버튼을 눌러도 화면이 무반응 상태가 됩니다 ★ -->
+  <!-- ★ 결과 텍스트가 출력되는 핵심 태그 ★ -->
   <div id="resultTextContainer"></div>
   
   <!-- 무한 롤링 리뷰 섹션 -->
@@ -163,7 +164,6 @@
     </div>
     <div class="marquee-wrapper">
       <div class="marquee-track">
-        <!-- 기존 리뷰 카드들 동일하게 유지 (공간상 3개만 샘플 표기, 원본 그대로 사용하시면 됩니다) -->
         <div class="review-card">
           <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
           <div class="review-text">"답답했던 재물운의 흐름을 정확히 짚어주셔서 속이 뻥 뚫렸습니다. 조언해주신 시기를 잘 참고할게요!"</div>
@@ -178,6 +178,42 @@
           <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
           <div class="review-text">"무료 풀이 퀄리티에 놀라서 프라이빗 상담까지 결제했어요. 4,900원이 전혀 아깝지 않은 명쾌한 해답이었습니다."</div>
           <div class="review-author">장*진</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"이런 거 잘 안 믿는데 신뢰가 갑니다. 반신반의하며 남편 것도 봤는데 둘의 관계를 너무 정확히 푸셔서 소름 돋았어요."</div>
+          <div class="review-author">최*영</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.26</span></div>
+          <div class="review-text">"기질 내용 참고하기가 참 좋은 것 같아요. 요즘 이직 재선택 길에 서있는데 참고하여 잘 살겠습니다. 감사합니다."</div>
+          <div class="review-author">박*희</div>
+        </div>
+        
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"답답했던 재물운의 흐름을 정확히 짚어주셔서 속이 뻥 뚫렸습니다. 조언해주신 시기를 잘 참고할게요!"</div>
+          <div class="review-author">김*민</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.28</span></div>
+          <div class="review-text">"정말 잘 맞네요. 특히 제 성향과 장단점을 예리하게 지적해주시고 실행 방법까지 알려주심에 놀랐습니다."</div>
+          <div class="review-author">송*우</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"무료 풀이 퀄리티에 놀라서 프라이빗 상담까지 결제했어요. 4,900원이 전혀 아깝지 않은 명쾌한 해답이었습니다."</div>
+          <div class="review-author">장*진</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.27</span></div>
+          <div class="review-text">"이런 거 잘 안 믿는데 신뢰가 갑니다. 반신반의하며 남편 것도 봤는데 둘의 관계를 너무 정확히 푸셔서 소름 돋았어요."</div>
+          <div class="review-author">최*영</div>
+        </div>
+        <div class="review-card">
+          <div><span class="review-stars">⭐⭐⭐⭐⭐</span><span class="review-date">2026.07.26</span></div>
+          <div class="review-text">"기질 내용 참고하기가 참 좋은 것 같아요. 요즘 이직 재선택 길에 서있는데 참고하여 잘 살겠습니다. 감사합니다."</div>
+          <div class="review-author">박*희</div>
         </div>
       </div>
     </div>
@@ -254,10 +290,493 @@
   
 </div>
 
-<!-- 하단 자바스크립트는 기존 로직과 완벽히 동일하므로 그대로 유지하시면 됩니다 -->
+<!-- 완전히 복구 및 개선된 자바스크립트 영역 -->
 <script>
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbycYMPdUJWF_BzkCOPpmsplCgRXG9c0511ajIFgQC3qe-Ar8XAZ98yD41zmtjffhMbc2A/exec"; 
-  // ... (기존 script 로직 그대로 유지) ...
+  let currentLoadedSajuKey = "";
+  let currentTextForAI = "";
+  
+  let freeChatCount = parseInt(localStorage.getItem('mk_freeChatCount') || '0', 10);
+  const MAX_FREE_CHAT = 3;
+
+  window.onload = function() {
+    // 공유 링크 환영 팝업
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('shared') === 'true') {
+      const inviter = urlParams.get('by');
+      if (inviter) {
+        Swal.fire({
+          title: '초대장이 도착했습니다 💌',
+          html: `<b style="color:#903c31; font-size:1.1rem;">${inviter}</b>님이 명경 프라이빗 해답소로<br>당신을 초대했습니다.<br><br>지금 바로 내 운명을 확인해보세요.`,
+          icon: 'success',
+          confirmButtonText: '내 사주 무료로 보기',
+          confirmButtonColor: '#3e3a39'
+        }).then(() => {
+          document.getElementById('userName').focus();
+        });
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
+    // 저장된 정보 불러오기
+    if(localStorage.getItem('savedName')) {
+      document.getElementById('userName').value = localStorage.getItem('savedName'); 
+      document.getElementById('userGender').value = localStorage.getItem('savedGender') || 'M'; 
+      document.getElementById('userDate').value = localStorage.getItem('savedDate');
+      if(localStorage.getItem('savedCal')) document.getElementById('calendarType').value = localStorage.getItem('savedCal');
+      if(localStorage.getItem('unknownTime') === 'true') { 
+        document.getElementById('unknownTime').checked = true; 
+        toggleTimeInput(); 
+      } else { 
+        document.getElementById('userTime').value = localStorage.getItem('savedTime'); 
+      }
+      document.getElementById('rememberMe').checked = true;
+    }
+    
+    applyFreeChatState();
+    initLiveSocialProof();
+  }
+
+  function shareKakao(category, userName) {
+    if (!window.Kakao) return;
+    if (!Kakao.isInitialized()) {
+      Kakao.init('f59ef7963420386b813d7219e3bd6e75'); 
+    }
+    const shareUrl = `https://myeongkyung-web.vercel.app?shared=true&by=${encodeURIComponent(userName)}`; 
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `[명경] ${userName}님의 ${category} 풀이 결과`,
+        description: '내 운명을 비추는 맑은 거울, 명경에서 소름 돋는 심층 풀이를 확인해보세요.',
+        imageUrl: 'https://cdn-icons-png.flaticon.com/512/3050/3050519.png',
+        link: { mobileWebUrl: shareUrl, webUrl: shareUrl },
+      },
+      buttons: [
+        { title: '내 사주 무료로 확인하기', link: { mobileWebUrl: shareUrl, webUrl: shareUrl } },
+      ],
+    });
+  }
+
+  function applyFreeChatState() {
+    const welcomeMsg = document.getElementById('defaultWelcomeMsg');
+    if (freeChatCount >= MAX_FREE_CHAT) {
+      document.getElementById('chatInput').disabled = true;
+      document.getElementById('sendChatBtn').disabled = true;
+      document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
+      document.getElementById('authSection').style.display = 'block';
+      if (welcomeMsg) {
+        welcomeMsg.innerHTML = `
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <div class="msg-content">
+            <div class="sender-name">신녀</div>
+            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래 스폰서 메시지를 확인해 주시지요.</div>
+          </div>`;
+      }
+    } else {
+      if (welcomeMsg) {
+        welcomeMsg.innerHTML = `
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <div class="msg-content">
+            <div class="sender-name">신녀</div>
+            <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">질문(남은 무료: ${MAX_FREE_CHAT - freeChatCount}회)</span>을 남겨보세요.</div>
+          </div>`;
+      }
+    }
+  }
+
+  function initLiveSocialProof() {
+    const nameInput = document.getElementById('userName');
+    const visitorNameEl = document.getElementById('visitorName');
+    const counterEl = document.getElementById('liveCounter');
+    if (nameInput && visitorNameEl) {
+      const updateName = () => {
+        const nameVal = nameInput.value.trim();
+        if(visitorNameEl) visitorNameEl.innerText = nameVal ? nameVal : '고객';
+      };
+      nameInput.addEventListener('input', updateName);
+      updateName();
+    }
+    if (counterEl) {
+      setInterval(() => {
+        let currentCount = parseInt(counterEl.innerText, 10);
+        const variations = [-1, 1, 2, -2, 1];
+        const randomChange = variations[Math.floor(Math.random() * variations.length)];
+        let newCount = currentCount + randomChange;
+        if (newCount < 37) newCount = 38;
+        if (newCount > 58) newCount = 52;
+        counterEl.style.opacity = '0.3';
+        setTimeout(() => {
+          counterEl.innerText = newCount;
+          counterEl.style.opacity = '1';
+          counterEl.style.transition = 'opacity 0.3s ease';
+        }, 300);
+      }, 5000);
+    }
+  }
+
+  function toggleTimeInput() { 
+    const timeInput = document.getElementById('userTime'); 
+    const isUnknown = document.getElementById('unknownTime').checked; 
+    timeInput.disabled = isUnknown; 
+    if(isUnknown) timeInput.value = ''; 
+  }
+
+  // ★ 수정된 정보 저장 로직 (체크한 상태에서 입력하면 즉시 덮어씌워짐)
+  function saveUserInfo() {
+    if(document.getElementById('rememberMe').checked) {
+      localStorage.setItem('savedName', document.getElementById('userName').value); 
+      localStorage.setItem('savedGender', document.getElementById('userGender').value); 
+      localStorage.setItem('savedDate', document.getElementById('userDate').value); 
+      localStorage.setItem('savedTime', document.getElementById('userTime').value); 
+      localStorage.setItem('savedCal', document.getElementById('calendarType').value); 
+      localStorage.setItem('unknownTime', document.getElementById('unknownTime').checked);
+    } else {
+      localStorage.removeItem('savedName'); localStorage.removeItem('savedGender'); localStorage.removeItem('savedDate'); localStorage.removeItem('savedTime'); localStorage.removeItem('savedCal'); localStorage.removeItem('unknownTime');
+    }
+  }
+
+  // ★ 글씨를 수정할 때마다 저장 함수도 함께 실행되도록 연동
+  function resetSajuTable() { 
+    currentLoadedSajuKey = ""; 
+    if(document.getElementById('rememberMe').checked) saveUserInfo();
+  }
+
+  function getFormData() {
+    const name = document.getElementById('userName').value; 
+    const gender = document.getElementById('userGender').value; 
+    const date = document.getElementById('userDate').value; 
+    const time = document.getElementById('userTime').value; 
+    const cal = document.getElementById('calendarType').value; 
+    const unknownTime = document.getElementById('unknownTime').checked;
+    if(!name || !date || (!time && !unknownTime)) { Swal.fire('알림', '이름과 생년월일 등 기본 정보를 모두 입력해주세요.', 'warning'); return null; }
+    if(date.length !== 8 || isNaN(date)) { Swal.fire('알림', '생년월일은 숫자 8자리로 입력해주세요.<br>(예: 19810731)', 'warning'); return null; }
+    return { name: name, gender: gender, date: date, time: time, calendar: cal, unknownTime: unknownTime };
+  }
+
+  async function callGasApi(payload) {
+    const response = await fetch(GAS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+    const data = await response.json(); return data.result;
+  }
+
+  function cleanMarkdownAndEmoji(str) {
+    if(!str) return "";
+    return str.replace(/[#*\-_~`]/g, '').replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+  }
+
+  async function viewSajuOnly() {
+    const data = getFormData(); if(!data) return;
+    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
+    const sajuBox = document.getElementById('sajuTableBox');
+    if (currentLoadedSajuKey !== key) {
+      sajuBox.style.display = 'block'; sajuBox.innerHTML = `<div class="text-center mystic-loading"><br>사주 원국을 도출하는 중입니다...</div>`;
+      try { 
+        data.action = "getSajuData"; 
+        const sajuResult = await callGasApi(data); 
+        sajuBox.innerHTML = sajuResult.html; 
+        currentTextForAI = sajuResult.textForAI; 
+        currentLoadedSajuKey = key; 
+      } 
+      catch(err) { sajuBox.innerHTML = `<div class="text-center text-danger">통신 오류가 발생했습니다.</div>`; }
+    } else { sajuBox.style.opacity = 0; setTimeout(() => sajuBox.style.opacity = 1, 100); }
+  }
+
+  async function requestFortune(category) {
+    const data = getFormData(); if(!data) return;
+    const resultBox = document.getElementById('resultTextContainer');
+    
+    resultBox.style.display = 'block'; 
+    resultBox.innerHTML = `
+      <div class="result-title">[${category} 심층 풀이]</div>
+      <div id="streamText" style="word-break: break-all; overflow-wrap: break-word;">
+        <div class="mystic-loading" style="text-align: center; margin: 30px 0; font-weight: 500;">
+          ${data.name}님의 사주 명식을 깊이 있게 풀이하는 중입니다...
+        </div>
+      </div>
+      <div id="productCardContainer"></div>
+    `;
+    
+    const key = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
+    try {
+      if (currentLoadedSajuKey !== key) {
+        data.action = "getSajuData"; 
+        const sajuResult = await callGasApi(data); 
+        document.getElementById('sajuTableBox').style.display = 'block';
+        document.getElementById('sajuTableBox').innerHTML = sajuResult.html; 
+        currentTextForAI = sajuResult.textForAI; 
+        currentLoadedSajuKey = key; 
+      }
+      await startStreamingFortune(data, category);
+    } catch(err) {
+      document.getElementById('streamText').innerHTML = `<div class="text-center text-danger">통신 오류가 발생했습니다.</div>`;
+    }
+  }
+
+  async function startStreamingFortune(data, category) {
+    const streamTextDiv = document.getElementById('streamText');
+    const productContainer = document.getElementById('productCardContainer');
+    productContainer.innerHTML = "";
+    
+    const currentYear = new Date().getFullYear();
+    const targetYear = currentYear + (category === '내년운세' ? 1 : 0);
+    const yearName = targetYear === currentYear ? "올해" : "내년";
+    
+    let categoryInstruction = `${data.name}님의 사주 원국과 대운 정보(${currentTextForAI})를 바탕으로 ${targetYear}년(${yearName}) 기준 ${category} 영역을 상세히 풀이하세요.`;
+    
+    if (category === '용신') {
+      categoryInstruction = `${data.name}님의 사주 원국(${currentTextForAI})을 분석하여 가장 필요한 용신 오행과 실용적인 개운법 5가지를 작성하세요:\n첫째, [내용]\n둘째, [내용]\n셋째, [내용]\n넷째, [내용]\n다섯째, [내용]\n각 항목은 반드시 줄바꿈을 두 번 하여 독립된 문단으로 작성하세요.`;
+    }
+    categoryInstruction += `\n★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
+    
+    const systemPrompt = `당신은 정통 명리학 대가입니다. 사주 명리학의 깊이 있는 지식을 바탕으로 각 오행의 상호작용과 대운의 흐름을 분석하여, 유저가 깊이 공감할 수 있도록 알차고 완결성 있게 풀이하세요. 
+현재 연도는 ${currentYear}년입니다. 미래를 예측할 때 반드시 ${currentYear}년 이후의 시점을 기준으로 풀이하고, 과거 연도를 미래처럼 말하는 오류를 범하지 마세요.
+이모지/마크다운 기호 금지.\n${categoryInstruction}\n첫 문장은 "${data.name}님 반갑습니다."로만 시작하세요.`;
+    const prompt = `[요청]: ${category} 심층 풀이`;
+
+    try {
+      const response = await fetch('/api/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ systemPrompt, prompt })
+      });
+      const json = await response.json();
+      
+      if (json.text) {
+        let fullText = json.text;
+        
+        let targetElement = "";
+        const match = fullText.match(/\[\s*용신\s*:\s*([목화토금수])\s*\]/);
+        if (match) {
+          const el = match[1];
+          if (el === '목') targetElement = 'MOK';
+          else if (el === '화') targetElement = 'HWA';
+          else if (el === '토') targetElement = 'TO';
+          else if (el === '금') targetElement = 'GEUM';
+          else if (el === '수') targetElement = 'SU';
+        } else {
+          const els = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'];
+          targetElement = els[Math.floor(Math.random() * els.length)];
+        }
+        
+        let displayTxt = fullText.replace(/\[\s*용신\s*:\s*[목화토금수]\s*\]/g, "");
+        let cleaned = cleanMarkdownAndEmoji(displayTxt);
+        cleaned = cleaned.replace(/(\s+(첫째,|둘째,|셋째,|넷째,|다섯째,|\d+\.\s+))/g, '\n\n$1');
+
+        let rawParagraphs = cleaned.split(/\n+/);
+        let formattedHtml = "";
+
+        rawParagraphs.forEach(para => {
+          if (para.trim().length > 0) {
+            formattedHtml += `<p>${para.trim()}</p>`;
+          }
+        });
+        streamTextDiv.innerHTML = formattedHtml;
+        
+        let product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
+        if (!product || !product.affiliateUrl) {
+          const fallbacks = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'].filter(e => e !== targetElement);
+          for (let f of fallbacks) {
+            product = await callGasApi({ action: "getAffiliateProduct", elementKey: f });
+            if (product && product.affiliateUrl) break;
+          }
+        }
+        
+        let productCardHtml = "";
+        if (product && product.affiliateUrl) {
+          let talismanTitle = "";
+          let talismanDesc = "";
+          
+          if (targetElement === 'MOK') {
+            talismanTitle = "생기와 성장의 기운, 목(木)"; talismanDesc = "현재 사주에 막힌 운의 활로를 뚫고 시작하는 힘이 부족합니다. 이 아이템을 곁에 두어 뻗어나가는 성장의 발판이자 부적으로 삼아보세요.";
+          } else if (targetElement === 'HWA') {
+            talismanTitle = "열정과 확장의 기운, 화(火)"; talismanDesc = "어두운 운로를 밝히고 사람을 끌어당길 기운이 절실한 시기입니다. 당신의 숨겨진 매력과 운기를 증폭시켜 줄 강력한 매개체로 활용해 보세요.";
+          } else if (targetElement === 'TO') {
+            talismanTitle = "안정과 포용의 기운, 토(土)"; talismanDesc = "흔들리는 상황 속에서 중심을 잡아줄 든든한 기운이 필요합니다. 재물과 좋은 인연이 흩어지지 않도록 지켜주는 단단한 울타리가 되어줄 것입니다.";
+          } else if (targetElement === 'GEUM') {
+            talismanTitle = "결실과 맺음의 기운, 금(金)"; talismanDesc = "흐지부지되는 일들을 끊어내고 확실한 결실(재물)을 쥐어짜낼 기운이 가장 시급합니다. 재물을 끌어당기는 실질적인 부적으로 곁에 두시길 권합니다.";
+          } else {
+            talismanTitle = "지혜와 유연함의 기운, 수(水)"; talismanDesc = "정체된 운의 흐름을 유연하게 풀고 상황을 반전시킬 지혜가 필요합니다. 메마른 사주를 적셔주는 생명수처럼 당신의 운로를 부드럽게 열어줄 것입니다.";
+          }
+
+          productCardHtml = `
+            <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+              <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 1:1 맞춤 비방(祕方)</div>
+              <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 12px; line-height: 1.4;">
+                ${data.name}님에게 지금 가장 필요한<br><span style="color: #903c31;">${talismanTitle}</span>
+              </div>
+              <div style="font-size: 0.9rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 20px; padding: 0 10px;">${talismanDesc}</div>
+              ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">` : ''}
+              <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
+              <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">나만의 개운 부적 확인하기 ➔</a>
+              <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.</div>
+            </div>`;
+        }
+
+        const shareHtml = `
+          <div style="margin-top: 15px;">
+            <button onclick="shareKakao('${category}', '${data.name}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+              <svg viewBox="0 0 32 32" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.16 6.64 5.44 8.48l-1.12 4.16c-.16.56.48 1.04.96.72l4.8-3.2c.8.24 1.68.32 2.56.32 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#191919"/></svg>
+              친구에게 카카오톡으로 공유하기
+            </button>
+          </div>
+        `;
+
+        productContainer.innerHTML = productCardHtml + shareHtml;
+
+      } else {
+        streamTextDiv.innerHTML = `<div style="color:#d32f2f;">에러 발생: ${json.error || '알 수 없는 오류'}</div>`;
+      }
+    } catch(e) {
+       streamTextDiv.innerHTML = `<div style="color:#d32f2f;">통신 에러 발생: ${e.message}</div>`;
+    }
+  }
+
+  async function sendChatMessage() {
+    if (freeChatCount >= MAX_FREE_CHAT) {
+      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 스폰서 메시지를 확인해주세요.`, 'info');
+      document.getElementById('authSection').style.display = 'block';
+      return;
+    }
+
+    const data = getFormData(); if(!data) return;
+    const inputEl = document.getElementById('chatInput'); const question = inputEl.value.trim(); if(!question) return;
+    const chatHistory = document.getElementById('chatHistory'); const sendBtn = document.getElementById('sendChatBtn');
+
+    chatHistory.innerHTML += `<div class="chat-divider"></div><div class="chat-row user"><div class="msg-content"><div class="user-text">${question}</div></div></div>`;
+    inputEl.value = ''; sendBtn.disabled = true;
+    const chatId = 'chat_' + Date.now();
+    chatHistory.innerHTML += `
+      <div class="chat-row bot">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <div class="msg-content">
+          <div class="sender-name">신녀</div>
+          <div class="msg-text" id="${chatId}">${data.name}님의 마음속 궁금증을 헤아려 답변을 적어내려가는 중입니다...</div>
+        </div>
+      </div>
+    `;
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+    
+    if (!currentTextForAI) {
+      try {
+        data.action = "getSajuData";
+        const sajuResult = await callGasApi(data);
+        currentTextForAI = sajuResult.textForAI;
+        currentLoadedSajuKey = `${data.name}_${data.gender}_${data.date}_${data.time}_${data.calendar}_${data.unknownTime}`;
+      } catch(e) {
+        document.getElementById(chatId).innerHTML = "사주 정보를 분석하는 중 통신 오류가 발생했습니다.";
+        sendBtn.disabled = false;
+        return;
+      }
+    }
+
+    const currentYear = new Date().getFullYear();
+
+    const systemPrompt = `당신은 수많은 세월동안 하늘의 기운을 읽어온 영험한 신녀입니다. 
+유저의 이름은 ${data.name}, 성별은 ${data.gender === 'M' ? '남성' : '여성'}입니다. 
+현재 시점은 ${currentYear}년입니다. 사주정보[${currentTextForAI}]를 바탕으로 질문에 답변하세요.
+
+[답변 원칙]
+1. 첫 문장 및 어투: 반드시 "${data.name}님, 수많은 세월동안 하늘의 기운을 읽어온 신녀가 혜안을 내려드리겠습니다."와 같이 영험하고 무게감 있는 어투로 시작하세요.
+2. 분량 및 깊이: 유료 결제 VIP 고객을 위한 프리미엄 상담입니다. 절대 짧게 대답하지 말고, 최소 3~4개의 긴 문단으로 나누어 사주 원국과 대운을 바탕으로 구체적이고 깊이 있게 풀이하세요.
+3. 성별 맞춤 해석: 유저가 ${data.gender === 'M' ? '남성' : '여성'}임을 절대 잊지 마세요.
+4. 시기 명시 오류 주의: 현재가 ${currentYear}년임을 명심하세요. 지나간 과거를 미래인 것처럼 말하는 오류를 절대 범하지 마세요.
+5. 이모지 및 마크다운 기호 사용 금지. 유저에게 생년월일이나 질문을 되묻기 금지.`;
+    
+    try {
+      const response = await fetch('/api/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ systemPrompt: systemPrompt, prompt: question })
+      });
+      const json = await response.json();
+      const textDiv = document.getElementById(chatId);
+      
+      if (json.text) {
+        textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
+        freeChatCount++;
+        localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
+        
+        if (freeChatCount >= MAX_FREE_CHAT) {
+          document.getElementById('chatInput').disabled = true;
+          document.getElementById('sendChatBtn').disabled = true;
+          document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
+          document.getElementById('authSection').style.display = 'block';
+          
+          chatHistory.innerHTML += `
+            <div class="chat-row bot">
+              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+              <div class="msg-content">
+                <div class="sender-name">신녀</div>
+                <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
+                  여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래 스폰서 메시지를 확인해 주시지요.
+                </div>
+              </div>
+            </div>
+          `;
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+        } else {
+          sendBtn.disabled = false;
+          chatHistory.innerHTML += `
+            <div class="chat-row bot" style="margin-top: -15px;">
+              <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
+                (남은 무료 상담: ${MAX_FREE_CHAT - freeChatCount}회)
+              </div>
+            </div>
+          `;
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+      } else {
+        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
+        sendBtn.disabled = false;
+      }
+    } catch(err) {
+      document.getElementById(chatId).innerHTML = "답변 생성 실패: 통신 오류";
+      sendBtn.disabled = false;
+    }
+  }
+
+  function getRewardChat() {
+    const btn = document.getElementById('rewardBtn');
+    const timerDiv = document.getElementById('rewardTimer');
+    const timeSpan = document.getElementById('timeLeft');
+    
+    btn.style.display = 'none';
+    timerDiv.style.display = 'block';
+    
+    let timeLeft = 5;
+    timeSpan.innerText = timeLeft;
+    
+    const interval = setInterval(() => {
+      timeLeft--;
+      timeSpan.innerText = timeLeft;
+      
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        freeChatCount--; 
+        localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
+        
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('chatInput').disabled = false;
+        document.getElementById('sendChatBtn').disabled = false;
+        document.getElementById('chatInput').placeholder = "마음의 궁금증은...";
+        
+        const chatHistory = document.getElementById('chatHistory');
+        chatHistory.innerHTML += `
+          <div class="chat-row bot">
+            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+            <div class="msg-content">
+              <div class="sender-name">신녀</div>
+              <div class="msg-text">기운이 다시 채워졌습니다. 어떤 고민이 있으신지 편히 물어보시지요. (추가 1회)</div>
+            </div>
+          </div>
+        `;
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        
+        btn.style.display = 'block';
+        timerDiv.style.display = 'none';
+      }
+    }, 1000);
+  }
 </script>
 </body>
 </html>
