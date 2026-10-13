@@ -17,7 +17,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>명경 (明鏡) - 내 운명을 비추는 거울</title>
-  <meta name="referrer" content="no-referrer">
+  <!-- 애드센스 도메인 검증 및 광고 송출을 위해 no-referrer 태그 제거됨 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
@@ -81,9 +81,9 @@
   </div>
   
   <header style="margin-bottom: 1.5rem; word-break: keep-all; padding: 0 10px;">
-    <h1 style="font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; text-align: center;">
+    <h2 style="font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; text-align: center;">
       명경 - 프라이빗 사주/운세 해답소
-    </h1>
+    </h2>
     <div style="color: #666; line-height: 1.5; font-size: 0.9rem; text-align: center;">
       <p style="font-weight: 500; margin-bottom: 0.25rem; color: #444;">답답한 현실, 내 운명의 흐름은 어떻게 흘러가고 있을까요?</p>
       <p style="margin-bottom: 0;">
@@ -222,7 +222,7 @@
     <div style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 15px;">누구에게도 말 못할 고민, 신녀에게 물어보세요.</div>
     <div id="chatHistory">
       <div class="chat-row bot" id="defaultWelcomeMsg">
-        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
           <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 질문을 남겨보세요.</div>
@@ -252,38 +252,103 @@
     </div>
   </div>
 
+  <!-- 👇 요약 설명이 보강된 명경 운세 칼럼 섹션 👇 -->
   <div style="margin-top: 50px; padding: 30px 20px; background: #faf9f7; border-radius: 12px; border: 1px solid #e8e5e0;">
     <h3 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.25rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
       명경 운세 칼럼 📖
     </h3>
     <ul style="list-style-type: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 14px;">
-        <a href="/column/saju-basics.html" style="text-decoration: none; color: #444; font-size: 0.95rem; display: flex; align-items: center; font-weight: 500;">
-          <span style="color: #903c31; margin-right: 10px; font-size: 0.8rem;">▶</span> 사주팔자란 무엇인가? 명리학 기초 완벽 가이드
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/saju-basics.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 사주팔자란 무엇인가? 명리학 기초 완벽 가이드
         </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">연주·월주·일주·시주 네 기둥과 천간·지지 여덟 글자가 의미하는 선천적 기질 분석 원리를 알아봅니다.</div>
       </li>
-      <li style="margin-bottom: 14px;">
-        <a href="/column/five-elements.html" style="text-decoration: none; color: #444; font-size: 0.95rem; display: flex; align-items: center; font-weight: 500;">
-          <span style="color: #903c31; margin-right: 10px; font-size: 0.8rem;">▶</span> 내 사주에 부족한 오행(목화토금수) 채우는 개운법
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/five-elements.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 내 사주에 부족한 오행(목화토금수) 채우는 개운법
         </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">목·화·토·금·수 오행의 결핍과 과다가 삶에 미치는 영향과 일상 속 습관을 통한 균형 회복 비법을 소개합니다.</div>
       </li>
-      <li style="margin-bottom: 14px;">
-        <a href="/column/2026-fortune.html" style="text-decoration: none; color: #444; font-size: 0.95rem; display: flex; align-items: center; font-weight: 500;">
-          <span style="color: #903c31; margin-right: 10px; font-size: 0.8rem;">▶</span> 2026년 병오년(丙午年) 띠별 운세 미리보기
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/2026-fortune.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 2026년 병오년(丙午年) 띠별 운세 미리보기
         </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">강렬한 불(火)의 기운이 들어오는 병오년, 12간지 띠별로 주의해야 할 점과 기회를 잡는 시기를 정리했습니다.</div>
       </li>
-      <li style="margin-bottom: 14px;">
-        <a href="/column/wealth-luck.html" style="text-decoration: none; color: #444; font-size: 0.95rem; display: flex; align-items: center; font-weight: 500;">
-          <span style="color: #903c31; margin-right: 10px; font-size: 0.8rem;">▶</span> 재물운을 끌어올리는 풍수 인테리어 꿀팁
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/wealth-luck.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 재물운을 끌어올리는 풍수 인테리어 꿀팁
         </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">새는 돈을 막고 재물고(財庫)의 기운을 활성화하는 현관, 침실 배치 및 지갑 색상 선택 가이드를 확인하세요.</div>
       </li>
       <li>
-        <a href="/column/daeun-change.html" style="text-decoration: none; color: #444; font-size: 0.95rem; display: flex; align-items: center; font-weight: 500;">
-          <span style="color: #903c31; margin-right: 10px; font-size: 0.8rem;">▶</span> 대운(大運)이 바뀔 때 나타나는 3가지 결정적 징조
+        <a href="/column/daeun-change.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 대운(大運)이 바뀔 때 나타나는 3가지 결정적 징조
         </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">10년 주기로 찾아오는 인생의 큰 전환점, 대운 교운기에 겪는 인간관계와 심리적 변화 신호를 짚어드립니다.</div>
       </li>
     </ul>
   </div>
+
+  <!-- 👇 애드센스 승인용 정적 콘텐츠: 명리학 가이드 및 FAQ 섹션 👇 -->
+  <section style="margin-top: 35px; padding: 30px 20px; background: #ffffff; border-radius: 12px; border: 1px solid #e8e5e0; line-height: 1.75; color: #444; font-size: 0.9rem; word-break: keep-all;">
+    <h2 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.2rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
+      정통 명리학 기반 사주 분석 원리와 활용 가이드
+    </h2>
+    <p style="margin-bottom: 12px;">
+      <strong>명경(明鏡)</strong>은 사람이 태어난 연(年), 월(月), 일(日), 시(時)의 네 가지 기둥인 사주(四柱)와 여덟 글자인 팔자(八字)를 정통 자평명리학 원리에 따라 정밀하게 도출하는 운세 분석 서비스입니다. 인간의 삶은 타고난 선천적 기질인 '사주 원국'과 시간의 흐름에 따라 변화하는 후천적 환경인 '대운(大運)' 및 '세운(歲運)'의 상호작용으로 결정됩니다.
+    </p>
+    <p style="margin-bottom: 12px;">
+      많은 분들이 사주를 단순한 미래 예언으로 오해하곤 하지만, 명리학의 진정한 가치는 자신의 사주에 흐르는 <strong>목(木)·화(火)·토(土)·금(金)·수(水) 오행의 균형(중화, 中和)</strong>을 파악하는 데 있습니다. 특정 오행이 과다하거나 결핍될 경우 성격적 편향이나 재물·인간관계의 정체가 발생할 수 있으며, 이를 조절해 주는 핵심 기운인 <strong>용신(用神)</strong>을 찾아 일상 속 습관과 의사결정에 반영하는 것이 개운(開運)의 핵심입니다.
+    </p>
+    <p style="margin-bottom: 25px;">
+      명경은 만세력 알고리즘을 통해 일간(日干)의 강약, 격국(格局), 십신(十神)의 배치를 분석한 뒤, 올해의 세운 흐름과 맞물려 재물운, 사업운, 직업적 적성이 어떻게 발현되는지 구체적인 행동 지침과 함께 제시합니다.
+    </p>
+
+    <h3 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.1rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #eee;">
+      자주 묻는 질문 (FAQ)
+    </h3>
+    <div style="margin-bottom: 15px;">
+      <strong style="color: #903c31; display: block; margin-bottom: 4px;">Q1. 태어난 시간(시주)을 정확히 모르면 사주 정확도가 떨어지나요?</strong>
+      <p style="margin: 0; font-size: 0.86rem; color: #555;">
+        사주팔자 여덟 글자 중 태어난 시간(시주)을 모르더라도 연주, 월주, 일주 여섯 글자(삼주, 三柱)만으로도 타고난 일간의 기질과 사회운, 대운의 흐름을 약 75~80% 이상 정확하게 분석할 수 있습니다. 특히 사주의 핵심 기준점인 '일간(본인)'과 계절적 환경을 뜻하는 '월지'는 생년월일만으로 확정되므로, 시간 모름에 체크하셔도 신뢰도 높은 풀이를 확인하실 수 있습니다.
+      </p>
+    </div>
+    <div style="margin-bottom: 15px;">
+      <strong style="color: #903c31; display: block; margin-bottom: 4px;">Q2. 양력과 음력 중 어떤 기준으로 입력해야 하나요?</strong>
+      <p style="margin: 0; font-size: 0.86rem; color: #555;">
+        사주 명리학의 월(月) 구분은 음력이 아닌 태양의 위치를 기준으로 하는 24절기(절기력)를 따릅니다. 명경 시스템은 양력과 음력 변환 만세력 데이터를 모두 내장하고 있으므로, 본인이 알고 계신 양력 또는 음력 생일을 선택하여 입력하시면 자동으로 절기 기준에 맞춘 정확한 사주 명식을 산출합니다.
+      </p>
+    </div>
+    <div style="margin-bottom: 15px;">
+      <strong style="color: #903c31; display: block; margin-bottom: 4px;">Q3. 용신(用神)이란 무엇이며 왜 중요한가요?</strong>
+      <p style="margin: 0; font-size: 0.86rem; color: #555;">
+        용신은 내 사주 원국의 오행 불균형을 바로잡아 주고 막힌 운의 흐름을 뚫어주는 '가장 필요한 핵심 오행'을 뜻합니다. 사주에 물(水)이 너무 많아 차가운 명식이라면 따뜻하게 데워줄 불(火) 기운이 용신이 되며, 자신의 용신에 해당하는 색상, 방향, 생활 습관을 가까이할 때 심리적 안정과 긍정적인 변화를 이끌어낼 수 있습니다.
+      </p>
+    </div>
+    <div>
+      <strong style="color: #903c31; display: block; margin-bottom: 4px;">Q4. 입력한 생년월일과 상담 내용은 안전하게 보호되나요?</strong>
+      <p style="margin: 0; font-size: 0.86rem; color: #555;">
+        명경에서 입력하시는 이름, 생년월일시 및 상담 질문 내용은 일회성 사주 연산과 답변 생성에만 사용되며, 별도의 회원가입이나 외부 데이터베이스에 영구 저장되지 않습니다. '내 정보 기억하기' 기능 역시 사용자 본인의 브라우저(LocalStorage)에만 안전하게 보관됩니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 👇 애드센스 필수 정책 준수용 Footer 영역 👇 -->
+  <footer style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #e8e5e0; text-align: center; font-size: 0.78rem; color: #888; line-height: 1.6;">
+    <div style="margin-bottom: 10px; font-weight: 500;">
+      <a href="javascript:void(0);" onclick="showPolicyModal('privacy')" style="color: #555; text-decoration: none; margin: 0 8px;">개인정보처리방침</a> |
+      <a href="javascript:void(0);" onclick="showPolicyModal('terms')" style="color: #555; text-decoration: none; margin: 0 8px;">이용약관</a> |
+      <a href="/column/saju-basics.html" style="color: #555; text-decoration: none; margin: 0 8px;">명리학 칼럼</a>
+    </div>
+    <p style="margin-bottom: 6px;">
+      명경(明鏡)의 모든 사주 및 운세 분석 결과는 정통 명리학 이론을 바탕으로 한 참고 자료이며, 중요한 의사결정에 대한 법적·의학적·재무적 책임을 지지 않습니다.
+    </p>
+    <p style="margin: 0; color: #aaa;">
+      © 2026 명경 (MyeongKyung). All rights reserved.
+    </p>
+  </footer>
   
 </div>
 
@@ -357,20 +422,21 @@
     if (freeChatCount >= MAX_FREE_CHAT) {
       document.getElementById('chatInput').disabled = true;
       document.getElementById('sendChatBtn').disabled = true;
-      document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
+      // 애드센스 정책 위반(보상형 광고 클릭 유도 오해) 방지를 위해 '스폰서' 표현 제거
+      document.getElementById('chatInput').placeholder = "카카오톡 공유 후 추가 질문이 가능합니다.";
       document.getElementById('authSection').style.display = 'block';
       if (welcomeMsg) {
         welcomeMsg.innerHTML = `
-          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
           <div class="msg-content">
             <div class="sender-name">신녀</div>
-            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래 스폰서 메시지를 확인해 주시지요.</div>
+            <div class="msg-text">무료 상담(${MAX_FREE_CHAT}회)을 모두 사용하셨군요.<br>더 깊은 대화를 원하신다면 아래 버튼을 눌러 친구에게 카카오톡으로 공유해 주시지요.</div>
           </div>`;
       }
     } else {
       if (welcomeMsg) {
         welcomeMsg.innerHTML = `
-          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+          <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
           <div class="msg-content">
             <div class="sender-name">신녀</div>
             <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">질문(남은 무료: ${MAX_FREE_CHAT - freeChatCount}회)</span>을 남겨보세요.</div>
@@ -597,9 +663,9 @@
                 ${data.name}님에게 지금 가장 필요한<br><span style="color: #903c31;">${talismanTitle}</span>
               </div>
               <div style="font-size: 0.9rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 20px; padding: 0 10px;">${talismanDesc}</div>
-              ${product.imageUrl ? `<img src="${product.imageUrl}" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">` : ''}
+              ${product.imageUrl ? `<img src="${product.imageUrl}" alt="개운 아이템" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">` : ''}
               <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
-              <a href="${product.affiliateUrl}" target="_blank" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">나만의 개운 부적 확인하기 ➔</a>
+              <a href="${product.affiliateUrl}" target="_blank" rel="noopener noreferrer" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">나만의 개운 부적 확인하기 ➔</a>
               <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.</div>
             </div>`;
         }
@@ -625,7 +691,7 @@
 
   async function sendChatMessage() {
     if (freeChatCount >= MAX_FREE_CHAT) {
-      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 더 깊은 대화를 위해 스폰서 메시지를 확인해주세요.`, 'info');
+      Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 아래 버튼을 눌러 친구에게 카카오톡으로 공유하시면 질문권이 충전됩니다.`, 'info');
       document.getElementById('authSection').style.display = 'block';
       return;
     }
@@ -639,7 +705,7 @@
     const chatId = 'chat_' + Date.now();
     chatHistory.innerHTML += `
       <div class="chat-row bot">
-        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
           <div class="msg-text" id="${chatId}">${data.name}님의 마음속 궁금증을 헤아려 답변을 적어내려가는 중입니다...</div>
@@ -691,16 +757,16 @@
         if (freeChatCount >= MAX_FREE_CHAT) {
           document.getElementById('chatInput').disabled = true;
           document.getElementById('sendChatBtn').disabled = true;
-          document.getElementById('chatInput').placeholder = "스폰서 확인 후 추가 질문이 가능합니다.";
+          document.getElementById('chatInput').placeholder = "카카오톡 공유 후 추가 질문이 가능합니다.";
           document.getElementById('authSection').style.display = 'block';
           
           chatHistory.innerHTML += `
             <div class="chat-row bot">
-              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
               <div class="msg-content">
                 <div class="sender-name">신녀</div>
                 <div class="msg-text" style="color: #903c31; font-weight: bold; background: #fff8f8; padding: 12px; border-radius: 8px; border: 1px dashed #f5c6c6;">
-                  여기까지가 제가 무료로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래 스폰서 메시지를 확인해 주시지요.
+                  여기까지가 제가 기본으로 내어드릴 수 있는 혜안입니다. 더 내밀한 운명의 흐름을 읽고자 하신다면, 아래 버튼을 눌러 친구에게 카카오톡으로 명경을 공유해 주시지요.
                 </div>
               </div>
             </div>
@@ -761,7 +827,7 @@
         const chatHistory = document.getElementById('chatHistory');
         chatHistory.innerHTML += `
           <div class="chat-row bot">
-            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img">
+            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
             <div class="msg-content">
               <div class="sender-name">신녀</div>
               <div class="msg-text">기운이 다시 채워졌습니다. 어떤 고민이 있으신지 편히 물어보시지요. (추가 1회)</div>
@@ -776,6 +842,33 @@
       }, 1500);
     }
   });
+
+  // 애드센스 정책 준수용 개인정보처리방침 및 이용약관 모달 함수
+  function showPolicyModal(type) {
+    if (type === 'privacy') {
+      Swal.fire({
+        title: '개인정보처리방침',
+        html: `<div style="text-align:left; font-size:0.82rem; line-height:1.6; max-height:350px; overflow-y:auto; color:#444;">
+          <p><strong>1. 개인정보의 처리 목적 및 수집 항목</strong><br>명경(이하 '서비스')은 별도의 회원가입 없이 사주 풀이 서비스를 제공하며, 사용자가 입력한 이름 및 생년월일시 정보는 일회성 사주 결과 산출 직후 휘발되며 서버에 영구 저장되지 않습니다.</p>
+          <p><strong>2. 쿠키(Cookie) 및 맞춤형 광고 안내</strong><br>본 사이트는 Google AdSense 등 제3자 광고 서비스를 게재하며, Google을 포함한 제3자 공급업체는 쿠키를 사용하여 사용자의 이전 웹사이트 방문 기록을 바탕으로 광고를 게재합니다. 광고 쿠키를 사용함으로써 Google과 파트너는 사용자의 본 사이트 및 인터넷상의 다른 사이트 방문 기록을 기반으로 적절한 광고를 제공할 수 있습니다. 사용자는 <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google 광고 설정</a> 페이지를 방문하여 언제든지 맞춤형 광고를 해제할 수 있습니다.</p>
+          <p><strong>3. 브라우저 로컬 스토리지 사용</strong><br>사용자가 '내 정보 기억하기'를 선택한 경우에 한하여 사용자 본인의 기기 브라우저(LocalStorage) 내에 입력 정보가 저장되며, 체크 해제 시 즉시 삭제됩니다.</p>
+        </div>`,
+        confirmButtonText: '확인',
+        confirmButtonColor: '#3e3a39'
+      });
+    } else if (type === 'terms') {
+      Swal.fire({
+        title: '서비스 이용약관',
+        html: `<div style="text-align:left; font-size:0.82rem; line-height:1.6; max-height:350px; overflow-y:auto; color:#444;">
+          <p><strong>제1조 (목적)</strong><br>본 약관은 명경(이하 '서비스')이 제공하는 온라인 사주·운세 풀이 및 명리학 칼럼 콘텐츠의 이용 조건 및 절차를 규정함을 목적으로 합니다.</p>
+          <p><strong>제2조 (면책 조항)</strong><br>서비스가 제공하는 모든 사주 풀이, 운세 분석 및 상담 결과는 전통 명리학 이론과 알고리즘에 기반한 참고용 콘텐츠이며, 개인의 투자·법률·의료·진로 등 중대한 의사결정의 절대적 근거로 사용될 수 없습니다. 이에 따른 결과에 대해 서비스는 법적 책임을 지지 않습니다.</p>
+          <p><strong>제3조 (저작권 및 이용 제한)</strong><br>사이트 내에 게시된 명리학 칼럼, 텍스트 및 서비스 UI 디자인의 저작권은 명경에 귀속되며, 사전 허가 없는 무단 복제 및 상업적 재배포를 금합니다.</p>
+        </div>`,
+        confirmButtonText: '확인',
+        confirmButtonColor: '#3e3a39'
+      });
+    }
+  }
 </script>
 </body>
 </html>
