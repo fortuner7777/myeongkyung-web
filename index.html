@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
-<meta name="description" content="정통 자평명리학 기반 무료 사주팔자, 올해운세, 재물운, 사업운 및 내 사주에 부족한 오행(용신) 개운법을 정밀하게 분석해 드립니다." />
-<link rel="canonical" href="https://myeongkyung-web.vercel.app/" />
-  
-<!-- 카카오톡 / 일반 Open Graph 태그 -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="명경 (明鏡) - 나만을 위한 프라이빗 사주 해답소" />
-<meta property="og:description" content="1분 만에 확인하는 내 사주의 비밀과 행운의 오행 개운법" />
-<meta property="og:image" content="https://raw.githubusercontent.com/fortuner7777/myeongkyung-web/main/999999.JPG" />
-<meta property="og:url" content="https://myeongkyung-web.vercel.app" />
-
-<!-- 트위터 전용 태그 -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="명경 (明鏡) - 나만을 위한 프라이빗 사주 해답소" />
-<meta name="twitter:description" content="1분 만에 확인하는 내 사주의 비밀과 행운의 오행 개운법" />
-<meta name="twitter:image" content="https://raw.githubusercontent.com/fortuner7777/myeongkyung-web/main/999999.JPG" />
-  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>명경 (明鏡) - 내 운명을 비추는 거울</title>
-  <!-- 애드센스 도메인 검증 및 광고 송출을 위해 no-referrer 태그 제거됨 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
-  <!-- 카카오톡 SDK 연동 -->
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <!-- SEO 및 표준 태그 -->
+  <meta name="description" content="정통 자평명리학 기반 무료 사주팔자, 올해운세, 재물운, 사업운 및 내 사주에 부족한 오행(용신) 개운법을 정밀하게 분석해 드립니다." />
+  <link rel="canonical" href="https://myeongkyung-web.vercel.app/" />
+  
+  <!-- 카카오톡 / 일반 Open Graph 태그 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="명경 (明鏡) - 나만을 위한 프라이빗 사주 해답소" />
+  <meta property="og:description" content="1분 만에 확인하는 내 사주의 비밀과 행운의 오행 개운법" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/fortuner7777/myeongkyung-web/main/999999.JPG" />
+  <meta property="og:url" content="https://myeongkyung-web.vercel.app" />
 
-  <!-- 👇 구글 애드센스 자동 광고 스크립트 👇 -->
+  <!-- 트위터 전용 태그 -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="명경 (明鏡) - 나만을 위한 프라이빗 사주 해답소" />
+  <meta name="twitter:description" content="1분 만에 확인하는 내 사주의 비밀과 행운의 오행 개운법" />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/fortuner7777/myeongkyung-web/main/999999.JPG" />
+  
+  <!-- 폰트 로딩 최적화 (Preconnect) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- 스타일 및 외부 라이브러리 (defer 적용으로 렌더링 속도 개선) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+  <!-- 구글 애드센스 자동 광고 스크립트 -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7606691396855998" crossorigin="anonymous"></script>
   
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     body { background-color: #fcfbf9; font-family: 'Noto Sans KR', sans-serif; padding: 20px 10px; color: #333; }
     .app-container { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); overflow: hidden; }
@@ -107,7 +110,7 @@
       <label class="form-label">생년월일 (8자리)</label>
       <div class="d-flex gap-1">
         <select id="calendarType" class="form-select form-select-sm" style="width: 80px; text-align: center; padding: 0 5px;" onchange="resetSajuTable()"><option value="solar">양력</option><option value="lunar">음력</option></select>
-        <input type="text" id="userDate" class="form-control form-control-sm" placeholder="예: 19810731" maxlength="8" onchange="resetSajuTable()" onkeyup="resetSajuTable()">
+        <input type="text" id="userDate" inputmode="numeric" pattern="[0-9]*" class="form-control form-control-sm" placeholder="예: 19810731" maxlength="8" onchange="resetSajuTable()" onkeyup="resetSajuTable()">
       </div>
     </div>
     <div class="col-5">
@@ -234,7 +237,7 @@
       </div>
     </div>
     <div class="input-group mt-2">
-      <textarea id="chatInput" class="form-control" rows="1" placeholder="마음의 궁금증은..." style="resize:none; border-radius:20px 0 0 20px; background:#f4f4f4; border:none; padding-left:15px; color:#333;"></textarea>
+      <textarea id="chatInput" class="form-control" rows="1" placeholder="마음의 궁금증은..." onkeypress="handleChatEnter(event)" style="resize:none; border-radius:20px 0 0 20px; background:#f4f4f4; border:none; padding-left:15px; color:#333;"></textarea>
       <button class="btn btn-secondary" id="sendChatBtn" onclick="sendChatMessage()" style="border-radius:0 20px 20px 0; background:#3e3a39; border:none; color:white;">전송</button>
     </div>
   </div>
@@ -256,7 +259,6 @@
     </div>
   </div>
 
-  <!-- 👇 요약 설명이 보강된 명경 운세 칼럼 섹션 👇 -->
   <div style="margin-top: 50px; padding: 30px 20px; background: #faf9f7; border-radius: 12px; border: 1px solid #e8e5e0;">
     <h3 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.25rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
       명경 운세 칼럼 📖
@@ -295,7 +297,6 @@
     </ul>
   </div>
 
-  <!-- 👇 애드센스 승인용 정적 콘텐츠: 명리학 가이드 및 FAQ 섹션 👇 -->
   <section style="margin-top: 35px; padding: 30px 20px; background: #ffffff; border-radius: 12px; border: 1px solid #e8e5e0; line-height: 1.75; color: #444; font-size: 0.9rem; word-break: keep-all;">
     <h2 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.2rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
       정통 명리학 기반 사주 분석 원리와 활용 가이드
@@ -339,7 +340,6 @@
     </div>
   </section>
 
-  <!-- 👇 애드센스 필수 정책 준수용 Footer 영역 👇 -->
   <footer style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #e8e5e0; text-align: center; font-size: 0.78rem; color: #888; line-height: 1.6;">
     <div style="margin-bottom: 10px; font-weight: 500;">
       <a href="javascript:void(0);" onclick="showPolicyModal('privacy')" style="color: #555; text-decoration: none; margin: 0 8px;">개인정보처리방침</a> |
@@ -348,6 +348,9 @@
     </div>
     <p style="margin-bottom: 6px;">
       명경(明鏡)의 모든 사주 및 운세 분석 결과는 정통 명리학 이론을 바탕으로 한 참고 자료이며, 중요한 의사결정에 대한 법적·의학적·재무적 책임을 지지 않습니다.
+    </p>
+    <p style="margin-bottom: 6px; color: #666;">
+      문의 및 제휴 연락처: <a href="mailto:support@myeongkyung.kr" style="color: #666; text-decoration: underline;">support@myeongkyung.kr</a>
     </p>
     <p style="margin: 0; color: #aaa;">
       © 2026 명경 (MyeongKyung). All rights reserved.
@@ -372,7 +375,7 @@
       if (inviter) {
         Swal.fire({
           title: '초대장이 도착했습니다 💌',
-          html: `<b style="color:#903c31; font-size:1.1rem;">${inviter}</b>님이 명경 프라이빗 해답소로<br>당신을 초대했습니다.<br><br>지금 바로 내 운명을 확인해보세요.`,
+          html: `<b style="color:#903c31; font-size:1.1rem;">${escapeHtml(inviter)}</b>님이 명경 프라이빗 해답소로<br>당신을 초대했습니다.<br><br>지금 바로 내 운명을 확인해보세요.`,
           icon: 'success',
           confirmButtonText: '내 사주 무료로 보기',
           confirmButtonColor: '#3e3a39'
@@ -398,7 +401,10 @@
     }
     
     applyFreeChatState();
-    initLiveSocialProof();
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   }
 
   function shareKakao(category, userName) {
@@ -426,7 +432,6 @@
     if (freeChatCount >= MAX_FREE_CHAT) {
       document.getElementById('chatInput').disabled = true;
       document.getElementById('sendChatBtn').disabled = true;
-      // 애드센스 정책 위반(보상형 광고 클릭 유도 오해) 방지를 위해 '스폰서' 표현 제거
       document.getElementById('chatInput').placeholder = "카카오톡 공유 후 추가 질문이 가능합니다.";
       document.getElementById('authSection').style.display = 'block';
       if (welcomeMsg) {
@@ -446,36 +451,6 @@
             <div class="msg-text">이렇게 만난 것도 인연 이겠지요. 편안한 마음으로 <span style="color:#903c31; font-weight:bold;">질문(남은 무료: ${MAX_FREE_CHAT - freeChatCount}회)</span>을 남겨보세요.</div>
           </div>`;
       }
-    }
-  }
-
-  function initLiveSocialProof() {
-    const nameInput = document.getElementById('userName');
-    const visitorNameEl = document.getElementById('visitorName');
-    const counterEl = document.getElementById('liveCounter');
-    if (nameInput && visitorNameEl) {
-      const updateName = () => {
-        const nameVal = nameInput.value.trim();
-        if(visitorNameEl) visitorNameEl.innerText = nameVal ? nameVal : '고객';
-      };
-      nameInput.addEventListener('input', updateName);
-      updateName();
-    }
-    if (counterEl) {
-      setInterval(() => {
-        let currentCount = parseInt(counterEl.innerText, 10);
-        const variations = [-1, 1, 2, -2, 1];
-        const randomChange = variations[Math.floor(Math.random() * variations.length)];
-        let newCount = currentCount + randomChange;
-        if (newCount < 37) newCount = 38;
-        if (newCount > 58) newCount = 52;
-        counterEl.style.opacity = '0.3';
-        setTimeout(() => {
-          counterEl.innerText = newCount;
-          counterEl.style.opacity = '1';
-          counterEl.style.transition = 'opacity 0.3s ease';
-        }, 300);
-      }, 5000);
     }
   }
 
@@ -552,7 +527,7 @@
       <div class="result-title">[${category} 심층 풀이]</div>
       <div id="streamText" style="word-break: break-all; overflow-wrap: break-word;">
         <div class="mystic-loading" style="text-align: center; margin: 30px 0; font-weight: 500;">
-          ${data.name}님의 사주 명식을 깊이 있게 풀이하는 중입니다...
+          ${escapeHtml(data.name)}님의 사주 명식을 깊이 있게 풀이하는 중입니다...
         </div>
       </div>
       <div id="productCardContainer"></div>
@@ -629,7 +604,7 @@
 
         rawParagraphs.forEach(para => {
           if (para.trim().length > 0) {
-            formattedHtml += `<p>${para.trim()}</p>`;
+            formattedHtml += `<p>${escapeHtml(para.trim())}</p>`;
           }
         });
         streamTextDiv.innerHTML = formattedHtml;
@@ -664,11 +639,11 @@
             <div style="margin-top: 40px; padding: 25px 20px; background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
               <div style="font-size: 0.8rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; letter-spacing: 1px; margin-bottom: 8px;">명경 1:1 맞춤 비방(祕方)</div>
               <div style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.15rem; color: #222; margin-bottom: 12px; line-height: 1.4;">
-                ${data.name}님에게 지금 가장 필요한<br><span style="color: #903c31;">${talismanTitle}</span>
+                ${escapeHtml(data.name)}님에게 지금 가장 필요한<br><span style="color: #903c31;">${talismanTitle}</span>
               </div>
               <div style="font-size: 0.9rem; color: #555; line-height: 1.6; word-break: keep-all; margin-bottom: 20px; padding: 0 10px;">${talismanDesc}</div>
               ${product.imageUrl ? `<img src="${product.imageUrl}" alt="개운 아이템" style="max-width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">` : ''}
-              <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${product.productName}</div>
+              <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 20px; color: #333; line-height: 1.4;">${escapeHtml(product.productName)}</div>
               <a href="${product.affiliateUrl}" target="_blank" rel="noopener noreferrer" style="display: block; background: #3e3a39; color: #fff; text-decoration: none; padding: 14px 0; border-radius: 6px; font-weight: 500; font-size: 0.95rem;">나만의 개운 부적 확인하기 ➔</a>
               <div style="font-size: 0.7rem; color: #a5a5a5; margin-top: 15px; line-height: 1.4;">본 추천은 네이버 쇼핑 커넥트 활동의 일환으로<br>일정액의 수수료를 제공받을 수 있습니다.</div>
             </div>`;
@@ -676,7 +651,7 @@
 
         const shareHtml = `
           <div style="margin-top: 15px;">
-            <button onclick="shareKakao('${category}', '${data.name}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <button onclick="shareKakao('${category}', '${escapeHtml(data.name)}')" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #FEE500; color: #191919; font-weight: 700; text-decoration: none; padding: 14px; border-radius: 6px; font-size: 0.95rem; font-family: 'Noto Sans KR', sans-serif; width: 100%; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
               <svg viewBox="0 0 32 32" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M16 4.64c-6.96 0-12.64 4.48-12.64 10.08 0 3.52 2.16 6.64 5.44 8.48l-1.12 4.16c-.16.56.48 1.04.96.72l4.8-3.2c.8.24 1.68.32 2.56.32 6.96 0 12.64-4.48 12.64-10.08S22.96 4.64 16 4.64z" fill="#191919"/></svg>
               친구에게 카카오톡으로 공유하기
             </button>
@@ -693,6 +668,13 @@
     }
   }
 
+  function handleChatEnter(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendChatMessage();
+    }
+  }
+
   async function sendChatMessage() {
     if (freeChatCount >= MAX_FREE_CHAT) {
       Swal.fire('알림', `무료 ${MAX_FREE_CHAT}회 상담이 모두 종료되었습니다. 아래 버튼을 눌러 친구에게 카카오톡으로 공유하시면 질문권이 충전됩니다.`, 'info');
@@ -704,7 +686,7 @@
     const inputEl = document.getElementById('chatInput'); const question = inputEl.value.trim(); if(!question) return;
     const chatHistory = document.getElementById('chatHistory'); const sendBtn = document.getElementById('sendChatBtn');
 
-    chatHistory.innerHTML += `<div class="chat-divider"></div><div class="chat-row user"><div class="msg-content"><div class="user-text">${question}</div></div></div>`;
+    chatHistory.innerHTML += `<div class="chat-divider"></div><div class="chat-row user"><div class="msg-content"><div class="user-text">${escapeHtml(question)}</div></div></div>`;
     inputEl.value = ''; sendBtn.disabled = true;
     const chatId = 'chat_' + Date.now();
     chatHistory.innerHTML += `
@@ -712,7 +694,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3050/3050519.png" class="profile-img" alt="신녀 프로필">
         <div class="msg-content">
           <div class="sender-name">신녀</div>
-          <div class="msg-text" id="${chatId}">${data.name}님의 마음속 궁금증을 헤아려 답변을 적어내려가는 중입니다...</div>
+          <div class="msg-text" id="${chatId}">${escapeHtml(data.name)}님의 마음속 궁금증을 헤아려 답변을 적어내려가는 중입니다...</div>
         </div>
       </div>
     `;
@@ -742,7 +724,8 @@
 2. 분량 및 깊이: 유료 결제 VIP 고객을 위한 프리미엄 상담입니다. 절대 짧게 대답하지 말고, 최소 3~4개의 긴 문단으로 나누어 사주 원국과 대운을 바탕으로 구체적이고 깊이 있게 풀이하세요.
 3. 성별 맞춤 해석: 유저가 ${data.gender === 'M' ? '남성' : '여성'}임을 절대 잊지 마세요.
 4. 시기 명시 오류 주의: 현재가 ${currentYear}년임을 명심하세요. 지나간 과거를 미래인 것처럼 말하는 오류를 절대 범하지 마세요.
-5. 이모지 및 마크다운 기호 사용 금지. 유저에게 생년월일이나 질문을 되묻기 금지.`;
+5. 이모지 및 마크다운 기호 사용 금지. 유저에게 생년월일이나 질문을 되묻기 금지.
+★ 중요: 전체 풀이가 끝난 후 맨 마지막 줄에 반드시 "[용신: 목]", "[용신: 화]", "[용신: 토]", "[용신: 금]", "[용신: 수]" 5가지 중 하나를 골라 대괄호까지 정확히 기재하세요.`;
     
     try {
       const response = await fetch('/api/stream', {
@@ -754,7 +737,51 @@
       const textDiv = document.getElementById(chatId);
       
       if (json.text) {
-        textDiv.innerHTML = cleanMarkdownAndEmoji(json.text);
+        let fullText = json.text;
+        
+        let targetElement = "";
+        const match = fullText.match(/\[\s*용신\s*:\s*([목화토금수])\s*\]/);
+        if (match) {
+          const el = match[1];
+          if (el === '목') targetElement = 'MOK';
+          else if (el === '화') targetElement = 'HWA';
+          else if (el === '토') targetElement = 'TO';
+          else if (el === '금') targetElement = 'GEUM';
+          else if (el === '수') targetElement = 'SU';
+        } else {
+          const els = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'];
+          targetElement = els[Math.floor(Math.random() * els.length)];
+        }
+        
+        let displayTxt = fullText.replace(/\[\s*용신\s*:\s*[목화토금수]\s*\]/g, "");
+        textDiv.innerHTML = escapeHtml(cleanMarkdownAndEmoji(displayTxt));
+        
+        let product = await callGasApi({ action: "getAffiliateProduct", elementKey: targetElement });
+        if (!product || !product.affiliateUrl) {
+          const fallbacks = ['MOK', 'HWA', 'TO', 'GEUM', 'SU'].filter(e => e !== targetElement);
+          for (let f of fallbacks) {
+            product = await callGasApi({ action: "getAffiliateProduct", elementKey: f });
+            if (product && product.affiliateUrl) break;
+          }
+        }
+
+        if (product && product.affiliateUrl) {
+          const productBubbleId = 'prod_' + Date.now();
+          chatHistory.innerHTML += `
+            <div class="chat-row bot" style="margin-top: 10px;">
+              <div style="width: 45px; margin-right: 15px; flex-shrink: 0;"></div> 
+              <div class="msg-content" style="width: 100%; max-width: 280px;">
+                <div style="background: #ffffff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                  <div style="font-size: 0.75rem; color: #b3a18f; font-family: 'Noto Sans KR', sans-serif; margin-bottom: 8px;">신녀의 맞춤 비방템 🎁</div>
+                  ${product.imageUrl ? `<img src="${product.imageUrl}" alt="개운 아이템" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">` : ''}
+                  <div style="font-family: 'Noto Sans KR', sans-serif; font-weight: 600; font-size: 0.85rem; margin-bottom: 10px; color: #333; line-height: 1.3;">${escapeHtml(product.productName)}</div>
+                  <a href="${product.affiliateUrl}" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center; background: #903c31; color: #fff; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: 500; font-size: 0.85rem;">기운 채우러 가기 ➔</a>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
         freeChatCount++;
         localStorage.setItem('mk_freeChatCount', freeChatCount.toString());
         
@@ -779,7 +806,7 @@
         } else {
           sendBtn.disabled = false;
           chatHistory.innerHTML += `
-            <div class="chat-row bot" style="margin-top: -15px;">
+            <div class="chat-row bot" style="margin-top: -10px;">
               <div style="margin-left: 60px; font-size: 0.8rem; color: #a5a5a5;">
                 (남은 무료 상담: ${MAX_FREE_CHAT - freeChatCount}회)
               </div>
@@ -789,7 +816,7 @@
         }
 
       } else {
-        textDiv.innerHTML = `답변 생성 실패: ${json.error || '알 수 없는 오류'}`;
+        textDiv.innerHTML = `답변 생성 실패: ${escapeHtml(json.error || '알 수 없는 오류')}`;
         sendBtn.disabled = false;
       }
     } catch(err) {
@@ -847,7 +874,6 @@
     }
   });
 
-  // 애드센스 정책 준수용 개인정보처리방침 및 이용약관 모달 함수
   function showPolicyModal(type) {
     if (type === 'privacy') {
       Swal.fire({
@@ -865,7 +891,7 @@
         title: '서비스 이용약관',
         html: `<div style="text-align:left; font-size:0.82rem; line-height:1.6; max-height:350px; overflow-y:auto; color:#444;">
           <p><strong>제1조 (목적)</strong><br>본 약관은 명경(이하 '서비스')이 제공하는 온라인 사주·운세 풀이 및 명리학 칼럼 콘텐츠의 이용 조건 및 절차를 규정함을 목적으로 합니다.</p>
-          <p><strong>제2조 (면책 조항)</strong><br>서비스가 제공하는 모든 사주 풀이, 운세 분석 및 상담 결과는 전통 명리학 이론과 알고리즘에 기반한 참고용 콘텐츠이며, 개인의 투자·법률·의료·진로 등 중대한 의사결정의 절대적 근거로 사용될 수 없습니다. 이에 따른 결과에 대해 서비스는 법적 책임을 지지 않습니다.</p>
+          <p><strong>제2조 (면책 조항)</i><br>서비스가 제공하는 모든 사주 풀이, 운세 분석 및 상담 결과는 전통 명리학 이론과 알고리즘에 기반한 참고용 콘텐츠이며, 개인의 투자·법률·의료·진로 등 중대한 의사결정의 절대적 근거로 사용될 수 없습니다. 이에 따른 결과에 대해 서비스는 법적 책임을 지지 않습니다.</p>
           <p><strong>제3조 (저작권 및 이용 제한)</strong><br>사이트 내에 게시된 명리학 칼럼, 텍스트 및 서비스 UI 디자인의 저작권은 명경에 귀속되며, 사전 허가 없는 무단 복제 및 상업적 재배포를 금합니다.</p>
         </div>`,
         confirmButtonText: '확인',
