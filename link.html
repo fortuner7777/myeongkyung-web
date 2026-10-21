@@ -4,123 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>명경 (明鏡) - 내 운명을 비추는 거울</title>
-  
   <meta name="description" content="명경 프라이빗 사주 해답소 및 개운템 추천" />
   
-  <!-- 폰트 최적화 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
   
   <style>
-    body { 
-      background-color: #fcfbf9; 
-      font-family: 'Noto Sans KR', sans-serif; 
-      margin: 0; 
-      padding: 0; 
-      display: flex; 
-      justify-content: center; 
-      min-height: 100vh;
-    }
-    .link-container { 
-      max-width: 480px; 
-      width: 100%; 
-      padding: 50px 20px 30px; 
-      text-align: center; 
-      box-sizing: border-box;
-    }
-    .profile-img { 
-      width: 95px; 
-      height: 95px; 
-      border-radius: 50%; 
-      object-fit: cover; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-      margin-bottom: 18px; 
-      background-color: #2c2c2c;
-      border: 3px solid #f0eee9;
-    }
-    .title { 
-      font-family: 'Nanum Myeongjo', serif; 
-      font-size: 1.45rem; 
-      font-weight: 800; 
-      color: #1a1a1a; 
-      margin: 0 0 8px 0; 
-      letter-spacing: 2px; 
-    }
-    .desc { 
-      font-size: 0.95rem; 
-      color: #666; 
-      margin-bottom: 35px; 
-      font-weight: 400; 
-    }
+    body { background-color: #fcfbf9; font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
+    .link-container { max-width: 480px; width: 100%; padding: 50px 20px 30px; text-align: center; box-sizing: border-box; }
+    .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 18px; background-color: #2c2c2c; border: 3px solid #f0eee9; }
+    .title { font-family: 'Nanum Myeongjo', serif; font-size: 1.45rem; font-weight: 800; color: #1a1a1a; margin: 0 0 8px 0; letter-spacing: 2px; }
+    .desc { font-size: 0.95rem; color: #666; margin-bottom: 35px; font-weight: 400; }
+    .link-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 18px 15px; margin-bottom: 18px; border-radius: 12px; text-decoration: none; font-size: 1.05rem; font-weight: 600; transition: all 0.3s ease; position: relative; box-sizing: border-box; letter-spacing: -0.5px; }
     
-    .link-btn { 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      width: 100%; 
-      padding: 18px 15px; 
-      margin-bottom: 18px; 
-      border-radius: 12px; 
-      text-decoration: none; 
-      font-size: 1.05rem; 
-      font-weight: 600; 
-      transition: all 0.3s ease; 
-      position: relative; 
-      box-sizing: border-box;
-      letter-spacing: -0.5px;
-    }
-    
-    /* 1번 메인 버튼: 운세 풀이 (기존 유입) */
-    .btn-main { 
-      background-color: #3e3a39; 
-      color: #ffffff; 
-      box-shadow: 0 4px 15px rgba(62,58,57,0.2); 
-    }
+    .btn-main { background-color: #3e3a39; color: #ffffff; box-shadow: 0 4px 15px rgba(62,58,57,0.2); }
     .btn-main:hover { background-color: #222; transform: translateY(-2px); }
-    
-    /* 2번 수익화 버튼: 어필리에이트/쿠팡 다이렉트 (강조) */
-    .btn-shop { 
-      background-color: #ffffff; 
-      color: #903c31; 
-      border: 2px solid #903c31; 
-    }
-    .btn-shop:hover { 
-      background-color: #fffdfd; 
-      transform: translateY(-2px); 
-      box-shadow: 0 4px 15px rgba(144,60,49,0.15); 
-    }
-    
-    /* 3번 서브 버튼: 체류시간 증가용 칼럼 */
-    .btn-sub { 
-      background-color: #f4f2ec; 
-      color: #555; 
-      border: none;
-    }
+    .btn-shop { background-color: #ffffff; color: #903c31; border: 2px solid #903c31; }
+    .btn-shop:hover { background-color: #fffdfd; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(144,60,49,0.15); }
+    .btn-sub { background-color: #f4f2ec; color: #555; border: none; }
     .btn-sub:hover { background-color: #ebe7de; transform: translateY(-2px); }
 
-    /* 수익화 버튼 시선 강탈 배지 */
-    .badge { 
-      position: absolute; 
-      top: -12px; 
-      right: 10px; 
-      background: #e53935; 
-      color: white; 
-      font-size: 0.75rem; 
-      padding: 4px 10px; 
-      border-radius: 15px; 
-      font-weight: bold; 
-      box-shadow: 0 2px 6px rgba(229,57,53,0.3); 
-      animation: float-badge 2s ease-in-out infinite; 
-    }
-    
-    @keyframes float-badge { 
-      0% { transform: translateY(0); } 
-      50% { transform: translateY(-4px); } 
-      100% { transform: translateY(0); } 
-    }
-    
+    .badge { position: absolute; top: -12px; right: 10px; background: #e53935; color: white; font-size: 0.75rem; padding: 4px 10px; border-radius: 15px; font-weight: bold; box-shadow: 0 2px 6px rgba(229,57,53,0.3); animation: float-badge 2s ease-in-out infinite; }
+    @keyframes float-badge { 0% { transform: translateY(0); } 50% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
     .footer-text { margin-top: 40px; font-size: 0.75rem; color: #aaa; }
+    .mystic-loading { text-align: center; font-size: 0.9rem; color: #888; margin: 25px 0; }
   </style>
 </head>
 <body>
@@ -129,38 +37,66 @@
     <h1 class="title">명경 (明鏡)</h1>
     <p class="desc">답답한 현실, 내 운명의 흐름을 비추다.</p>
     
-    <!-- 1. 메인 트래픽 (사주 풀이) -->
+    <!-- 1. 고정 메뉴: 무료 사주 보기 (항상 맨 위) -->
     <a href="https://myeongkyung-web.vercel.app" class="link-btn btn-main">
       🔍 1분 만에 내 무료 사주·운세 보기
     </a>
     
-   <!-- 2. 즉각 수익화 트래픽 (어필리에이트 링크 4개 각각 삽입) -->
-<a href="https://naver.me/F937ZVwg" class="link-btn btn-shop" style="margin-bottom: 12px;">
-  <span class="badge">HOT 특가</span>
-  ✨ 내 사주의 부족한 기운 채우는 개운템 1
-</a>
-
-<a href="https://naver.me/xdMhahFT" class="link-btn btn-shop" style="margin-bottom: 12px;">
-  <span class="badge">추천</span>
-  ✨ 내 사주의 부족한 기운 채우는 개운템 2
-</a>
-
-<a href="https://naver.me/GYDe3nS2" class="link-btn btn-shop" style="margin-bottom: 12px;">
-  <span class="badge">인기</span>
-  ✨ 내 사주의 부족한 기운 채우는 개운템 3
-</a>
-
-<a href="https://naver.me/5LQc5eaB" class="link-btn btn-shop">
-  <span class="badge">베스트</span>
-  ✨ 내 사주의 부족한 기운 채우는 개운템 4
-</a>
+    <!-- 2. 구글 시트에서 실시간으로 불러와서 꽂아넣을 상품 버튼 영역 -->
+    <div id="dynamic-links-container">
+      <div class="mystic-loading">개운템 목록을 불러오는 중입니다...</div>
+    </div>
     
-    <!-- 3. 체류시간 증가 트래픽 (애드센스용) -->
-    <a href="https://myeongkyung-web.vercel.app/column/saju-basics.html" class="link-btn btn-sub">
+    <!-- 3. 고정 메뉴: 칼럼 읽기 (항상 맨 아래) -->
+    <a href="https://myeongkyung-web.vercel.app/column/saju-basics.html" class="link-btn btn-sub" style="margin-top: 15px;">
       📖 명경 사주 명리학 칼럼 읽기
     </a>
     
     <div class="footer-text">© 2026 MyeongKyung. All rights reserved.</div>
   </div>
+
+  <script>
+    // ====================================================================
+    // 💡 아래 TSV_URL 쌍따옴표 안에 Step 2에서 복사하신 구글 시트 주소를 붙여넣으세요!
+    // ====================================================================
+    const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjRneKRP-Rf6mS1EwH5JuSUQmPbsG4zRjfjXRE5jZwa0pkheR-PPZTchsoe0f_OtwLdqE4uRfb8Pyr/pub?gid=1832669616&single=true&output=tsv";
+
+    async function loadDynamicLinks() {
+      const container = document.getElementById('dynamic-links-container');
+      try {
+        const response = await fetch(TSV_URL);
+        const data = await response.text();
+        
+        const rows = data.split('\n');
+        let linksHtml = '';
+        
+        // 1번 줄은 헤더(제목)이므로, 2번 줄(i=1)부터 읽어옵니다.
+        for (let i = 1; i < rows.length; i++) {
+          if (!rows[i].trim()) continue; 
+          
+          const cols = rows[i].split('\t'); // 탭 단위로 분리
+          if (cols.length >= 3 && cols[2].trim() !== '') {
+            const badge = cols[0].trim();
+            const title = cols[1].trim();
+            const url = cols[2].trim();
+            
+            linksHtml += `
+              <a href="${url}" class="link-btn btn-shop" style="margin-bottom: 12px;">
+                ${badge ? `<span class="badge">${badge}</span>` : ''}
+                ${title}
+              </a>
+            `;
+          }
+        }
+        
+        container.innerHTML = linksHtml !== '' ? linksHtml : '<div style="font-size:0.85rem; color:#888; margin-bottom:15px;">준비된 상품이 없습니다.</div>';
+      } catch (error) {
+        container.innerHTML = '<div style="font-size:0.85rem; color:#e53935; margin-bottom:15px;">상품 정보를 불러오지 못했습니다.</div>';
+      }
+    }
+
+    // 페이지 접속 시 자동으로 데이터 불러오기
+    window.onload = loadDynamicLinks;
+  </script>
 </body>
 </html>
