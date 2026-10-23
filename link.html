@@ -16,19 +16,35 @@
     .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 18px; background-color: #2c2c2c; border: 3px solid #f0eee9; }
     .title { font-family: 'Nanum Myeongjo', serif; font-size: 1.45rem; font-weight: 800; color: #1a1a1a; margin: 0 0 8px 0; letter-spacing: 2px; }
     .desc { font-size: 0.95rem; color: #666; margin-bottom: 35px; font-weight: 400; }
-    .link-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 18px 15px; margin-bottom: 18px; border-radius: 12px; text-decoration: none; font-size: 1.05rem; font-weight: 600; transition: all 0.3s ease; position: relative; box-sizing: border-box; letter-spacing: -0.5px; }
     
+    /* 💡 2단 그리드(바둑판) 레이아웃 설정 */
+    .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px; }
+    
+    /* 버튼 기본 스타일 (2단에 맞춰 글자 크기와 여백 최적화) */
+    .link-btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 12px 10px; border-radius: 12px; text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: all 0.3s ease; position: relative; box-sizing: border-box; letter-spacing: -0.5px; word-break: keep-all; line-height: 1.35; }
+    
+    /* 1번 버튼 (사주 보기) */
     .btn-main { background-color: #3e3a39; color: #ffffff; box-shadow: 0 4px 15px rgba(62,58,57,0.2); }
     .btn-main:hover { background-color: #222; transform: translateY(-2px); }
+    
+    /* 2번 버튼 (비밀 라방) */
+    .btn-live { background-color: #903c31; color: #ffffff; box-shadow: 0 4px 15px rgba(144,60,49,0.2); }
+    .btn-live:hover { background-color: #7a3127; transform: translateY(-2px); }
+    
+    /* 상품 버튼 */
     .btn-shop { background-color: #ffffff; color: #903c31; border: 2px solid #903c31; }
     .btn-shop:hover { background-color: #fffdfd; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(144,60,49,0.15); }
-    .btn-sub { background-color: #f4f2ec; color: #555; border: none; }
+    
+    /* 하단 칼럼 버튼 (가로 꽉 차게) */
+    .btn-sub { background-color: #f4f2ec; color: #555; border: none; width: 100%; margin-top: 10px; }
     .btn-sub:hover { background-color: #ebe7de; transform: translateY(-2px); }
 
-    .badge { position: absolute; top: -12px; right: 10px; background: #e53935; color: white; font-size: 0.75rem; padding: 4px 10px; border-radius: 15px; font-weight: bold; box-shadow: 0 2px 6px rgba(229,57,53,0.3); animation: float-badge 2s ease-in-out infinite; }
+    /* 배지 크기 및 위치 조정 */
+    .badge { position: absolute; top: -10px; right: 5px; background: #e53935; color: white; font-size: 0.7rem; padding: 3px 8px; border-radius: 15px; font-weight: bold; box-shadow: 0 2px 6px rgba(229,57,53,0.3); animation: float-badge 2s ease-in-out infinite; z-index: 10; }
     @keyframes float-badge { 0% { transform: translateY(0); } 50% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
+    
     .footer-text { margin-top: 40px; font-size: 0.75rem; color: #aaa; }
-    .mystic-loading { text-align: center; font-size: 0.9rem; color: #888; margin: 25px 0; }
+    .mystic-loading { grid-column: span 2; text-align: center; font-size: 0.9rem; color: #888; margin: 25px 0; }
   </style>
 </head>
 <body>
@@ -37,18 +53,23 @@
     <h1 class="title">명경 (明鏡)</h1>
     <p class="desc">답답한 현실, 내 운명의 흐름을 비추다.</p>
     
-    <!-- 1. 고정 메뉴: 무료 사주 보기 (항상 맨 위) -->
-    <a href="https://myeongkyung-web.vercel.app" class="link-btn btn-main">
-      🔍 1분 만에 내 무료 사주·운세 보기
-    </a>
+    <!-- 1. 상단 메뉴 2단 그리드 (사주 / 라방) -->
+    <div class="grid-2col">
+      <a href="https://myeongkyung-web.vercel.app" class="link-btn btn-main">
+        🔍 1분 만에<br>무료 사주·운세
+      </a>
+      <a href="https://open.kakao.com/o/gflcq1Ni" class="link-btn btn-live">
+        🤫 VIP 전용<br>비밀 라방 가기
+      </a>
+    </div>
     
-    <!-- 2. 구글 시트에서 실시간으로 불러와서 꽂아넣을 상품 버튼 영역 -->
-    <div id="dynamic-links-container">
+    <!-- 2. 구글 시트에서 실시간으로 불러와서 꽂아넣을 상품 영역 (마찬가지로 2단 적용) -->
+    <div id="dynamic-links-container" class="grid-2col">
       <div class="mystic-loading">개운템 목록을 불러오는 중입니다...</div>
     </div>
     
-    <!-- 3. 고정 메뉴: 칼럼 읽기 (항상 맨 아래) -->
-    <a href="https://myeongkyung-web.vercel.app/column/saju-basics.html" class="link-btn btn-sub" style="margin-top: 15px;">
+    <!-- 3. 고정 메뉴: 칼럼 읽기 (항상 맨 아래 가로 전체 차지) -->
+    <a href="https://myeongkyung-web.vercel.app/column/saju-basics.html" class="link-btn btn-sub">
       📖 명경 사주 명리학 칼럼 읽기
     </a>
     
@@ -57,7 +78,7 @@
 
   <script>
     // ====================================================================
-    // 💡 아래 TSV_URL 쌍따옴표 안에 Step 2에서 복사하신 구글 시트 주소를 붙여넣으세요!
+    // 💡 구글 시트(tsv) 웹게시 주소
     // ====================================================================
     const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjRneKRP-Rf6mS1EwH5JuSUQmPbsG4zRjfjXRE5jZwa0pkheR-PPZTchsoe0f_OtwLdqE4uRfb8Pyr/pub?gid=1832669616&single=true&output=tsv";
 
@@ -80,8 +101,9 @@
             const title = cols[1].trim();
             const url = cols[2].trim();
             
+            // 💡 CSS Grid에서 간격을 관리하므로 인라인 style(margin-bottom)을 없앴습니다.
             linksHtml += `
-              <a href="${url}" class="link-btn btn-shop" style="margin-bottom: 12px;">
+              <a href="${url}" class="link-btn btn-shop">
                 ${badge ? `<span class="badge">${badge}</span>` : ''}
                 ${title}
               </a>
@@ -89,13 +111,12 @@
           }
         }
         
-        container.innerHTML = linksHtml !== '' ? linksHtml : '<div style="font-size:0.85rem; color:#888; margin-bottom:15px;">준비된 상품이 없습니다.</div>';
+        container.innerHTML = linksHtml !== '' ? linksHtml : '<div style="grid-column: span 2; font-size:0.85rem; color:#888; margin-bottom:15px;">준비된 상품이 없습니다.</div>';
       } catch (error) {
-        container.innerHTML = '<div style="font-size:0.85rem; color:#e53935; margin-bottom:15px;">상품 정보를 불러오지 못했습니다.</div>';
+        container.innerHTML = '<div style="grid-column: span 2; font-size:0.85rem; color:#e53935; margin-bottom:15px;">상품 정보를 불러오지 못했습니다.</div>';
       }
     }
 
-    // 페이지 접속 시 자동으로 데이터 불러오기
     window.onload = loadDynamicLinks;
   </script>
 </body>
