@@ -15,31 +15,34 @@
     .link-container { max-width: 480px; width: 100%; padding: 50px 20px 30px; text-align: center; box-sizing: border-box; }
     .profile-img { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 18px; background-color: #2c2c2c; border: 3px solid #f0eee9; }
     .title { font-family: 'Nanum Myeongjo', serif; font-size: 1.45rem; font-weight: 800; color: #1a1a1a; margin: 0 0 8px 0; letter-spacing: 2px; }
-    .desc { font-size: 0.95rem; color: #666; margin-bottom: 35px; font-weight: 400; }
+    .desc { font-size: 0.95rem; color: #666; margin-bottom: 30px; font-weight: 400; }
     
-    /* 💡 2단 그리드(바둑판) 레이아웃 설정 */
+    /* 💡 상품 목록용 2단 그리드 */
     .grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px; }
     
-    /* 버튼 기본 스타일 (2단에 맞춰 글자 크기와 여백 최적화) */
-    .link-btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 64px; padding: 12px 10px; border-radius: 12px; text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: all 0.3s ease; position: relative; box-sizing: border-box; letter-spacing: -0.5px; word-break: keep-all; line-height: 1.35; }
+    /* 상단 1단 세로 배치용 (사주, 라방) */
+    .stack-1col { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+
+    /* 버튼 기본 스타일 */
+    .link-btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 60px; padding: 12px 10px; border-radius: 12px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; position: relative; box-sizing: border-box; letter-spacing: -0.5px; word-break: keep-all; line-height: 1.35; }
     
     /* 1번 버튼 (사주 보기) */
     .btn-main { background-color: #3e3a39; color: #ffffff; box-shadow: 0 4px 15px rgba(62,58,57,0.2); }
     .btn-main:hover { background-color: #222; transform: translateY(-2px); }
     
     /* 2번 버튼 (비밀 라방) */
-    .btn-live { background-color: #903c31; color: #ffffff; box-shadow: 0 4px 15px rgba(144,60,49,0.2); }
+    .btn-live { background-color: #903c31; color: #ffffff; box-shadow: 0 4px 15px rgba(144,60,49,0.2); font-size: 1rem; }
     .btn-live:hover { background-color: #7a3127; transform: translateY(-2px); }
     
     /* 상품 버튼 */
-    .btn-shop { background-color: #ffffff; color: #903c31; border: 2px solid #903c31; }
+    .btn-shop { background-color: #ffffff; color: #903c31; border: 2px solid #903c31; font-size: 0.92rem; }
     .btn-shop:hover { background-color: #fffdfd; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(144,60,49,0.15); }
     
-    /* 하단 칼럼 버튼 (가로 꽉 차게) */
-    .btn-sub { background-color: #f4f2ec; color: #555; border: none; width: 100%; margin-top: 10px; }
+    /* 하단 칼럼 버튼 */
+    .btn-sub { background-color: #f4f2ec; color: #555; border: none; width: 100%; margin-top: 15px; }
     .btn-sub:hover { background-color: #ebe7de; transform: translateY(-2px); }
 
-    /* 배지 크기 및 위치 조정 */
+    /* 배지 스타일 */
     .badge { position: absolute; top: -10px; right: 5px; background: #e53935; color: white; font-size: 0.7rem; padding: 3px 8px; border-radius: 15px; font-weight: bold; box-shadow: 0 2px 6px rgba(229,57,53,0.3); animation: float-badge 2s ease-in-out infinite; z-index: 10; }
     @keyframes float-badge { 0% { transform: translateY(0); } 50% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
     
@@ -53,22 +56,22 @@
     <h1 class="title">명경 (明鏡)</h1>
     <p class="desc">답답한 현실, 내 운명의 흐름을 비추다.</p>
     
-    <!-- 1. 상단 메뉴 2단 그리드 (사주 / 라방) -->
-    <div class="grid-2col">
+    <!-- 1. 상단 메뉴 1단 세로 배치 (사주 / 라방) -->
+    <div class="stack-1col">
       <a href="https://myeongkyung-web.vercel.app" class="link-btn btn-main">
-        🔍 1분 만에<br>무료 사주·운세
+        🔍 1분 만에 내 무료 사주·운세 보기
       </a>
       <a href="https://open.kakao.com/o/gflcq1Ni" class="link-btn btn-live">
-        🤫 VIP 전용<br>비밀 라방 가기
+        🤫 VIP 전용 비밀 라방 가기
       </a>
     </div>
     
-    <!-- 2. 구글 시트에서 실시간으로 불러와서 꽂아넣을 상품 영역 (마찬가지로 2단 적용) -->
+    <!-- 2. 구글 시트에서 실시간으로 불러와서 꽂아넣을 상품 영역 (2단 배열) -->
     <div id="dynamic-links-container" class="grid-2col">
       <div class="mystic-loading">개운템 목록을 불러오는 중입니다...</div>
     </div>
     
-    <!-- 3. 고정 메뉴: 칼럼 읽기 (항상 맨 아래 가로 전체 차지) -->
+    <!-- 3. 고정 메뉴: 칼럼 읽기 (항상 맨 아래) -->
     <a href="https://myeongkyung-web.vercel.app/column/saju-basics.html" class="link-btn btn-sub">
       📖 명경 사주 명리학 칼럼 읽기
     </a>
@@ -101,7 +104,6 @@
             const title = cols[1].trim();
             const url = cols[2].trim();
             
-            // 💡 CSS Grid에서 간격을 관리하므로 인라인 style(margin-bottom)을 없앴습니다.
             linksHtml += `
               <a href="${url}" class="link-btn btn-shop">
                 ${badge ? `<span class="badge">${badge}</span>` : ''}
