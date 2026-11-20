@@ -83,6 +83,13 @@
 </head>
 <body>
 <div class="app-container">
+  <!-- 상단 탐색 메뉴바 (애드센스 사이트 구조화 대응) -->
+  <nav style="display: flex; justify-content: space-around; align-items: center; padding-bottom: 14px; margin-bottom: 22px; border-bottom: 1px solid #f0eee9; font-size: 0.85rem; font-weight: 600;">
+    <a href="#sajuFormSection" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" style="color: #222; text-decoration: none;">🔮 무료 사주풀이</a>
+    <a href="#columnSection" style="color: #555; text-decoration: none;">📖 명리학 칼럼 (15)</a>
+    <a href="#chatSection" style="color: #555; text-decoration: none;">🕯️ 신녀 해답소</a>
+  </nav>
+  
   <div style="text-align: center; margin-bottom: 25px; margin-top: 10px;">
     <div style="font-size: 0.8rem; color: #888; font-weight: 300; letter-spacing: 3px; margin-bottom: 8px;">내 운명을 비추는 맑은 거울</div>
     <h1 style="font-family: 'Nanum Myeongjo', serif; font-weight: 800; font-size: 1.7rem; color: #1a1a1a; letter-spacing: 2px; margin: 0;">명경 <span style="font-size: 1.2rem; font-weight: 400; color: #666;">(明鏡)</span></h1>
@@ -260,7 +267,7 @@
     </div>
   </div>
 
-<div style="margin-top: 50px; padding: 30px 20px; background: #faf9f7; border-radius: 12px; border: 1px solid #e8e5e0;">
+  <div id="columnSection" style="margin-top: 50px; padding: 30px 20px; background: #faf9f7; border-radius: 12px; border: 1px solid #e8e5e0;">
     <h3 style="font-family: 'Nanum Myeongjo', serif; font-size: 1.25rem; font-weight: 800; color: #222; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eaeaea;">
       명경 운세 칼럼 📖
     </h3>
@@ -299,13 +306,13 @@
         <a href="/column/daeun-change.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
           <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 대운(大運)이 바뀔 때 나타나는 3가지 결정적 징조
         </a>
-        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">10년 주기로 찾아오는 인생의 큰 전환점, 대운 교운기에 겪는 인간관계와 심리적 변화 신호를 짚어드립니다.</div>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">10년 주기로 찾아오는 대운의 교차점에서 환경과 인간관계가 변화하는 신호와 현명한 대처법을 알아봅니다.</div>
       </li>
       <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
         <a href="/column/dohwa-hongyeom.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
-          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 도화살과 홍염살: 사람을 홀리는 치명적인 매력의 비밀
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 도화살과 홍염살: 이성을 끌어당기는 치명적인 매력의 특징
         </a>
-        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">과거에는 흉살이었으나 현대 사회에서는 최고의 무기가 된 매력살의 차이와 긍정적 활용법을 분석합니다.</div>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">현대 사회에서 인기와 재물로 승화되는 도화살과 홍염살의 차이점 및 매력 어필 활용법을 소개합니다.</div>
       </li>
       <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
         <a href="/column/heaven-earth.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
@@ -319,11 +326,41 @@
         </a>
         <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">사주 분석의 핵심인 용신의 정확한 개념과 내 사주의 불균형을 바로잡아 개운하는 원리를 설명합니다.</div>
       </li>
-      <li>
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
         <a href="/column/wonjin.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
           <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 원진살과 상극: 지독하게 얽히는 인간관계의 비밀
         </a>
         <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">사람을 미워하게 만드는 원진살과 오행 상극의 의미를 파악하고, 악연에 지혜롭게 대처하는 법을 알아봅니다.</div>
+      </li>
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/sipsin-guide.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 십신(十神) 완벽 가이드: 비겁·식상·재성·관성·인성이란?
+        </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">일간을 기준으로 나뉘는 다섯 가지 십신 그룹의 성향과 식상생재·관인상생 등 핵심 구조를 분석합니다.</div>
+      </li>
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/samjae-truth.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 삼재(三災)의 오해와 진실: 들삼재·눌삼재·날삼재 현명하게 넘기는 법
+        </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">9년 주기로 찾아오는 삼재의 명리학적 원리와 복삼재·악삼재를 구분하는 실전 기준을 안내합니다.</div>
+      </li>
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/career-aptitude.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 사주로 보는 직업 적성과 사업운: 직장인 사주 vs 사업가 사주
+        </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">관성·인성 중심의 조직형 사주와 식상·편재 중심의 사업가 사주의 차이점 및 창업 적기를 알아봅니다.</div>
+      </li>
+      <li style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px dashed #e5e2dc;">
+        <a href="/column/marriage-timing.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 사주로 보는 연애와 결혼 적기: 배우자 복과 인연이 들어오는 시기
+        </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">배우자궁(일지)과 배우자 별의 흐름을 통해 결혼이 성사되는 운의 신호와 오행 궁합 원리를 설명합니다.</div>
+      </li>
+      <li>
+        <a href="/column/health-saju.html" style="text-decoration: none; color: #222; font-size: 0.95rem; display: block; font-weight: 600; margin-bottom: 4px;">
+          <span style="color: #903c31; margin-right: 6px; font-size: 0.8rem;">▶</span> 오행과 건강운: 내 사주에 약한 장기와 체질별 건강 관리법
+        </a>
+        <div style="font-size: 0.82rem; color: #666; padding-left: 18px; line-height: 1.5;">목·화·토·금·수 오행과 인체 오장육부의 연결 고리를 파악하고 체질별 건강 균형을 맞추는 습관을 소개합니다.</div>
       </li>
     </ul>
   </div>
@@ -371,10 +408,11 @@
     </div>
   </section>
 
+  <!-- 👇 애드센스 정책 준수용 Footer 영역 (독립 정적 페이지 직접 연결) 👇 -->
   <footer style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #e8e5e0; text-align: center; font-size: 0.78rem; color: #888; line-height: 1.6;">
     <div style="margin-bottom: 10px; font-weight: 500;">
-      <a href="javascript:void(0);" onclick="showPolicyModal('privacy')" style="color: #555; text-decoration: none; margin: 0 8px;">개인정보처리방침</a> |
-      <a href="javascript:void(0);" onclick="showPolicyModal('terms')" style="color: #555; text-decoration: none; margin: 0 8px;">이용약관</a> |
+      <a href="/privacy.html" style="color: #555; text-decoration: none; margin: 0 8px;">개인정보처리방침</a> |
+      <a href="/terms.html" style="color: #555; text-decoration: none; margin: 0 8px;">이용약관</a> |
       <a href="/column/saju-basics.html" style="color: #555; text-decoration: none; margin: 0 8px;">명리학 칼럼</a>
     </div>
     <p style="margin-bottom: 6px;">
@@ -904,32 +942,6 @@
       }, 1500);
     }
   });
-
-  function showPolicyModal(type) {
-    if (type === 'privacy') {
-      Swal.fire({
-        title: '개인정보처리방침',
-        html: `<div style="text-align:left; font-size:0.82rem; line-height:1.6; max-height:350px; overflow-y:auto; color:#444;">
-          <p><strong>1. 개인정보의 처리 목적 및 수집 항목</strong><br>명경(이하 '서비스')은 별도의 회원가입 없이 사주 풀이 서비스를 제공하며, 사용자가 입력한 이름 및 생년월일시 정보는 일회성 사주 결과 산출 직후 휘발되며 서버에 영구 저장되지 않습니다.</p>
-          <p><strong>2. 쿠키(Cookie) 및 맞춤형 광고 안내</strong><br>본 사이트는 Google AdSense 등 제3자 광고 서비스를 게재하며, Google을 포함한 제3자 공급업체는 쿠키를 사용하여 사용자의 이전 웹사이트 방문 기록을 바탕으로 광고를 게재합니다. 광고 쿠키를 사용함으로써 Google과 파트너는 사용자의 본 사이트 및 인터넷상의 다른 사이트 방문 기록을 기반으로 적절한 광고를 제공할 수 있습니다. 사용자는 <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google 광고 설정</a> 페이지를 방문하여 언제든지 맞춤형 광고를 해제할 수 있습니다.</p>
-          <p><strong>3. 브라우저 로컬 스토리지 사용</strong><br>사용자가 '내 정보 기억하기'를 선택한 경우에 한하여 사용자 본인의 기기 브라우저(LocalStorage) 내에 입력 정보가 저장되며, 체크 해제 시 즉시 삭제됩니다.</p>
-        </div>`,
-        confirmButtonText: '확인',
-        confirmButtonColor: '#3e3a39'
-      });
-    } else if (type === 'terms') {
-      Swal.fire({
-        title: '서비스 이용약관',
-        html: `<div style="text-align:left; font-size:0.82rem; line-height:1.6; max-height:350px; overflow-y:auto; color:#444;">
-          <p><strong>제1조 (목적)</strong><br>본 약관은 명경(이하 '서비스')이 제공하는 온라인 사주·운세 풀이 및 명리학 칼럼 콘텐츠의 이용 조건 및 절차를 규정함을 목적으로 합니다.</p>
-          <p><strong>제2조 (면책 조항)</i><br>서비스가 제공하는 모든 사주 풀이, 운세 분석 및 상담 결과는 전통 명리학 이론과 알고리즘에 기반한 참고용 콘텐츠이며, 개인의 투자·법률·의료·진로 등 중대한 의사결정의 절대적 근거로 사용될 수 없습니다. 이에 따른 결과에 대해 서비스는 법적 책임을 지지 않습니다.</p>
-          <p><strong>제3조 (저작권 및 이용 제한)</strong><br>사이트 내에 게시된 명리학 칼럼, 텍스트 및 서비스 UI 디자인의 저작권은 명경에 귀속되며, 사전 허가 없는 무단 복제 및 상업적 재배포를 금합니다.</p>
-        </div>`,
-        confirmButtonText: '확인',
-        confirmButtonColor: '#3e3a39'
-      });
-    }
-  }
 </script>
 </body>
 </html>
